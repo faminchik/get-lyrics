@@ -1,0 +1,7 @@
+.request_container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    /* width: 300px; */
+    padding: 20px;
+}

@@ -1,0 +1,25 @@
+.drop-area {
+    width: 100%;
+    height: 200px;
+    border-width: 2px;
+    border-color: rgb(102, 102, 102);
+    border-style: dashed;
+    border-radius: 5px;
+}
+
+.drop-area.disabled {
+    opacity: 0.5;
+}
+
+.drop-area.active,
+.drop-area.accept {
+    border-color: rgb(35, 228, 28);
+    border-style: solid;
+    background-color: rgb(163, 255, 171);
+}
+
+.drop-area.reject {
+    border-color: rgb(228, 28, 28);
+    border-style: solid;
+    background-color: rgb(255, 163, 163);
+}
