@@ -14,7 +14,7 @@ export default class App extends Component {
         // allowRequest: PropTypes.bool
     };
 
-    onClick = async () => {
+    onGetLyrics = async () => {
         const { musicFiles } = this.props;
 
         if (_.isEmpty(musicFiles)) return;
@@ -23,20 +23,39 @@ export default class App extends Component {
             console.log('file', file);
             const fileFullName = _.get(file, 'name', null);
             const fileName = getFileNameByFullName(fileFullName);
-            // const trimedFileName = trimMusicFileName(fileName);
+            const trimmedFileName = _.trim(trimMusicFileName(fileName), ' ');
             return {
-                name: getFileNameByFullName(fileFullName),
+                trimmedName: trimmedFileName,
+                name: fileName,
                 path: _.get(file, 'path', null)
             };
         });
 
-        console.log('musicFilesInfo', musicFilesInfo);
+        const result = await _.reduce(
+            musicFilesInfo,
+            async (acc, file) => {
+                const lyrics = await genius.getLyricsByTrackName(file.trimmedName);
+                // TODO acc is Promise → use Promise.all and _.reduce inside
+                acc.push({
+                    ...file,
+                    lyrics
+                });
+                return acc;
+            },
+            []
+        );
 
-        const promises = _.map(musicFilesInfo, file => genius.getLyricsByTrackName(file.name));
+        console.log('result', result);
 
-        const lyrics = await Promise.all(promises).then(values => values);
+        // console.log('musicFilesInfo', musicFilesInfo);
 
-        console.log('lyrics', lyrics);
+        // const promises = _.map(musicFilesInfo, file =>
+        //     genius.getLyricsByTrackName(file.trimmedName)
+        // );
+
+        // const lyrics = await Promise.all(promises).then(values => values);
+
+        // console.log('lyrics', lyrics);
     };
 
     render() {
@@ -44,7 +63,7 @@ export default class App extends Component {
 
         return (
             <div className="request_container">
-                <Button onClick={this.onClick} /*disabled={!allowRequest} */>Get Lyrics</Button>
+                <Button onClick={this.onGetLyrics} /*disabled={!allowRequest} */>Get Lyrics</Button>
             </div>
         );
     }
