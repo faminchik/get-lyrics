@@ -43,14 +43,15 @@ export default class Genius {
         return this._requestPromise(options);
     }
 
-    async getTrackUrl(musicTrack) {
+    async getTrack(musicTrack) {
         const tracks = await this.search(musicTrack);
         return parseSearchResponse(tracks, musicTrack);
     }
 
     async getLyricsByTrackName(musicTrack) {
-        const trackUrl = await this.getTrackUrl(musicTrack);
-        const html = await fetchHtmlRequest(trackUrl);
+        const track = await this.getTrack(musicTrack);
+        const { url } = track;
+        const html = await fetchHtmlRequest(url);
 
         return this._scrapLyrics(html);
     }

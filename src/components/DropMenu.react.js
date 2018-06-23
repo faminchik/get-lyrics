@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
 import DropMenuItem from './DropMenuItem.react';
 
 export default class DropMenu extends Component {
     static propTypes = {
-        items: PropTypes.array
+        items: PropTypes.array,
+        isDragEffect: PropTypes.bool
     };
 
     static defaultProps = {
-        items: []
+        items: [],
+        isDragEffect: false
     };
 
     renderMenuItems = () => {
@@ -18,6 +21,12 @@ export default class DropMenu extends Component {
     };
 
     render() {
-        return <div className="drop-menu_container">{this.renderMenuItems()}</div>;
+        const { isDragEffect } = this.props;
+
+        const classNames = classes('drop-menu_container', {
+            'drag-effect': isDragEffect
+        });
+
+        return <div className={classNames}>{this.renderMenuItems()}</div>;
     }
 }

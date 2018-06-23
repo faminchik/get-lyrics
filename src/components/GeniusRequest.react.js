@@ -2,69 +2,72 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import Genius from '../utils/Genius/Genius';
 import { ACCESS_TOKEN } from '../constants/geniusConstants';
-import { getFileNameByFullName, trimMusicFileName } from '../utils/filesNameUtils';
+import * as ra from '../constants/reducersActions';
 
 const genius = new Genius(ACCESS_TOKEN);
 
-export default class App extends Component {
+class GeniusRequest extends Component {
     static propTypes = {
-        // musicFiles: PropTypes.object
-        // allowRequest: PropTypes.bool
+        musicFiles: PropTypes.array,
+        allowRequest: PropTypes.bool
+    };
+
+    static defaultProps = {
+        allowRequest: false,
+        musicFiles: []
     };
 
     onGetLyrics = async () => {
-        const { musicFiles } = this.props;
+        let { musicFiles } = this.props;
+        let { onMusicTrack } = this.props;
 
         if (_.isEmpty(musicFiles)) return;
 
-        const musicFilesInfo = _.map(musicFiles, file => {
-            console.log('file', file);
-            const fileFullName = _.get(file, 'name', null);
-            const fileName = getFileNameByFullName(fileFullName);
-            const trimmedFileName = _.trim(trimMusicFileName(fileName), ' ');
-            return {
-                trimmedName: trimmedFileName,
-                name: fileName,
-                path: _.get(file, 'path', null)
-            };
-        });
+        console.log('musicFiles | onGetLyrics', musicFiles);
 
-        const result = await _.reduce(
-            musicFilesInfo,
-            async (acc, file) => {
-                const lyrics = await genius.getLyricsByTrackName(file.trimmedName);
-                // TODO acc is Promise → use Promise.all and _.reduce inside
-                acc.push({
+        musicFiles = await _.reduce(
+            musicFiles,
+            async (previousPromise, file) => {
+                const collection = await previousPromise;
+                const track = await genius.getTrack(file.trimmedName);
+                const { url: trackUrl, song_art_image_thumbnail_url: artwork } = track;
+                const lyrics = await genius.getLyricsByTrackUrl(trackUrl);
+                collection.push({
                     ...file,
-                    lyrics
+                    lyrics,
+                    trackUrl,
+                    artwork
                 });
-                return acc;
+                return collection;
             },
-            []
+            Promise.resolve([])
         );
 
-        console.log('result', result);
-
-        // console.log('musicFilesInfo', musicFilesInfo);
-
-        // const promises = _.map(musicFilesInfo, file =>
-        //     genius.getLyricsByTrackName(file.trimmedName)
-        // );
-
-        // const lyrics = await Promise.all(promises).then(values => values);
-
-        // console.log('lyrics', lyrics);
+        console.log('result', musicFiles);
+        onMusicTrack(musicFiles);
     };
 
     render() {
-        const { allowRequest = false } = this.props;
+        const { allowRequest } = this.props;
 
         return (
             <div className="request_container">
-                <Button onClick={this.onGetLyrics} /*disabled={!allowRequest} */>Get Lyrics</Button>
+                <Button onClick={this.onGetLyrics} disabled={!allowRequest}>
+                    Get Lyrics
+                </Button>
             </div>
         );
     }
 }
+
+export default connect(
+    state => ({}),
+    dispatch => ({
+        onMusicTrack: musicFiles => {
+            dispatch({ type: ra.UPDATE_MUSIC_FILES, musicFiles });
+        }
+    })
+)(GeniusRequest);

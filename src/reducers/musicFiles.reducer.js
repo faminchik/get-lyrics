@@ -10,5 +10,9 @@ export default (state = [], action) => {
         return _.filter(state, file => file !== action.musicFileToRemove);
     }
 
+    if (action.type === ra.UPDATE_MUSIC_FILES) {
+        return action.musicFiles;
+    }
+
     return state;
 };

@@ -1,0 +1,43 @@
+.drop-menu_container {
+    width: 100%;
+    height: 100%;
+    border: 2px solid red;
+    overflow-y: auto;
+}
+
+.drop-menu_container > .drop-menu-item {
+    height: 100px;
+    border: 2px solid black;
+    /* padding: 10px 0; */
+    display: flex;
+    margin: 10px 0;
+}
+
+.drop-menu-item > .artwork {
+    height: 75px;
+}
+
+.drop-menu-item > .track-name {
+    font-size: 14px;
+    display: inherit;
+    /* justify-content: center; */
+    align-items: center;
+    padding-left: 10px;
+    width: 60%;
+}
+
+.drop-menu-item > .remove-button_container {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    color: #1d59ff;
+}
+
+.drop-menu_container.drag-effect {
+    opacity: 0.3;
+}
+
+/* .drop-menu-item > .remove-button_container:hover {
+    color: red;
+} */

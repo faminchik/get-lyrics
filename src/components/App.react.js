@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DropArea from './DropArea.react';
+import _ from 'lodash';
+import DropFiles from './DropFiles.react';
 import GeniusRequest from './GeniusRequest.react';
 
 class App extends Component {
     render() {
-        const { musicFiles } = this.props;
-        console.log('musicFiles', musicFiles);
+        let { musicFiles } = this.props;
 
-        // TODO: allowRequest via store regarding whether musicFiles are empty
+        const allowRequest = !_.isEmpty(musicFiles);
 
         return (
             <React.Fragment>
-                <DropArea allowedFileTypes={['audio/mp3']} />
-                <GeniusRequest musicFiles={musicFiles} /*allowRequest={allowRequest}*/ />
+                <DropFiles allowedFileTypes={['audio/mp3']} menuItems={musicFiles} />
+                <GeniusRequest musicFiles={musicFiles} allowRequest={allowRequest} />
             </React.Fragment>
         );
     }
 }
 
 export default connect(state => ({
-    musicFiles: state.addMusicFiles
+    musicFiles: state.musicFiles
 }))(App);

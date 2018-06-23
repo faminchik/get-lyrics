@@ -4,10 +4,8 @@ import constants from '../constants';
 export const getFileNameByFullName = fullName => {
     if (_.isNil(fullName)) return null;
 
-    const spitted = _.split(fullName, '.');
-    spitted.pop();
-
-    return _.join(spitted, '');
+    const lastIndex = _.lastIndexOf(fullName, '.');
+    return _.slice(fullName, 0, lastIndex).join('');
 };
 
 export const trimMusicFileName = musicFileName => {
@@ -20,5 +18,5 @@ export const trimMusicFileName = musicFileName => {
             constants.RIGHT_PARENTHESIS
         );
     }
-    return musicFileName;
+    return _.trim(_.replace(musicFileName, ' - ', ' '), ' ');
 };

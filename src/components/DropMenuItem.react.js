@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Image } from 'react-bootstrap';
 import * as ra from '../constants/reducersActions';
 
 class DropMenuItem extends Component {
     static propTypes = {
-        item: PropTypes.object
+        item: PropTypes.object,
+        artwork: PropTypes.string
     };
 
     static defaultProps = {
-        item: {}
+        item: {},
+        artwork: ''
     };
 
     removeItem = item => {
@@ -19,13 +22,16 @@ class DropMenuItem extends Component {
 
     render() {
         const { item } = this.props;
+        const { name, artwork } = item;
 
+        console.log('item', item);
         return (
             <div className="drop-menu-item">
-                <div className="track-name">{item.name}</div>
+                <Image className={'artwork'} src={artwork} />
+                <div className="track-name">{name}</div>
                 <div className="remove-button_container">
                     <button className="clr-but" onClick={() => this.removeItem(item)}>
-                        <span className="zmdi zmdi-delete zmdi-hc-2x" />
+                        <span className="zmdi zmdi-delete zmdi-hc-lg" />
                     </button>
                 </div>
             </div>

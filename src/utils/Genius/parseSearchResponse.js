@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const findFirstCorrectUrl = (tracks, keywords) => {
+const findFirstCorrectTrack = (tracks, keywords) => {
     for (let track in tracks) {
         const trackUrl = _.get(tracks[track], 'result.url');
         const foundWords = [];
@@ -14,9 +14,7 @@ const findFirstCorrectUrl = (tracks, keywords) => {
 
         console.log('foundWords', foundWords);
         if (!_.isEmpty(foundWords)) {
-            return {
-                url: trackUrl
-            };
+            return tracks[track].result;
         }
     }
 };
@@ -30,8 +28,5 @@ export default (tracks, desiredTrack) => {
     const keywords = _.split(desiredTrack, ' ');
     console.log('keywords', keywords);
 
-    const result = findFirstCorrectUrl(hits, keywords);
-
-    console.log('result', result);
-    return _.get(result, 'url', null);
+    return findFirstCorrectTrack(hits, keywords);
 };

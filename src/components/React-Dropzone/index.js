@@ -13,6 +13,7 @@ import {
     getDataTransferItems
 } from './utils';
 import styles from './utils/styles';
+import DropMenu from '../DropMenu.react';
 
 class Dropzone extends React.Component {
     constructor(props, context) {
@@ -383,8 +384,11 @@ class Dropzone extends React.Component {
             onFileDialogCancel,
             maxSize,
             minSize,
+            menuItems,
             ...divProps
         } = props;
+
+        const isDragEffect = isDragActive || isDragAccept || isDragReject;
 
         return (
             <div
@@ -409,6 +413,8 @@ class Dropzone extends React.Component {
                     }
                     {...inputAttributes}
                 />
+
+                <DropMenu items={menuItems} isDragEffect={isDragEffect} />
             </div>
         );
     }
@@ -570,7 +576,9 @@ Dropzone.propTypes = {
     /**
      * Provide a callback on clicking the cancel button of the file dialog
      */
-    onFileDialogCancel: PropTypes.func
+    onFileDialogCancel: PropTypes.func,
+
+    menuItems: PropTypes.array
 };
 
 Dropzone.defaultProps = {
