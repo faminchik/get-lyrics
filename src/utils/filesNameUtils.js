@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import constants from '../constants/constants';
+import constants from '../constants';
 
 export const getFileNameByFullName = fullName => {
     if (_.isNil(fullName)) return null;
@@ -21,18 +21,4 @@ export const trimMusicFileName = musicFileName => {
         );
     }
     return musicFileName;
-};
-
-String.prototype.removeChars = function(startChar, endChar) {
-    const startIndex = this.indexOf(startChar);
-    if (startIndex === -1) return this;
-
-    const endIndex = this.indexOf(endChar);
-    if (endIndex === -1) return this;
-
-    const oldString = new String(this).toString();
-
-    const firstPart = this.slice(0, startIndex);
-
-    return this.slice(0, startIndex) + oldString.slice(endIndex + 1);
 };

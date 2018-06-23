@@ -1,6 +1,19 @@
 import _ from 'lodash';
 
-export default (files, newFiles) => {
+export const convertFileToObject = file => {
+    const { name, type, size, lastModified, path = null, preview, webkitRelativePath } = file;
+    return {
+        name,
+        path,
+        type,
+        lastModified,
+        size,
+        preview,
+        webkitRelativePath
+    };
+};
+
+export const getUniqueFiles = (files, newFiles) => {
     const newUniqueFiles = [];
 
     if (_.isNil(files) || _.isNil(newFiles)) return [];
