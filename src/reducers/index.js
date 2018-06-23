@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import addMusicFiles from './addMusicFiles.reducer';
+import musicFiles from './musicFiles.reducer';
 
 export default combineReducers({
-    addMusicFiles
+    musicFiles
 });
