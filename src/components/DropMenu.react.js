@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
+import _ from 'lodash';
 import DropMenuItem from './DropMenuItem.react';
 
 export default class DropMenu extends Component {

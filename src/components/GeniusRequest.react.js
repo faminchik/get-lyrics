@@ -55,7 +55,7 @@ class GeniusRequest extends Component {
 
         return (
             <div className="request_container">
-                <Button onClick={this.onGetLyrics} disabled={!allowRequest}>
+                <Button bsStyle="warning" onClick={this.onGetLyrics} disabled={!allowRequest}>
                     Get Lyrics
                 </Button>
             </div>

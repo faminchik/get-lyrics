@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import Dropzone from './React-Dropzone';
 import { getUniqueFiles, convertFileToObject } from '../utils/filesUtils';
 import * as ra from '../constants/reducersActions';

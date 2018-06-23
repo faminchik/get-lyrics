@@ -6,6 +6,7 @@
     border-style: dashed;
     border-radius: 5px;
     overflow-y: auto;
+    transition: 0.6s ease;
 }
 
 .drop-area.disabled {
