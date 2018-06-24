@@ -22,7 +22,11 @@ class DropMenuItem extends Component {
         onMusicFile(item);
     };
 
-    setLyrics = item => {};
+    setLyrics = item => {
+        const { path } = item;
+
+        console.log('path', path);
+    };
 
     render() {
         const { item } = this.props;

@@ -32,7 +32,18 @@ class GeniusRequest extends Component {
             musicFiles,
             async (previousPromise, file) => {
                 const collection = await previousPromise;
+
+                if (_.get(file, 'lyrics')) {
+                    collection.push(file);
+                    return collection;
+                }
+
                 const track = await genius.getTrack(file.trimmedName);
+                if (!track) {
+                    collection.push(file);
+                    return collection;
+                }
+
                 const { url: trackUrl, song_art_image_thumbnail_url: artwork } = track;
                 const lyrics = await genius.getLyricsByTrackUrl(trackUrl);
                 collection.push({

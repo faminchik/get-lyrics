@@ -34,8 +34,6 @@ export default class ModalWindow extends Component {
         this.setState({ showModal: false });
     };
 
-    showLyrics = () => {};
-
     render() {
         const { disabled, text, buttonText, modalTitle } = this.props;
         const { showModal } = this.state;
