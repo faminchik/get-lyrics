@@ -6,6 +6,7 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    transition: 0.6s ease;
 }
 
 .drop-menu_container > .drop-menu-item {
@@ -67,4 +68,5 @@
 
 .drop-menu_container.drag-effect {
     opacity: 0.3;
+    transition: 0.6s ease;
 }
