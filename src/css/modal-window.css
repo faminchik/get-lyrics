@@ -1,0 +1,15 @@
+.copy-to-clipboard_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    padding-right: 40px;
+}
+
+.copy-to-clipboard {
+    cursor: pointer;
+}
+
+.copy-to-clipboard:active {
+    color: #ec971f;
+}

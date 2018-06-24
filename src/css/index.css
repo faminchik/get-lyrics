@@ -1,3 +1,7 @@
+:root {
+    --custom-yellow-color: #fbf7a8;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -6,5 +10,6 @@ body {
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
         Geneva, Verdana, sans-serif;
-    background-color: #fbf7a8;
+    background-color: var(--custom-yellow-color);
+    color: black;
 }

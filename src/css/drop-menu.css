@@ -62,25 +62,9 @@
     align-items: center;
     padding-right: 20px;
     padding-left: 10px;
-    color: #1d59ff;
+    color: #2d2d2d;
 }
 
 .drop-menu_container.drag-effect {
     opacity: 0.3;
-}
-
-.copy-to-clipboard_container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    position: absolute;
-    padding-right: 40px;
-}
-
-.copy-to-clipboard {
-    cursor: pointer;
-}
-
-.copy-to-clipboard:active {
-    color: #1d59ff;
 }
