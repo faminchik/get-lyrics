@@ -37,7 +37,7 @@ class DropFiles extends Component {
     };
 
     onDrop = newFiles => {
-        const { onMusicFiles, musicFiles } = this.props;
+        const { onAddMusicFiles, musicFiles } = this.props;
 
         newFiles = _.map(newFiles, newFile => convertFileToObject(newFile));
 
@@ -45,7 +45,7 @@ class DropFiles extends Component {
         if (_.isEmpty(newUniqueFiles)) return;
 
         newUniqueFiles = _.map(newUniqueFiles, newFile => includeSomeFileParams(newFile));
-        onMusicFiles(newUniqueFiles);
+        onAddMusicFiles(newUniqueFiles);
     };
 
     render() {
@@ -73,7 +73,7 @@ export default connect(
         musicFiles: state.musicFiles
     }),
     dispatch => ({
-        onMusicFiles: musicFiles => {
+        onAddMusicFiles: musicFiles => {
             dispatch({ type: ra.ADD_MUSIC_FILES, musicFiles });
         }
     })

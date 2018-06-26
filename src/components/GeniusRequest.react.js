@@ -22,7 +22,7 @@ class GeniusRequest extends Component {
 
     onGetLyrics = async () => {
         let { musicFiles } = this.props;
-        let { onMusicTrack } = this.props;
+        let { onUpdateMusicFiles } = this.props;
 
         if (_.isEmpty(musicFiles)) return;
 
@@ -58,7 +58,7 @@ class GeniusRequest extends Component {
         );
 
         console.log('result', musicFiles);
-        onMusicTrack(musicFiles);
+        onUpdateMusicFiles(musicFiles);
     };
 
     render() {
@@ -77,7 +77,7 @@ class GeniusRequest extends Component {
 export default connect(
     state => ({}),
     dispatch => ({
-        onMusicTrack: musicFiles => {
+        onUpdateMusicFiles: musicFiles => {
             dispatch({ type: ra.UPDATE_MUSIC_FILES, musicFiles });
         }
     })

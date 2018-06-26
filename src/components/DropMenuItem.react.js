@@ -18,8 +18,8 @@ class DropMenuItem extends Component {
     };
 
     removeItem = item => {
-        const { onMusicFile } = this.props;
-        onMusicFile(item);
+        const { onRemoveMusicFile } = this.props;
+        onRemoveMusicFile(item);
     };
 
     setLyrics = item => {
@@ -76,7 +76,7 @@ class DropMenuItem extends Component {
 export default connect(
     state => ({}),
     dispatch => ({
-        onMusicFile: musicFileToRemove => {
+        onRemoveMusicFile: musicFileToRemove => {
             dispatch({ type: ra.REMOVE_MUSIC_FILE, musicFileToRemove });
         }
     })

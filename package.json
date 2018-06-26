@@ -1,5 +1,5 @@
 {
-    "name": "music-lyrics",
+    "name": "get-lyrics",
     "version": "1.0.0",
     "description": "",
     "main": "public/main.js",
