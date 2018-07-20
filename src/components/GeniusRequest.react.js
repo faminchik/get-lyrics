@@ -40,7 +40,10 @@ class GeniusRequest extends Component {
 
                 const track = await genius.getTrack(file.trimmedName);
                 if (!track) {
-                    collection.push(file);
+                    collection.push({
+                        ...file,
+                        isTagsNotFound: true
+                    });
                     return collection;
                 }
 
@@ -50,7 +53,8 @@ class GeniusRequest extends Component {
                     ...file,
                     lyrics,
                     trackUrl,
-                    artwork
+                    artwork,
+                    isTagsNotFound: false
                 });
                 return collection;
             },

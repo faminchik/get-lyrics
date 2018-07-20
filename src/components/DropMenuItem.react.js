@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
+import classes from 'classnames';
 import ModalWindow from './ModalWindow.react';
 import * as ra from '../constants/reducersActions';
 
 class DropMenuItem extends Component {
     static propTypes = {
-        item: PropTypes.object,
-        artwork: PropTypes.string
+        item: PropTypes.object
     };
 
     static defaultProps = {
@@ -30,16 +30,20 @@ class DropMenuItem extends Component {
 
     render() {
         const { item } = this.props;
-        const { name, artwork, trackUrl, lyrics } = item;
+        const { name, artwork, trackUrl, lyrics, isTagsNotFound } = item;
 
         console.log('item', item);
 
         const isLyricsExist = !_.isEmpty(lyrics);
 
+        const trackInfoClassName = classes('track-info_container', {
+            'not-found': isTagsNotFound
+        });
+
         return (
             <div className="drop-menu-item">
                 <Image className={'artwork'} src={artwork} />
-                <div className="track-info_container">
+                <div className={trackInfoClassName}>
                     <div className="track-name">{name}</div>
                     <a href={trackUrl} className="track-url" target="_blank">
                         {trackUrl}

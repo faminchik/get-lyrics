@@ -29,6 +29,12 @@
     height: 100%;
 }
 
+.track-info_container.not-found {
+    background-color: red;
+    border-radius: 20px;
+    opacity: 0.6;
+}
+
 .track-info_container > .track-name {
     display: inherit;
     align-items: center;
