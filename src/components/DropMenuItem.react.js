@@ -6,6 +6,9 @@ import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import ModalWindow from './ModalWindow.react';
 import * as ra from '../constants/reducersActions';
+import { fetchPostApiRequest } from '../utils/fetchRequests';
+import { port } from '../shared/constants/common';
+import { SUCCESS } from '../shared/constants/responseStatus';
 
 class DropMenuItem extends Component {
     static propTypes = {
@@ -17,27 +20,40 @@ class DropMenuItem extends Component {
         artwork: ''
     };
 
+    constructor() {
+        super();
+
+        this.state = { setLyricsStatus: null };
+    }
+
     removeItem = item => {
         const { onRemoveMusicFile } = this.props;
         onRemoveMusicFile(item);
     };
 
-    setLyrics = item => {
-        const { path } = item;
+    setLyrics = async item => {
+        const { path, lyrics } = item;
 
-        console.log('path', path);
+        const result = await fetchPostApiRequest(
+            `http://localhost:${port}/setLyrics`,
+            { 'Content-Type': 'application/json' },
+            { path, lyrics }
+        );
+
+        this.setState({
+            setLyricsStatus: _.get(result, 'responseStatus') || result
+        });
     };
 
     render() {
         const { item } = this.props;
         const { name, artwork, trackUrl, lyrics, isTagsNotFound } = item;
 
-        console.log('item', item);
-
         const isLyricsExist = !_.isEmpty(lyrics);
 
         const trackInfoClassName = classes('track-info_container', {
-            'not-found': isTagsNotFound
+            'not-found': isTagsNotFound,
+            success: this.state.setLyricsStatus === SUCCESS
         });
 
         return (

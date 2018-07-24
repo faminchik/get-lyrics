@@ -35,6 +35,11 @@
     opacity: 0.6;
 }
 
+.track-info_container.success {
+    background-color: #32d632;
+    border-radius: 20px;
+}
+
 .track-info_container > .track-name {
     display: inherit;
     align-items: center;
