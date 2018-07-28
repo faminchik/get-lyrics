@@ -6,8 +6,8 @@ import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import ModalWindow from './ModalWindow.react';
 import * as ra from '../constants/reducersActions';
-import { SUCCESS } from '../shared/constants/responseStatus';
-import setLyrics from '../shared/requests/setLyrics';
+import { SUCCESS } from '../../shared/constants/responseStatus';
+import setLyrics from '../../shared/requests/setLyrics';
 
 class DropMenuItem extends Component {
     static propTypes = {

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import getTrack from '../shared/requests/getTrack';
-import getLyrics from '../shared/requests/getLyrics';
+import getTrack from '../../shared/requests/getTrack';
+import getLyrics from '../../shared/requests/getLyrics';
 import * as ra from '../constants/reducersActions';
 
 class GeniusRequest extends Component {
