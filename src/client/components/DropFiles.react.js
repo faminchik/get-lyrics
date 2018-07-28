@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import Dropzone from './React-Dropzone';
 import { getUniqueFiles, convertFileToObject } from '../utils/filesUtils';
 import * as ra from '../constants/reducersActions';
@@ -15,6 +16,8 @@ const includeSomeFileParams = musicFile => {
         trimmedName: trimmedFileName,
         name: fileName,
         nameWithExtension: fileFullName,
+        id: uuidv4(),
+        setLyricsStatus: null,
         ...restData
     };
 };

@@ -15,40 +15,39 @@ class DropMenuItem extends Component {
     };
 
     static defaultProps = {
-        item: {},
-        artwork: ''
+        item: {}
     };
-
-    constructor() {
-        super();
-
-        this.state = { setLyricsStatus: null };
-    }
 
     removeItem = item => {
         const { onRemoveMusicFile } = this.props;
-        onRemoveMusicFile(item);
+        const { id } = item;
+
+        onRemoveMusicFile(id);
     };
 
     setLyrics = async item => {
+        const { onUpdateMusicFile } = this.props;
         const { path, lyrics } = item;
 
         const result = await setLyrics(path, lyrics);
 
-        this.setState({
-            setLyricsStatus: _.get(result, 'responseStatus') || result
+        const setLyricsStatus = _.get(result, 'responseStatus') || result;
+
+        onUpdateMusicFile({
+            ...item,
+            setLyricsStatus
         });
     };
 
     render() {
         const { item } = this.props;
-        const { name, artwork, trackUrl, lyrics, isTagsNotFound } = item;
+        const { name, artwork, trackUrl, lyrics, isTagsNotFound, setLyricsStatus } = item;
 
         const isLyricsExist = !_.isEmpty(lyrics);
 
         const trackInfoClassName = classes('track-info_container', {
             'not-found': isTagsNotFound,
-            success: this.state.setLyricsStatus === SUCCESS
+            success: setLyricsStatus === SUCCESS
         });
 
         return (
@@ -91,8 +90,11 @@ class DropMenuItem extends Component {
 export default connect(
     state => ({}),
     dispatch => ({
-        onRemoveMusicFile: musicFileToRemove => {
-            dispatch({ type: ra.REMOVE_MUSIC_FILE, musicFileToRemove });
+        onRemoveMusicFile: musicFileIdToRemove => {
+            dispatch({ type: ra.REMOVE_MUSIC_FILE, musicFileIdToRemove });
+        },
+        onUpdateMusicFile: musicFiles => {
+            dispatch({ type: ra.UPDATE_MUSIC_FILE, musicFiles });
         }
     })
 )(DropMenuItem);
