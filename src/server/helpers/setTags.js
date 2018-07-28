@@ -1,6 +1,8 @@
 const nodeID3 = require('node-id3');
 
 const setTags = (filePath, { lyrics }) => {
+    if (!filePath) return false;
+
     const tags = {
         unsynchronisedLyrics: {
             language: 'eng',

@@ -6,9 +6,8 @@ import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import ModalWindow from './ModalWindow.react';
 import * as ra from '../constants/reducersActions';
-import { fetchPostApiRequest } from '../utils/fetchRequests';
-import { port } from '../shared/constants/common';
 import { SUCCESS } from '../shared/constants/responseStatus';
+import setLyrics from '../shared/requests/setLyrics';
 
 class DropMenuItem extends Component {
     static propTypes = {
@@ -34,11 +33,7 @@ class DropMenuItem extends Component {
     setLyrics = async item => {
         const { path, lyrics } = item;
 
-        const result = await fetchPostApiRequest(
-            `http://localhost:${port}/setLyrics`,
-            { 'Content-Type': 'application/json' },
-            { path, lyrics }
-        );
+        const result = await setLyrics(path, lyrics);
 
         this.setState({
             setLyricsStatus: _.get(result, 'responseStatus') || result

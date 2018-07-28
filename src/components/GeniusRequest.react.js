@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Genius from '../utils/Genius/Genius';
-import { ACCESS_TOKEN } from '../constants/geniusConstants';
+import getTrack from '../shared/requests/getTrack';
+import getLyrics from '../shared/requests/getLyrics';
 import * as ra from '../constants/reducersActions';
-
-const genius = new Genius(ACCESS_TOKEN);
 
 class GeniusRequest extends Component {
     static propTypes = {
@@ -38,7 +36,7 @@ class GeniusRequest extends Component {
                     return collection;
                 }
 
-                const track = await genius.getTrack(file.trimmedName);
+                const track = await getTrack(file.trimmedName);
                 if (!track) {
                     collection.push({
                         ...file,
@@ -48,7 +46,7 @@ class GeniusRequest extends Component {
                 }
 
                 const { url: trackUrl, song_art_image_thumbnail_url: artwork } = track;
-                const lyrics = await genius.getLyricsByTrackUrl(trackUrl);
+                const lyrics = await getLyrics(trackUrl);
                 collection.push({
                     ...file,
                     lyrics,

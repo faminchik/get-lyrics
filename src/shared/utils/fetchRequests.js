@@ -1,6 +1,11 @@
-export const fetchApiRequest = async (url, headers, queryString) => {
-    const finalUrl = new URL(url);
-    finalUrl.search = new URLSearchParams(queryString);
+const buildUrl = require('build-url');
+const fetch = require('node-fetch');
+
+const fetchApiRequest = async (url, headers, path, queryParams) => {
+    const finalUrl = buildUrl(url, {
+        path,
+        queryParams
+    });
 
     try {
         return await fetch(finalUrl, {
@@ -22,7 +27,7 @@ export const fetchApiRequest = async (url, headers, queryString) => {
     }
 };
 
-export const fetchPostApiRequest = async (url, headers, body) => {
+const fetchPostApiRequest = async (url, headers, body) => {
     try {
         return await fetch(url, {
             headers,
@@ -44,7 +49,7 @@ export const fetchPostApiRequest = async (url, headers, body) => {
     }
 };
 
-export const fetchHtmlRequest = async url => {
+const fetchHtmlRequest = async url => {
     try {
         return await fetch(url, {
             method: 'GET'
@@ -62,4 +67,33 @@ export const fetchHtmlRequest = async url => {
         console.log('GET Html Request error', e);
         return null;
     }
+};
+
+const fetchPostHtmlRequest = async (url, headers, body) => {
+    try {
+        return await fetch(url, {
+            headers,
+            method: 'POST',
+            body: JSON.stringify(body)
+        }).then(response => {
+            const { ok } = response;
+            const { status } = response;
+
+            if (!ok) {
+                console.log('POST Html Request status: ', status);
+                return null;
+            }
+            return response.text();
+        });
+    } catch (e) {
+        console.log('POST Html Request error', e);
+        return null;
+    }
+};
+
+module.exports = {
+    fetchApiRequest,
+    fetchPostApiRequest,
+    fetchHtmlRequest,
+    fetchPostHtmlRequest
 };

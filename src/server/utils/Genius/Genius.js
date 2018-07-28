@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import cheerio from 'cheerio';
-import { fetchApiRequest, fetchHtmlRequest } from '../fetchRequests';
-import { BASE_URL, SEARCH_URL } from '../../constants/geniusConstants';
-import parseSearchResponse from './parseSearchResponse';
+const _ = require('lodash');
+const cheerio = require('cheerio');
+const { fetchApiRequest, fetchHtmlRequest } = require('../../../shared/utils/fetchRequests');
+const { BASE_URL, SEARCH_URL } = require('../../constants/geniusConstants');
+const parseSearchResponse = require('./parseSearchResponse');
 
-export default class Genius {
+class Genius {
     constructor(accessToken) {
         this.accessToken = accessToken;
 
@@ -14,9 +14,9 @@ export default class Genius {
     }
 
     _requestPromise(options) {
-        const { url, queryString = '' } = options;
+        const { path, queryParams = {} } = options;
         return new Promise((resolve, reject) => {
-            fetchApiRequest(BASE_URL + url, this.authHeader, queryString).then(data => {
+            fetchApiRequest(BASE_URL, this.authHeader, path, queryParams).then(data => {
                 console.log('data', data);
 
                 const status = _.get(data, 'meta.status');
@@ -34,8 +34,8 @@ export default class Genius {
 
     search(query) {
         const options = {
-            url: SEARCH_URL,
-            queryString: {
+            path: SEARCH_URL,
+            queryParams: {
                 q: query
             }
         };
@@ -69,3 +69,5 @@ export default class Genius {
             .trim();
     }
 }
+
+module.exports = Genius;
