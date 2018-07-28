@@ -32,7 +32,7 @@ router.post(`/${GET_TRACK}`, async (req, res) => {
     const { name } = req.body;
     const track = await getTrack(name);
 
-    res.send(track);
+    res.send(JSON.stringify({ track }));
 });
 
 router.post(`/${GET_LYRICS}`, async (req, res) => {

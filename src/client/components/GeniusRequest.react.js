@@ -36,7 +36,7 @@ class GeniusRequest extends Component {
                     return collection;
                 }
 
-                const track = await getTrack(file.trimmedName);
+                const { track } = await getTrack(file.trimmedName);
                 if (!track) {
                     collection.push({
                         ...file,

@@ -17,6 +17,8 @@ const findFirstCorrectTrack = (tracks, keywords) => {
             return tracks[track].result;
         }
     }
+
+    return null;
 };
 
 export default (tracks, desiredTrack) => {
