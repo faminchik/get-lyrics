@@ -1,6 +1,6 @@
-const nodeID3 = require('node-id3');
+import nodeID3 from 'node-id3';
 
-const setTags = (filePath, { lyrics }) => {
+export default (filePath, { lyrics }) => {
     if (!filePath) return false;
 
     const tags = {
@@ -12,5 +12,3 @@ const setTags = (filePath, { lyrics }) => {
 
     return nodeID3.update(tags, filePath);
 };
-
-module.exports = setTags;

@@ -1,10 +1,10 @@
-const _ = require('lodash');
-const cheerio = require('cheerio');
-const { fetchApiRequest, fetchHtmlRequest } = require('../../../shared/utils/fetchRequests');
-const { BASE_URL, SEARCH_URL } = require('../../constants/geniusConstants');
-const parseSearchResponse = require('./parseSearchResponse');
+import _ from 'lodash';
+import cheerio from 'cheerio';
+import { fetchApiRequest, fetchHtmlRequest } from '../../../shared/utils/fetchRequests';
+import { BASE_URL, SEARCH_URL } from '../../constants/geniusConstants';
+import parseSearchResponse from './parseSearchResponse';
 
-class Genius {
+export default class Genius {
     constructor(accessToken) {
         this.accessToken = accessToken;
 
@@ -69,5 +69,3 @@ class Genius {
             .trim();
     }
 }
-
-module.exports = Genius;

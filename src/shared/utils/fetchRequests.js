@@ -1,7 +1,7 @@
-const buildUrl = require('build-url');
-const fetch = require('node-fetch');
+import buildUrl from 'build-url';
+import fetch from 'node-fetch';
 
-const fetchApiRequest = async (url, headers, path, queryParams) => {
+export const fetchApiRequest = async (url, headers, path, queryParams) => {
     const finalUrl = buildUrl(url, {
         path,
         queryParams
@@ -27,7 +27,7 @@ const fetchApiRequest = async (url, headers, path, queryParams) => {
     }
 };
 
-const fetchPostApiRequest = async (url, headers, body) => {
+export const fetchPostApiRequest = async (url, headers, body) => {
     try {
         return await fetch(url, {
             headers,
@@ -49,7 +49,7 @@ const fetchPostApiRequest = async (url, headers, body) => {
     }
 };
 
-const fetchHtmlRequest = async url => {
+export const fetchHtmlRequest = async url => {
     try {
         return await fetch(url, {
             method: 'GET'
@@ -69,7 +69,7 @@ const fetchHtmlRequest = async url => {
     }
 };
 
-const fetchPostHtmlRequest = async (url, headers, body) => {
+export const fetchPostHtmlRequest = async (url, headers, body) => {
     try {
         return await fetch(url, {
             headers,
@@ -89,11 +89,4 @@ const fetchPostHtmlRequest = async (url, headers, body) => {
         console.log('POST Html Request error', e);
         return null;
     }
-};
-
-module.exports = {
-    fetchApiRequest,
-    fetchPostApiRequest,
-    fetchHtmlRequest,
-    fetchPostHtmlRequest
 };

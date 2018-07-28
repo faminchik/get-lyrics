@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 const findFirstCorrectTrack = (tracks, keywords) => {
     for (let track in tracks) {
@@ -19,7 +19,7 @@ const findFirstCorrectTrack = (tracks, keywords) => {
     }
 };
 
-const parseSearchResponse = (tracks, desiredTrack) => {
+export default (tracks, desiredTrack) => {
     if (_.isNil(tracks)) return null;
 
     const { hits } = tracks;
@@ -30,5 +30,3 @@ const parseSearchResponse = (tracks, desiredTrack) => {
 
     return findFirstCorrectTrack(hits, keywords);
 };
-
-module.exports = parseSearchResponse;

@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const setTags = require('./helpers/setTags');
-const getTrack = require('./helpers/getTrack');
-const getLyrics = require('./helpers/getLyrics');
-const { SUCCESS, ERROR } = require('../shared/constants/responseStatus');
-const { SET_LYRICS, GET_TRACK, GET_LYRICS } = require('../shared/constants/requestTypes');
-const { port } = require('../shared/constants/common');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import setTags from './helpers/setTags';
+import getTrack from './helpers/getTrack';
+import getLyrics from './helpers/getLyrics';
+import { SUCCESS, ERROR } from '../shared/constants/responseStatus';
+import { SET_LYRICS, GET_TRACK, GET_LYRICS } from '../shared/constants/requestTypes';
+import { port } from '../shared/constants/common';
 
 const router = express.Router();
 

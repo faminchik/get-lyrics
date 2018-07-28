@@ -9,7 +9,7 @@
         "start-prod": "node src/server/index.js",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "client": "webpack-dev-server --mode development --hot",
-        "server": "nodemon src/server/index.js",
+        "server": "nodemon src/server/index.js --exec babel-node",
         "desktop": "npm-run-all dev-build electron",
         "dev-build": "webpack --mode development",
         "electron": "electron .",
@@ -45,6 +45,7 @@
         "redux": "^4.0.0"
     },
     "devDependencies": {
+        "babel-cli": "^6.26.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.4",
         "babel-plugin-transform-class-properties": "^6.24.1",

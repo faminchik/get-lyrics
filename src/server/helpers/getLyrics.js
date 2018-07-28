@@ -1,10 +1,8 @@
-const Genius = require('../utils/Genius/Genius');
-const { ACCESS_TOKEN } = require('../constants/geniusConstants');
+import Genius from '../utils/Genius/Genius';
+import { ACCESS_TOKEN } from '../constants/geniusConstants';
 
-const getTrack = async trackUrl => {
+export default async trackUrl => {
     const genius = new Genius(ACCESS_TOKEN);
 
     return await genius.getLyricsByTrackUrl(trackUrl);
 };
-
-module.exports = getTrack;
