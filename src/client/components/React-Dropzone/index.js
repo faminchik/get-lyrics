@@ -1,6 +1,6 @@
 /* eslint prefer-template: 0 */
 
-// fork 'react-dropzone' module
+// fork 'react-dropzone' - https://github.com/react-dropzone/react-dropzone
 
 import React from 'react';
 import PropTypes from 'prop-types';
