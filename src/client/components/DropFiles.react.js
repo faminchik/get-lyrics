@@ -2,25 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import uuidv4 from 'uuid/v4';
 import Dropzone from './React-Dropzone';
 import { getUniqueFiles, convertFileToObject } from '../utils/filesUtils';
 import * as ra from '../constants/reducersActions';
-import { getFileNameByFullName, trimMusicFileName } from '../utils/filesNameUtils';
-
-const includeSomeFileParams = musicFile => {
-    const { name: fileFullName = null, ...restData } = musicFile;
-    const fileName = getFileNameByFullName(fileFullName);
-    const trimmedFileName = trimMusicFileName(fileName);
-    return {
-        trimmedName: trimmedFileName,
-        name: fileName,
-        nameWithExtension: fileFullName,
-        id: uuidv4(),
-        setLyricsStatus: null,
-        ...restData
-    };
-};
 
 class DropFiles extends Component {
     static propTypes = {
@@ -30,7 +14,8 @@ class DropFiles extends Component {
         ]),
         disabled: PropTypes.bool,
         multiple: PropTypes.bool,
-        menuItems: PropTypes.array
+        menuItems: PropTypes.array,
+        addParamsToFile: PropTypes.func
     };
 
     static defaultProps = {
@@ -40,14 +25,18 @@ class DropFiles extends Component {
     };
 
     onDrop = newFiles => {
-        const { onAddMusicFiles, musicFiles } = this.props;
+        const { onAddMusicFiles, musicFiles, addParamsToFile } = this.props;
 
         newFiles = _.map(newFiles, newFile => convertFileToObject(newFile));
 
         let newUniqueFiles = getUniqueFiles(musicFiles, newFiles);
         if (_.isEmpty(newUniqueFiles)) return;
 
-        newUniqueFiles = _.map(newUniqueFiles, newFile => includeSomeFileParams(newFile));
+        newUniqueFiles = _.map(
+            newUniqueFiles,
+            newFile => (_.isFunction(addParamsToFile) ? addParamsToFile(newFile) : newFile)
+        );
+
         onAddMusicFiles(newUniqueFiles);
     };
 

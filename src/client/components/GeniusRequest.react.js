@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import getTrack from '../../shared/requests/getTrack';
 import getLyrics from '../../shared/requests/getLyrics';
 import * as ra from '../constants/reducersActions';
+import { trimMusicFileName } from '../utils/filesNameUtils';
 
 class GeniusRequest extends Component {
     static propTypes = {
@@ -31,16 +32,18 @@ class GeniusRequest extends Component {
             async (previousPromise, file) => {
                 const collection = await previousPromise;
 
-                if (_.get(file, 'lyrics')) {
+                if (!_.get(file, 'shouldSearchLyrics')) {
                     collection.push(file);
                     return collection;
                 }
 
-                const { track } = await getTrack(file.trimmedName);
+                const trimmedName = trimMusicFileName(file.name);
+                const { track } = await getTrack(trimmedName);
                 if (!track) {
                     collection.push({
                         ...file,
-                        isTagsNotFound: true
+                        isTagsFound: false,
+                        shouldSearchLyrics: true
                     });
                     return collection;
                 }
@@ -52,7 +55,8 @@ class GeniusRequest extends Component {
                     lyrics,
                     trackUrl,
                     artwork,
-                    isTagsNotFound: false
+                    isTagsFound: true,
+                    shouldSearchLyrics: false
                 });
                 return collection;
             },

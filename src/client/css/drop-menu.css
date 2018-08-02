@@ -33,7 +33,7 @@
 .track-info_container.not-found {
     background-color: red;
     border-radius: 20px;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .track-info_container.success {
@@ -48,6 +48,10 @@
     height: 70%;
 }
 
+.track-info_container > .track-name:focus {
+    outline: none;
+}
+
 .track-info_container > .track-url {
     display: inherit;
     align-items: center;
@@ -59,23 +63,29 @@
     display: inherit;
     justify-content: center;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 6px;
 }
 
 .drop-menu-item > .set-lyrics-button_container {
     display: inherit;
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
+    padding: 0 6px;
 }
 
 .drop-menu-item > .remove-button_container {
     display: inherit;
     justify-content: center;
     align-items: center;
-    padding-right: 20px;
-    padding-left: 10px;
+    padding: 0 10px;
     color: #2d2d2d;
+}
+
+.drop-menu-item > .checkbox_container {
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
 }
 
 .drop-menu_container.drag-effect {

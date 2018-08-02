@@ -13,6 +13,10 @@
     transition: 0.13s linear;
 }
 
+input[type='checkbox'] {
+    margin: 0;
+}
+
 .modal-content {
     background-color: var(--custom-yellow-color);
 }
