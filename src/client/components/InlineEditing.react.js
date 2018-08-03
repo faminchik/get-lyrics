@@ -56,7 +56,9 @@ export default class InlineEditing extends Component {
     };
 
     handleEscape = () => {
-        this.setState({ contentEditable: false });
+        this.setState({ contentEditable: false }, () => {
+            this._simulateDomBlurEvent();
+        });
     };
 
     onKeyDown = event => {
@@ -64,7 +66,9 @@ export default class InlineEditing extends Component {
 
         if (event.keyCode === keyCodes.ENTER) {
             this.onBlur();
+            this._simulateDomBlurEvent();
         }
+
         if (event.keyCode === keyCodes.ESCAPE) {
             this.handleEscape();
         }
@@ -72,6 +76,10 @@ export default class InlineEditing extends Component {
 
     _setInnerHTML = () => {
         this.refs.element.innerHTML = this.state.value;
+    };
+
+    _simulateDomBlurEvent = () => {
+        this.refs.element.blur();
     };
 
     render() {
