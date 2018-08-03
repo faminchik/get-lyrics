@@ -32,31 +32,21 @@ class DropMenuItem extends Component {
         const { path, lyrics } = item;
 
         const result = await setLyrics(path, lyrics);
+        const setLyricsStatus = _.get(result, 'resultStatus') || result;
 
-        const setLyricsStatus = _.get(result, 'responseStatus') || result;
-
-        onUpdateMusicFile({
-            ...item,
-            setLyricsStatus
-        });
+        onUpdateMusicFile({ ...item, setLyricsStatus });
     };
 
     onFinishEditingItemName = itemName => {
         const { onUpdateMusicFile, item } = this.props;
 
-        onUpdateMusicFile({
-            ...item,
-            name: itemName
-        });
+        onUpdateMusicFile({ ...item, name: itemName });
     };
 
     onChangeCheckboxValue = isChecked => {
         const { onUpdateMusicFile, item } = this.props;
 
-        onUpdateMusicFile({
-            ...item,
-            shouldSearchLyrics: isChecked
-        });
+        onUpdateMusicFile({ ...item, shouldSearchLyrics: isChecked });
     };
 
     render() {

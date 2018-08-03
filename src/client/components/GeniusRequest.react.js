@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import getTrack from '../../shared/requests/getTrack';
 import getLyrics from '../../shared/requests/getLyrics';
+import multipleSetLyrics from '../../shared/requests/multipleSetLyrics';
 import * as ra from '../constants/reducersActions';
 import { trimMusicFileName } from '../utils/filesNameUtils';
 
@@ -20,14 +21,13 @@ class GeniusRequest extends Component {
     };
 
     onGetLyrics = async () => {
-        let { musicFiles } = this.props;
-        let { onUpdateMusicFiles } = this.props;
+        const { musicFiles, onUpdateMusicFiles } = this.props;
 
         if (_.isEmpty(musicFiles)) return;
 
         console.log('musicFiles | onGetLyrics', musicFiles);
 
-        musicFiles = await _.reduce(
+        const updatedMusicFiles = await _.reduce(
             musicFiles,
             async (previousPromise, file) => {
                 const collection = await previousPromise;
@@ -63,18 +63,60 @@ class GeniusRequest extends Component {
             Promise.resolve([])
         );
 
-        console.log('result', musicFiles);
-        onUpdateMusicFiles(musicFiles);
+        console.log('result', updatedMusicFiles);
+        onUpdateMusicFiles(updatedMusicFiles);
+    };
+
+    onMultipleSetLyrics = async () => {
+        const { musicFiles, onUpdateMusicFiles } = this.props;
+
+        const data = _.reduce(
+            musicFiles,
+            (acc, file) => {
+                const { path, lyrics, id } = file;
+                if (!_.isNil(lyrics)) {
+                    acc.push({ path, lyrics, id });
+                }
+                return acc;
+            },
+            []
+        );
+
+        const resultData = await multipleSetLyrics(data);
+        const resultInfo = _.get(resultData, 'resultInfo') || resultData;
+
+        if (resultInfo) {
+            const filesToUpdate = _.map(resultInfo, item => {
+                const { id, status } = item;
+                const musicFile = _.find(musicFiles, { id });
+                return { ...musicFile, setLyricsStatus: status };
+            });
+
+            onUpdateMusicFiles(filesToUpdate);
+        }
     };
 
     render() {
-        const { allowRequest } = this.props;
+        const { allowRequest, musicFiles } = this.props;
+
+        const alllowMultipleSeLyrics = !_.isEmpty(_.filter(musicFiles, file => file.lyrics));
 
         return (
             <div className="request_container">
-                <Button bsStyle="warning" onClick={this.onGetLyrics} disabled={!allowRequest}>
-                    Get Lyrics
-                </Button>
+                <div className="button_container">
+                    <Button bsStyle="warning" onClick={this.onGetLyrics} disabled={!allowRequest}>
+                        Get Lyrics
+                    </Button>
+                </div>
+                <div className="button_container">
+                    <Button
+                        bsStyle="success"
+                        onClick={this.onMultipleSetLyrics}
+                        disabled={!alllowMultipleSeLyrics}
+                    >
+                        Set Lyrics
+                    </Button>
+                </div>
             </div>
         );
     }

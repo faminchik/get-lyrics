@@ -1,4 +1,5 @@
 import nodeID3 from 'node-id3';
+import { SUCCESS, ERROR } from '../../shared/constants/responseStatus';
 
 export default (filePath, { lyrics }) => {
     if (!filePath) return false;
@@ -10,5 +11,6 @@ export default (filePath, { lyrics }) => {
         }
     };
 
-    return nodeID3.update(tags, filePath);
+    const result = nodeID3.update(tags, filePath);
+    return result ? SUCCESS : ERROR;
 };

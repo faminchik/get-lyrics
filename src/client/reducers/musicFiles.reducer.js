@@ -11,7 +11,10 @@ export default (state = [], action) => {
     }
 
     if (action.type === ra.UPDATE_MUSIC_FILES) {
-        return action.musicFiles;
+        return _.map(state, file => {
+            const fileToUpdate = _.find(action.musicFiles, { id: file.id });
+            return _.isNil(fileToUpdate) ? file : fileToUpdate;
+        });
     }
 
     if (action.type === ra.UPDATE_MUSIC_FILE) {
