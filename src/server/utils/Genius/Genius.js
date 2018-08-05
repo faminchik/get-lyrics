@@ -1,8 +1,11 @@
 import _ from 'lodash';
+import config from 'config';
 import cheerio from 'cheerio';
 import { fetchApiRequest, fetchHtmlRequest } from '../../../shared/utils/fetchRequests';
-import { BASE_URL, SEARCH_URL } from '../../constants/geniusConstants';
 import parseSearchResponse from './parseSearchResponse';
+
+const BASE_URL = config.get('genius-base-url');
+const SEARCH_PARAM = config.get('genius-param-search');
 
 export default class Genius {
     constructor(accessToken) {
@@ -34,7 +37,7 @@ export default class Genius {
 
     search(query) {
         const options = {
-            path: SEARCH_URL,
+            path: SEARCH_PARAM,
             queryParams: {
                 q: query
             }

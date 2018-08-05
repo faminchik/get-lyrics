@@ -1,8 +1,14 @@
 import Genius from '../utils/Genius/Genius';
-import { ACCESS_TOKEN } from '../constants/geniusConstants';
+
+const { GENIUS_ACCESS_TOKEN } = process.env;
 
 export default async trackUrl => {
-    const genius = new Genius(ACCESS_TOKEN);
+    if (!GENIUS_ACCESS_TOKEN) {
+        console.error('Seems like you forgot to pass Genius Access Token');
+        return null;
+    }
+
+    const genius = new Genius(GENIUS_ACCESS_TOKEN);
 
     return await genius.getLyricsByTrackUrl(trackUrl);
 };
