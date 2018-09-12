@@ -11,7 +11,7 @@ const createWindow = () => {
     });
 
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // mainWindow.setResizable(false);
     // mainWindow.maximize();
