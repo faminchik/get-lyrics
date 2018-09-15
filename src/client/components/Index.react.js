@@ -9,7 +9,7 @@ import multipleSetLyrics from '../../shared/requests/multipleSetLyrics';
 import * as ra from '../constants/reducersActions';
 import { trimMusicFileName } from '../utils/filesNameUtils';
 
-class GeniusRequest extends Component {
+class Index extends Component {
     static propTypes = {
         musicFiles: PropTypes.array,
         allowRequest: PropTypes.bool
@@ -21,12 +21,13 @@ class GeniusRequest extends Component {
     };
 
     onGetLyrics = async () => {
-        const { musicFiles, onUpdateMusicFiles } = this.props;
+        const { musicFiles, onUpdateMusicFiles, onUpdateLoadingStatus } = this.props;
 
         if (_.isEmpty(musicFiles)) return;
 
         console.log('musicFiles | onGetLyrics', musicFiles);
 
+        onUpdateLoadingStatus({ isLoading: true });
         const updatedMusicFiles = await _.reduce(
             musicFiles,
             async (previousPromise, file) => {
@@ -65,10 +66,11 @@ class GeniusRequest extends Component {
 
         console.log('result', updatedMusicFiles);
         onUpdateMusicFiles(updatedMusicFiles);
+        onUpdateLoadingStatus({ isLoading: false });
     };
 
     onMultipleSetLyrics = async () => {
-        const { musicFiles, onUpdateMusicFiles } = this.props;
+        const { musicFiles, onUpdateMusicFiles, onUpdateLoadingStatus } = this.props;
 
         const data = _.reduce(
             musicFiles,
@@ -82,6 +84,7 @@ class GeniusRequest extends Component {
             []
         );
 
+        onUpdateLoadingStatus({ isLoading: true });
         const resultData = await multipleSetLyrics(data);
         const resultInfo = _.get(resultData, 'resultInfo');
 
@@ -93,6 +96,7 @@ class GeniusRequest extends Component {
             });
 
             onUpdateMusicFiles(filesToUpdate);
+            onUpdateLoadingStatus({ isLoading: false });
         }
     };
 
@@ -127,6 +131,9 @@ export default connect(
     dispatch => ({
         onUpdateMusicFiles: musicFiles => {
             dispatch({ type: ra.UPDATE_MUSIC_FILES, musicFiles });
+        },
+        onUpdateLoadingStatus: ({ isLoading }) => {
+            dispatch({ type: ra.UPDATE_LOADING_STATUS, isLoading });
         }
     })
-)(GeniusRequest);
+)(Index);

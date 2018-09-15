@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import DropFiles from './DropFiles.react';
-import GeniusRequest from './GeniusRequest.react';
+import Index from './Index.react';
 import addParamsToMusicFile from '../helpers/addParamsToMusicFile';
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
                     menuItems={musicFiles}
                     addParamsToFile={addParamsToMusicFile}
                 />
-                <GeniusRequest musicFiles={musicFiles} allowRequest={allowRequest} />
+                <Index musicFiles={musicFiles} allowRequest={allowRequest} />
             </React.Fragment>
         );
     }

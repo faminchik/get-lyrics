@@ -28,13 +28,15 @@ class DropMenuItem extends Component {
     };
 
     setLyrics = async item => {
-        const { onUpdateMusicFile } = this.props;
+        const { onUpdateMusicFile, onUpdateLoadingStatus } = this.props;
         const { path, lyrics } = item;
 
+        onUpdateLoadingStatus({ isLoading: true });
         const result = await setLyrics(path, lyrics);
         const setLyricsStatus = _.get(result, 'resultStatus');
 
         onUpdateMusicFile({ ...item, setLyricsStatus });
+        onUpdateLoadingStatus({ isLoading: false });
     };
 
     onFinishEditingItemName = itemName => {
@@ -120,6 +122,9 @@ export default connect(
         },
         onUpdateMusicFile: musicFiles => {
             dispatch({ type: ra.UPDATE_MUSIC_FILE, musicFiles });
+        },
+        onUpdateLoadingStatus: ({ isLoading }) => {
+            dispatch({ type: ra.UPDATE_LOADING_STATUS, isLoading });
         }
     })
 )(DropMenuItem);

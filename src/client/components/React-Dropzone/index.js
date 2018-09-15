@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
     supportMultiple,
     fileAccepted,
@@ -14,6 +15,7 @@ import {
 } from './utils';
 import styles from './utils/styles';
 import DropMenu from '../DropMenu.react';
+import Spinner from '../layout/Spinner.react';
 
 class Dropzone extends React.Component {
     constructor(props, context) {
@@ -385,6 +387,7 @@ class Dropzone extends React.Component {
             maxSize,
             minSize,
             menuItems,
+            isLoading,
             ...divProps
         } = props;
 
@@ -414,13 +417,22 @@ class Dropzone extends React.Component {
                     {...inputAttributes}
                 />
 
-                <DropMenu items={menuItems} isDragEffect={isDragEffect} />
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    <DropMenu items={menuItems} isDragEffect={isDragEffect} />
+                )}
             </div>
         );
     }
 }
 
-export default Dropzone;
+export default connect(
+    state => ({
+        isLoading: state.loadingStatus
+    }),
+    dispatch => ({})
+)(Dropzone);
 
 Dropzone.propTypes = {
     /**
