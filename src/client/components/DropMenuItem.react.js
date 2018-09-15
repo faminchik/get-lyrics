@@ -32,7 +32,7 @@ class DropMenuItem extends Component {
         const { path, lyrics } = item;
 
         const result = await setLyrics(path, lyrics);
-        const setLyricsStatus = _.get(result, 'resultStatus') || result;
+        const setLyricsStatus = _.get(result, 'resultStatus');
 
         onUpdateMusicFile({ ...item, setLyricsStatus });
     };

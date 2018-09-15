@@ -83,7 +83,7 @@ class GeniusRequest extends Component {
         );
 
         const resultData = await multipleSetLyrics(data);
-        const resultInfo = _.get(resultData, 'resultInfo') || resultData;
+        const resultInfo = _.get(resultData, 'resultInfo');
 
         if (resultInfo) {
             const filesToUpdate = _.map(resultInfo, item => {

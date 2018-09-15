@@ -1,8 +1,9 @@
 import nodeID3 from 'node-id3';
+import { isFileExists } from '../utils/fileUtils';
 import { SUCCESS, ERROR } from '../../shared/constants/responseStatus';
 
 export default (filePath, { lyrics }) => {
-    if (!filePath) return false;
+    if (!filePath || !isFileExists(filePath)) return ERROR;
 
     const tags = {
         unsynchronisedLyrics: {
