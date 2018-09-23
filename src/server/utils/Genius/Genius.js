@@ -18,17 +18,11 @@ export default class Genius {
 
     _requestPromise(options) {
         const { path, queryParams = {} } = options;
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             fetchApiRequest(BASE_URL, this.authHeader, path, queryParams).then(data => {
-                console.log('data', data);
-
                 const status = _.get(data, 'meta.status');
                 if (status !== 200) {
-                    const payload = {
-                        error: data,
-                        status
-                    };
-                    reject(payload);
+                    resolve(null);
                 }
                 resolve(_.get(data, 'response', null));
             });
@@ -48,6 +42,7 @@ export default class Genius {
 
     async getTrack(musicTrack) {
         const tracks = await this.search(musicTrack);
+        console.log('getTrack', tracks);
         return parseSearchResponse(tracks, musicTrack);
     }
 

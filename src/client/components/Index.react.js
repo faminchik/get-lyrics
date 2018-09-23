@@ -39,7 +39,7 @@ class Index extends Component {
                 }
 
                 const trimmedName = trimMusicFileName(file.name);
-                const { track } = await getTrack(trimmedName);
+                const track = await getTrack(trimmedName);
                 if (!track) {
                     collection.push({
                         ...file,
