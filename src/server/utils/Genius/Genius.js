@@ -42,7 +42,6 @@ export default class Genius {
 
     async getTrack(musicTrack) {
         const tracks = await this.search(musicTrack);
-        console.log('getTrack', tracks);
         return parseSearchResponse(tracks, musicTrack);
     }
 

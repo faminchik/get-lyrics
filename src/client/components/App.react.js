@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import DropFiles from './DropFiles.react';
 import Index from './Index.react';
+import Spinner from './layout/Spinner.react';
 import addParamsToMusicFile from '../helpers/addParamsToMusicFile';
 
 class App extends Component {
     render() {
-        let { musicFiles } = this.props;
+        const { musicFiles, isLoading } = this.props;
 
         const allowRequest =
             !_.isEmpty(musicFiles) &&
@@ -21,11 +22,13 @@ class App extends Component {
                     addParamsToFile={addParamsToMusicFile}
                 />
                 <Index musicFiles={musicFiles} allowRequest={allowRequest} />
+                {isLoading ? <Spinner /> : null}
             </React.Fragment>
         );
     }
 }
 
 export default connect(state => ({
-    musicFiles: state.musicFiles
+    musicFiles: state.musicFiles,
+    isLoading: state.loadingStatus
 }))(App);
