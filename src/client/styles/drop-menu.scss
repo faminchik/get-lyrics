@@ -1,0 +1,100 @@
+$drop-menu-item_height: 100px;
+
+.drop-menu_container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    transition: 0.6s ease;
+
+    &.drag-effect {
+        opacity: 0.3;
+        transition: 0.6s ease;
+    }
+
+    > .drop-menu-item {
+        height: $drop-menu-item_height;
+        display: flex;
+        margin: 10px;
+    }
+}
+
+.drop-menu-item {
+    > {
+        .artwork {
+            height: $drop-menu-item_height;
+            margin-right: 10px;
+        }
+
+        .track-info_container {
+            font-size: 13px;
+            display: inherit;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px;
+            width: 80%;
+            height: 100%;
+        }
+
+        .show-lyrics-button_container {
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            padding: 0 6px;
+        }
+
+        .set-lyrics-button_container {
+            display: inherit;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+        }
+
+        .remove-button_container {
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+            color: #2d2d2d;
+        }
+
+        .checkbox_container {
+            display: inherit;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6px;
+        }
+    }
+}
+
+.track-info_container {
+    &.not-found {
+        background-color: red;
+        border-radius: 20px;
+        opacity: 0.8;
+    }
+
+    &.success {
+        background-color: #32d632;
+        border-radius: 20px;
+    }
+
+    > {
+        .track-name {
+            display: inherit;
+            align-items: center;
+            width: 100%;
+            height: 70%;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .track-url {
+            display: inherit;
+            align-items: center;
+            width: 100%;
+            height: 30%;
+        }
+    }
+}
