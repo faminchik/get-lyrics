@@ -18,6 +18,14 @@ $drop-menu-item_height: 100px;
     }
 }
 
+.dnd-drop-menu-item {
+    > .drop-menu-item {
+        height: $drop-menu-item_height;
+        display: flex;
+        margin: 10px;
+    }
+}
+
 .drop-menu-item {
     > {
         .artwork {

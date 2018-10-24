@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import _ from 'lodash';
-import DropMenuItem from './DropMenuItem.react';
+import DnDDropMenuItem from './DnDDropMenuItem.react';
 
 export default class DropMenu extends Component {
     static propTypes = {
@@ -18,7 +18,7 @@ export default class DropMenu extends Component {
     renderMenuItems = () => {
         const { items } = this.props;
 
-        return _.map(items, (item, key) => <DropMenuItem item={item} key={key} />);
+        return _.map(items, (item, key) => <DnDDropMenuItem item={item} key={key} />);
     };
 
     render() {

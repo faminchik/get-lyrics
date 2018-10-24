@@ -115,7 +115,7 @@ class DropMenuItem extends Component {
 }
 
 export default connect(
-    state => ({}),
+    state => state,
     dispatch => ({
         onRemoveMusicFile: musicFileIdToRemove => {
             dispatch({ type: ra.REMOVE_MUSIC_FILE, musicFileIdToRemove });

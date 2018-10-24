@@ -41,10 +41,13 @@
         "react": "^16.1.0",
         "react-bootstrap": "^0.32.1",
         "react-copy-to-clipboard": "^5.0.1",
+        "react-dnd": "^5.0.0",
+        "react-dnd-html5-backend": "^5.0.1",
         "react-dom": "^16.1.0",
         "react-redux": "^5.0.7",
         "react-scripts": "^1.1.4",
         "redux": "^4.0.0",
+        "timm": "^1.6.1",
         "uuid": "^3.3.2"
     },
     "devDependencies": {
