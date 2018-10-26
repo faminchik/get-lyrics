@@ -1,5 +1,5 @@
 import { fetchPostApiRequest } from '../utils/fetchRequests';
-import { port } from '../constants/common';
+import { serverSidePort as port } from '../constants/common';
 import { GET_TRACK } from '../constants/requestTypes';
 
 export default async name =>

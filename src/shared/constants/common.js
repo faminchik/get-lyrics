@@ -1,3 +1,4 @@
-const port = 3333;
+const serverSidePort = 3333;
+const clientSidePort = 3000;
 
-export { port };
+module.exports = { serverSidePort, clientSidePort };
