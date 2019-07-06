@@ -7,12 +7,18 @@ import classes from 'classnames';
 import ModalWindow from 'client/components/ModalWindow.react';
 import InlineEditing from 'client/components/InlineEditing.react';
 import Checkbox from 'client/components/Checkbox.react';
-import * as ra from 'client/constants/reducersActions';
+import {
+    removeMusicFile,
+    updateMusicFile,
+    setLyrics
+} from 'client/redux/actions/musicFilesActions';
 import { SUCCESS } from 'shared/constants/responseStatus';
-import setLyrics from 'shared/requests/setLyrics';
 
 class DropMenuItem extends Component {
     static propTypes = {
+        removeMusicFile: PropTypes.func.isRequired,
+        updateMusicFile: PropTypes.func.isRequired,
+        setLyrics: PropTypes.func.isRequired,
         item: PropTypes.object
     };
 
@@ -20,35 +26,29 @@ class DropMenuItem extends Component {
         item: {}
     };
 
-    removeItem = item => {
-        const { onRemoveMusicFile } = this.props;
+    onRemoveItem = item => {
+        const { removeMusicFile } = this.props;
         const { id } = item;
 
-        onRemoveMusicFile(id);
+        removeMusicFile(id);
     };
 
-    setLyrics = async item => {
-        const { onUpdateMusicFile, onUpdateLoadingStatus } = this.props;
-        const { path, lyrics } = item;
+    onSetLyrics = item => {
+        const { setLyrics } = this.props;
 
-        onUpdateLoadingStatus({ isLoading: true });
-        const result = await setLyrics(path, lyrics);
-        const setLyricsStatus = _.get(result, 'resultStatus');
-
-        onUpdateMusicFile({ ...item, setLyricsStatus });
-        onUpdateLoadingStatus({ isLoading: false });
+        setLyrics(item);
     };
 
     onFinishEditingItemName = itemName => {
-        const { onUpdateMusicFile, item } = this.props;
+        const { updateMusicFile, item } = this.props;
 
-        onUpdateMusicFile({ ...item, name: itemName });
+        updateMusicFile({ ...item, name: itemName });
     };
 
     onChangeCheckboxValue = isChecked => {
-        const { onUpdateMusicFile, item } = this.props;
+        const { updateMusicFile, item } = this.props;
 
-        onUpdateMusicFile({ ...item, shouldSearchLyrics: isChecked });
+        updateMusicFile({ ...item, shouldSearchLyrics: isChecked });
     };
 
     render() {
@@ -96,7 +96,7 @@ class DropMenuItem extends Component {
                         bsStyle="success"
                         bsSize="small"
                         disabled={!isLyricsExist}
-                        onClick={() => this.setLyrics(item)}
+                        onClick={() => this.onSetLyrics(item)}
                     >
                         Set Lyrics
                     </Button>
@@ -105,7 +105,7 @@ class DropMenuItem extends Component {
                     <Checkbox onChange={this.onChangeCheckboxValue} checked={shouldSearchLyrics} />
                 </div>
                 <div className="remove-button_container">
-                    <button className="clr-but" onClick={() => this.removeItem(item)}>
+                    <button className="clr-but" onClick={() => this.onRemoveItem(item)}>
                         <span className="zmdi zmdi-delete zmdi-hc-lg" />
                     </button>
                 </div>
@@ -114,17 +114,9 @@ class DropMenuItem extends Component {
     }
 }
 
+const mapStateToProps = state => ({});
+
 export default connect(
-    state => ({}),
-    dispatch => ({
-        onRemoveMusicFile: musicFileIdToRemove => {
-            dispatch({ type: ra.REMOVE_MUSIC_FILE, musicFileIdToRemove });
-        },
-        onUpdateMusicFile: musicFiles => {
-            dispatch({ type: ra.UPDATE_MUSIC_FILE, musicFiles });
-        },
-        onUpdateLoadingStatus: ({ isLoading }) => {
-            dispatch({ type: ra.UPDATE_LOADING_STATUS, isLoading });
-        }
-    })
+    mapStateToProps,
+    { removeMusicFile, updateMusicFile, setLyrics }
 )(DropMenuItem);

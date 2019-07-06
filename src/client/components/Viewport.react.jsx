@@ -11,8 +11,7 @@ class App extends Component {
         const { musicFiles, isLoading } = this.props;
 
         const allowRequest =
-            !_.isEmpty(musicFiles) &&
-            !_.isEmpty(_.filter(musicFiles, file => file.shouldSearchLyrics));
+            !_.isEmpty(musicFiles) && !_.isEmpty(_.filter(musicFiles, 'shouldSearchLyrics'));
 
         return (
             <React.Fragment>
@@ -28,7 +27,9 @@ class App extends Component {
     }
 }
 
-export default connect(state => ({
+const mapStateToProps = state => ({
     musicFiles: state.musicFiles,
-    isLoading: state.loadingStatus
-}))(App);
+    isLoading: state.loading.isLoading
+});
+
+export default connect(mapStateToProps)(App);

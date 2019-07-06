@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Dropzone from 'client/components/React-Dropzone';
 import { getUniqueFiles, convertFileToObject } from 'client/utils/filesUtils';
-import * as ra from 'client/constants/reducersActions';
+import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 
 class DropFiles extends Component {
     static propTypes = {
+        addMusicFiles: PropTypes.func.isRequired,
+        musicFiles: PropTypes.array.isRequired,
         allowedFileTypes: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.arrayOf(PropTypes.string)
@@ -25,8 +27,9 @@ class DropFiles extends Component {
     };
 
     onDrop = newFiles => {
-        const { onAddMusicFiles, musicFiles, addParamsToFile } = this.props;
+        const { addMusicFiles, musicFiles, addParamsToFile } = this.props;
 
+        // TODO: move this ↓ logic into reducer
         newFiles = _.map(newFiles, newFile => convertFileToObject(newFile));
 
         let newUniqueFiles = getUniqueFiles(musicFiles, newFiles);
@@ -36,7 +39,7 @@ class DropFiles extends Component {
             _.isFunction(addParamsToFile) ? addParamsToFile(newFile) : newFile
         );
 
-        onAddMusicFiles(newUniqueFiles);
+        addMusicFiles(newUniqueFiles);
     };
 
     render() {
@@ -59,13 +62,11 @@ class DropFiles extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    musicFiles: state.musicFiles
+});
+
 export default connect(
-    state => ({
-        musicFiles: state.musicFiles
-    }),
-    dispatch => ({
-        onAddMusicFiles: musicFiles => {
-            dispatch({ type: ra.ADD_MUSIC_FILES, musicFiles });
-        }
-    })
+    mapStateToProps,
+    { addMusicFiles }
 )(DropFiles);
