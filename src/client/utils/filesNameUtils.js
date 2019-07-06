@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import constants from '../constants';
+import constants from 'client/constants';
 
 export const getFileNameByFullName = fullName => {
     if (_.isNil(fullName)) return null;

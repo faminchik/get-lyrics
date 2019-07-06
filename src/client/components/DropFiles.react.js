@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import Dropzone from './React-Dropzone';
-import { getUniqueFiles, convertFileToObject } from '../utils/filesUtils';
-import * as ra from '../constants/reducersActions';
+import Dropzone from 'client/components/React-Dropzone';
+import { getUniqueFiles, convertFileToObject } from 'client/utils/filesUtils';
+import * as ra from 'client/constants/reducersActions';
 
 class DropFiles extends Component {
     static propTypes = {
@@ -32,9 +32,8 @@ class DropFiles extends Component {
         let newUniqueFiles = getUniqueFiles(musicFiles, newFiles);
         if (_.isEmpty(newUniqueFiles)) return;
 
-        newUniqueFiles = _.map(
-            newUniqueFiles,
-            newFile => (_.isFunction(addParamsToFile) ? addParamsToFile(newFile) : newFile)
+        newUniqueFiles = _.map(newUniqueFiles, newFile =>
+            _.isFunction(addParamsToFile) ? addParamsToFile(newFile) : newFile
         );
 
         onAddMusicFiles(newUniqueFiles);

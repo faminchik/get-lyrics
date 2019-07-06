@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import * as ra from '../constants/reducersActions';
+import * as ra from 'client/constants/reducersActions';
 
 export default (state = [], action) => {
     if (action.type === ra.ADD_MUSIC_FILES) {

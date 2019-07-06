@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DropMenu from '../DropMenu.react';
+import DropMenu from 'client/components/DropMenu.react';
 import {
     supportMultiple,
     fileAccepted,

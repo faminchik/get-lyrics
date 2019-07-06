@@ -1,5 +1,5 @@
 require('dotenv').config();
-import Genius from '../utils/Genius/Genius';
+import Genius from 'server/utils/Genius/Genius';
 
 const { GENIUS_ACCESS_TOKEN } = process.env;
 

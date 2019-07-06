@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import DropFiles from './DropFiles.react';
-import Index from './Index.react';
-import Spinner from './layout/Spinner.react';
-import addParamsToMusicFile from '../helpers/addParamsToMusicFile';
+import DropFiles from 'client/components/DropFiles.react';
+import Index from 'client/components/Index.react';
+import Spinner from 'client/components/layout/Spinner.react';
+import addParamsToMusicFile from 'client/helpers/addParamsToMusicFile';
 
 class App extends Component {
     render() {

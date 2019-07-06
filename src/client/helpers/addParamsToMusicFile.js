@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import { getFileNameByFullName } from '../utils/filesNameUtils';
+import { getFileNameByFullName } from 'client/utils/filesNameUtils';
 
 export default musicFile => {
     const { name: fileFullName = null, ...restData } = musicFile;

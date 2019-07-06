@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
-import ModalWindow from './ModalWindow.react';
-import InlineEditing from './InlineEditing.react';
-import Checkbox from './Checkbox.react';
-import * as ra from '../constants/reducersActions';
-import { SUCCESS } from '../../shared/constants/responseStatus';
-import setLyrics from '../../shared/requests/setLyrics';
+import ModalWindow from 'client/components/ModalWindow.react';
+import InlineEditing from 'client/components/InlineEditing.react';
+import Checkbox from 'client/components/Checkbox.react';
+import * as ra from 'client/constants/reducersActions';
+import { SUCCESS } from 'shared/constants/responseStatus';
+import setLyrics from 'shared/requests/setLyrics';
 
 class DropMenuItem extends Component {
     static propTypes = {

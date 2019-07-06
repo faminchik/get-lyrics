@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import config from 'config';
 import cheerio from 'cheerio';
-import { fetchApiRequest, fetchHtmlRequest } from '../../../shared/utils/fetchRequests';
-import parseSearchResponse from './parseSearchResponse';
+import { fetchApiRequest, fetchHtmlRequest } from 'shared/utils/fetchRequests';
+import parseSearchResponse from 'server/utils/Genius/parseSearchResponse';
 
 const BASE_URL = config.get('genius-base-url');
 const SEARCH_PARAM = config.get('genius-param-search');

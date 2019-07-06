@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import router from './routes';
-import { serverSidePort as port, clientSidePort } from '../shared/constants/common';
+import router from 'server/routes';
+import { serverSidePort as port, clientSidePort } from 'shared/constants/common';
 
 const app = express();
 

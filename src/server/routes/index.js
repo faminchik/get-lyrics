@@ -1,14 +1,14 @@
 import express from 'express';
-import setTags from '../helpers/setTags';
-import getTrack from '../helpers/getTrack';
-import getLyrics from '../helpers/getLyrics';
-import multipleSetTags from '../helpers/multipleSetTags';
+import setTags from 'server/helpers/setTags';
+import getTrack from 'server/helpers/getTrack';
+import getLyrics from 'server/helpers/getLyrics';
+import multipleSetTags from 'server/helpers/multipleSetTags';
 import {
     SET_LYRICS,
     GET_TRACK,
     GET_LYRICS,
     MULTIPLE_SET_LYRICS
-} from '../../shared/constants/requestTypes';
+} from 'shared/constants/requestTypes';
 
 const router = express.Router();
 
