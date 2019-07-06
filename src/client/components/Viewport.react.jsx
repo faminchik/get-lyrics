@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import DropFiles from 'client/components/DropFiles.react';
-import Index from 'client/components/Index.react';
+import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
 import addParamsToMusicFile from 'client/helpers/addParamsToMusicFile';
 
@@ -21,7 +21,7 @@ class App extends Component {
                     menuItems={musicFiles}
                     addParamsToFile={addParamsToMusicFile}
                 />
-                <Index musicFiles={musicFiles} allowRequest={allowRequest} />
+                <RequestsPanel musicFiles={musicFiles} allowRequest={allowRequest} />
                 {isLoading ? <Spinner /> : null}
             </React.Fragment>
         );

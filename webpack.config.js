@@ -39,5 +39,8 @@ module.exports = {
             template: './public/index.html'
         }),
         new ExtractTextPlugin('styles.css')
-    ]
+    ],
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.scss']
+    }
 };

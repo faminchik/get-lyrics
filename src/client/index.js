@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from 'client/reducers';
-import App from 'client/components/App.react';
+import Viewport from 'client/components/Viewport.react';
 import 'client/utils';
 import 'client/styles';
 
@@ -16,7 +16,7 @@ const place = document.getElementById('root');
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Viewport />
     </Provider>,
     place
 );
