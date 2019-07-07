@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 
-class Index extends Component {
+class RequestsPanel extends Component {
     static propTypes = {
         getLyrics: PropTypes.func.isRequired,
         multipleSetLyrics: PropTypes.func.isRequired,
@@ -64,4 +64,4 @@ const mapStateToProps = state => ({});
 export default connect(
     mapStateToProps,
     { getLyrics, multipleSetLyrics }
-)(Index);
+)(RequestsPanel);

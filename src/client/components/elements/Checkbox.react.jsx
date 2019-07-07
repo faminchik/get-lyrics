@@ -9,6 +9,10 @@ export default class Checkbox extends Component {
         onChange: PropTypes.func
     };
 
+    static defaultProps = {
+        checked: false
+    };
+
     getChecked() {
         return this.refs.checkbox.checked;
     }

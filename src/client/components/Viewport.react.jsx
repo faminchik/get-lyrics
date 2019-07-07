@@ -6,7 +6,7 @@ import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
 import addParamsToMusicFile from 'client/helpers/addParamsToMusicFile';
 
-class App extends Component {
+class Viewport extends Component {
     render() {
         const { musicFiles, isLoading } = this.props;
 
@@ -32,4 +32,4 @@ const mapStateToProps = state => ({
     isLoading: state.loading.isLoading
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Viewport);

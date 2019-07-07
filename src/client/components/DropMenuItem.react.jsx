@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
-import ModalWindow from 'client/components/ModalWindow.react';
-import InlineEditing from 'client/components/InlineEditing.react';
-import Checkbox from 'client/components/Checkbox.react';
+import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
+import InlineEditing from 'client/components/elements/InlineEditing.react';
+import Checkbox from 'client/components/elements/Checkbox.react';
 import {
     removeMusicFile,
     updateMusicFile,
@@ -84,7 +84,7 @@ class DropMenuItem extends Component {
                     </a>
                 </div>
                 <div className="show-lyrics-button_container">
-                    <ModalWindow
+                    <LyricsModalWindow
                         disabled={!isLyricsExist}
                         buttonText="Show Lyrics"
                         text={lyrics}

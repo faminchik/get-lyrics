@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Modal } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-export default class ModalWindow extends Component {
+export default class LyricsModalWindow extends Component {
     static propTypes = {
         disabled: PropTypes.bool,
         text: PropTypes.string,
@@ -19,12 +19,7 @@ export default class ModalWindow extends Component {
         modalTitle: ''
     };
 
-    constructor() {
-        super();
-        this.state = {
-            showModal: false
-        };
-    }
+    state = { showModal: false };
 
     handleShow = () => {
         this.setState({ showModal: true });

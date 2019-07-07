@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import constants from 'client/constants';
+import { LEFT_PARENTHESIS, RIGHT_PARENTHESIS } from 'client/constants/Symbols';
 
 export const getFileNameByFullName = fullName => {
     if (_.isNil(fullName)) return null;
@@ -8,15 +8,13 @@ export const getFileNameByFullName = fullName => {
     return _.slice(fullName, 0, lastIndex).join('');
 };
 
-export const trimMusicFileName = musicFileName => {
-    while (_.indexOf(musicFileName, constants.LEFT_PARENTHESIS) !== -1) {
-        if (_.indexOf(musicFileName, constants.RIGHT_PARENTHESIS) === -1) {
-            return musicFileName;
-        }
-        musicFileName = musicFileName.removeChars(
-            constants.LEFT_PARENTHESIS,
-            constants.RIGHT_PARENTHESIS
-        );
+export const trimMusicFileNameByParentheses = musicFileName => {
+    while (
+        _.indexOf(musicFileName, LEFT_PARENTHESIS) !== -1 &&
+        _.indexOf(musicFileName, RIGHT_PARENTHESIS) !== -1
+    ) {
+        musicFileName = musicFileName.removeChars(LEFT_PARENTHESIS, RIGHT_PARENTHESIS);
     }
-    return _.trim(_.replace(musicFileName, ' - ', ' '), ' ');
+
+    return _.trim(_.replace(musicFileName, /\s-\s/g, ' '), ' ');
 };

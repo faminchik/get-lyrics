@@ -1,1 +1,1 @@
-import './StringUtils';
+import './stringExtender';

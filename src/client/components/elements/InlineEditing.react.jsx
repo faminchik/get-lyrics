@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as keyCodes from 'client/constants/keyCodes';
+import * as keyCodes from 'client/constants/KeyCodes';
 
 const INNER_TEXT = 'innerText';
 

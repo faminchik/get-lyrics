@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Dropzone from 'client/components/React-Dropzone';
-import { getUniqueFiles, convertFileToObject } from 'client/utils/filesUtils';
+import { detectUniqueFiles, convertFileToObject } from 'client/utils/filesUtils';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 
 class DropFiles extends Component {
@@ -32,7 +32,7 @@ class DropFiles extends Component {
         // TODO: move this ↓ logic into reducer
         newFiles = _.map(newFiles, newFile => convertFileToObject(newFile));
 
-        let newUniqueFiles = getUniqueFiles(musicFiles, newFiles);
+        let newUniqueFiles = detectUniqueFiles(musicFiles, newFiles);
         if (_.isEmpty(newUniqueFiles)) return;
 
         newUniqueFiles = _.map(newUniqueFiles, newFile =>
