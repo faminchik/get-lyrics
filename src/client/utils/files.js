@@ -1,8 +1,17 @@
 import _ from 'lodash';
+import * as mfp from 'client/constants/MusicFileProperties';
 
 export const convertFileToObject = file => {
-    const { name, type, size, lastModified, path = null, preview, webkitRelativePath } = file;
-    return { name, path, type, lastModified, size, preview, webkitRelativePath };
+    const {
+        [mfp.NAME]: name,
+        [mfp.PATH]: path = null,
+        type,
+        size,
+        lastModified,
+        preview,
+        webkitRelativePath
+    } = file;
+    return { name, path, type, size, lastModified, preview, webkitRelativePath };
 };
 
 export const detectUniqueFiles = (existingFiles, newFiles) => {
@@ -26,6 +35,6 @@ export const detectUniqueFiles = (existingFiles, newFiles) => {
 
 const isNewFileUnique = (existingFile, newFile) =>
     existingFile.lastModified !== newFile.lastModified ||
-    existingFile.path !== newFile.path ||
+    existingFile[mfp.PATH] !== newFile[mfp.PATH] ||
     existingFile.size !== newFile.size ||
     existingFile.type !== newFile.type;

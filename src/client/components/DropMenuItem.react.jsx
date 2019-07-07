@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
+import * as mfp from 'client/constants/MusicFileProperties';
 import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
 import InlineEditing from 'client/components/elements/InlineEditing.react';
 import Checkbox from 'client/components/elements/Checkbox.react';
@@ -28,7 +29,7 @@ class DropMenuItem extends Component {
 
     onRemoveItem = item => {
         const { removeMusicFile } = this.props;
-        const { id } = item;
+        const { [mfp.ID]: id } = item;
 
         removeMusicFile(id);
     };
@@ -42,31 +43,31 @@ class DropMenuItem extends Component {
     onFinishEditingItemName = itemName => {
         const { updateMusicFile, item } = this.props;
 
-        updateMusicFile({ ...item, name: itemName });
+        updateMusicFile({ ...item, [mfp.NAME]: itemName });
     };
 
     onChangeCheckboxValue = isChecked => {
         const { updateMusicFile, item } = this.props;
 
-        updateMusicFile({ ...item, shouldSearchLyrics: isChecked });
+        updateMusicFile({ ...item, [mfp.SHOULD_SEARCH_LYRICS]: isChecked });
     };
 
     render() {
         const { item } = this.props;
         const {
-            name,
-            artwork,
-            trackUrl,
-            lyrics,
-            isTagsFound,
-            setLyricsStatus,
-            shouldSearchLyrics
+            [mfp.NAME]: name,
+            [mfp.ARTWORK]: artwork,
+            [mfp.TRACK_URL]: trackUrl,
+            [mfp.LYRICS]: lyrics,
+            [mfp.ARE_TAGS_FOUND]: areTagsFound,
+            [mfp.SET_LYRICS_STATUS]: setLyricsStatus,
+            [mfp.SHOULD_SEARCH_LYRICS]: shouldSearchLyrics
         } = item;
 
         const isLyricsExist = !_.isEmpty(lyrics);
 
         const trackInfoClassName = classes('track-info_container', {
-            'not-found': isTagsFound === false,
+            'not-found': areTagsFound === false,
             success: setLyricsStatus === SUCCESS
         });
 

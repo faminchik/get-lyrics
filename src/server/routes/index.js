@@ -15,18 +15,16 @@ const router = express.Router();
 router.post(`/${SET_LYRICS}`, (req, res) => {
     const { path, lyrics } = req.body;
     const tags = { lyrics };
+    const resultInfo = setTags(path, tags);
 
-    const resultStatus = setTags(path, tags);
-
-    res.send(JSON.stringify({ resultStatus }));
+    res.send(JSON.stringify(resultInfo));
 });
 
 router.post(`/${MULTIPLE_SET_LYRICS}`, (req, res) => {
     const { data } = req.body;
-
     const resultInfo = multipleSetTags(data);
 
-    res.send(JSON.stringify({ resultInfo }));
+    res.send(JSON.stringify(resultInfo));
 });
 
 router.post(`/${GET_TRACK}`, async (req, res) => {

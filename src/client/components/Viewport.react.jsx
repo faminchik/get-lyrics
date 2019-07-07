@@ -4,22 +4,18 @@ import _ from 'lodash';
 import DropFiles from 'client/components/DropFiles.react';
 import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
-import addParamsToMusicFile from 'client/helpers/addParamsToMusicFile';
+import * as mfp from 'client/constants/MusicFileProperties';
 
 class Viewport extends Component {
     render() {
         const { musicFiles, isLoading } = this.props;
 
         const allowRequest =
-            !_.isEmpty(musicFiles) && !_.isEmpty(_.filter(musicFiles, 'shouldSearchLyrics'));
+            !_.isEmpty(musicFiles) && !_.isEmpty(_.filter(musicFiles, mfp.SHOULD_SEARCH_LYRICS));
 
         return (
             <React.Fragment>
-                <DropFiles
-                    allowedFileTypes={['audio/mp3']}
-                    menuItems={musicFiles}
-                    addParamsToFile={addParamsToMusicFile}
-                />
+                <DropFiles allowedFileTypes={['audio/mp3']} menuItems={musicFiles} />
                 <RequestsPanel musicFiles={musicFiles} allowRequest={allowRequest} />
                 {isLoading ? <Spinner /> : null}
             </React.Fragment>

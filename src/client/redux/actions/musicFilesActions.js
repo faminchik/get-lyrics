@@ -1,16 +1,19 @@
 import _ from 'lodash';
+import BPromise from 'bluebird';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES
 } from 'client/constants/ActionTypes';
+import * as mfp from 'client/constants/MusicFileProperties';
 import getTrackRequest from 'shared/requests/getTrack';
 import getLyricsRequest from 'shared/requests/getLyrics';
 import setLyricsRequest from 'shared/requests/setLyrics';
 import multipleSetLyricsRequest from 'shared/requests/multipleSetLyrics';
 import loadingWrapper from 'client/redux/actions/utils/loadingWrapper';
-import { trimMusicFileName } from 'client/utils/filesNameUtils';
+import { trimMusicFileNameByParentheses } from 'client/utils/fileNames';
+import { resetMusicFileAdditionalParams } from 'client/helpers/musicFileInfo';
 
 export const addMusicFiles = musicFiles => dispatch => {
     dispatch({ type: ADD_MUSIC_FILES, payload: musicFiles });
@@ -26,43 +29,38 @@ export const updateMusicFile = musicFile => dispatch => {
 
 export const getLyrics = musicFiles => async dispatch => {
     const func = async () => {
-        const updatedMusicFiles = await _.reduce(
+        const updatedMusicFiles = await BPromise.reduce(
             musicFiles,
-            async (previousPromise, file) => {
-                const collection = await previousPromise;
+            async (acc, file) => {
+                if (!file[mfp.SHOULD_SEARCH_LYRICS]) return acc;
 
-                if (!_.get(file, 'shouldSearchLyrics')) {
-                    collection.push(file);
-                    return collection;
-                }
+                const trimmedFileName = trimMusicFileNameByParentheses(file[mfp.NAME]);
+                const trackInfo = await getTrackRequest(trimmedFileName);
 
-                const trimmedName = trimMusicFileName(file.name);
-                const track = await getTrackRequest(trimmedName);
-                if (!track) {
-                    collection.push({
-                        ...file,
-                        isTagsFound: false,
-                        shouldSearchLyrics: true
+                if (!trackInfo) {
+                    acc.push({
+                        ...resetMusicFileAdditionalParams(file),
+                        [mfp.ARE_TAGS_FOUND]: false
                     });
-                    return collection;
+                    return acc;
                 }
 
-                const { url: trackUrl, song_art_image_thumbnail_url: artwork } = track;
+                const { url: trackUrl, song_art_image_thumbnail_url: artwork } = trackInfo;
                 const lyrics = await getLyricsRequest(trackUrl);
-                collection.push({
+
+                acc.push({
                     ...file,
-                    lyrics,
-                    trackUrl,
-                    artwork,
-                    isTagsFound: true,
-                    shouldSearchLyrics: false
+                    [mfp.LYRICS]: lyrics,
+                    [mfp.TRACK_URL]: trackUrl,
+                    [mfp.ARTWORK]: artwork,
+                    [mfp.ARE_TAGS_FOUND]: true,
+                    [mfp.SHOULD_SEARCH_LYRICS]: false
                 });
-                return collection;
+                return acc;
             },
-            Promise.resolve([])
+            []
         );
 
-        console.log('result', updatedMusicFiles);
         dispatch({ type: UPDATE_MUSIC_FILES, payload: updatedMusicFiles });
     };
 
@@ -71,11 +69,14 @@ export const getLyrics = musicFiles => async dispatch => {
 
 export const setLyrics = musicFile => async dispatch => {
     const func = async () => {
-        const { path, lyrics } = musicFile;
+        const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics } = musicFile;
         const result = await setLyricsRequest(path, lyrics);
-        const setLyricsStatus = _.get(result, 'resultStatus');
+        const status = _.get(result, 'status');
 
-        dispatch({ type: UPDATE_MUSIC_FILE, payload: { ...musicFile, setLyricsStatus } });
+        dispatch({
+            type: UPDATE_MUSIC_FILE,
+            payload: { ...musicFile, [mfp.SET_LYRICS_STATUS]: status }
+        });
     };
 
     await loadingWrapper(func, dispatch);
@@ -86,7 +87,7 @@ export const multipleSetLyrics = musicFiles => async dispatch => {
         const dataToSet = _.reduce(
             musicFiles,
             (acc, file) => {
-                const { path, lyrics, id } = file;
+                const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics, [mfp.ID]: id } = file;
                 if (!_.isNil(lyrics)) {
                     acc.push({ path, lyrics, id });
                 }
@@ -95,14 +96,13 @@ export const multipleSetLyrics = musicFiles => async dispatch => {
             []
         );
 
-        const resultData = await multipleSetLyricsRequest(dataToSet);
-        const resultInfo = _.get(resultData, 'resultInfo');
+        const result = await multipleSetLyricsRequest(dataToSet);
 
-        if (resultInfo) {
-            const filesToUpdate = _.map(resultInfo, item => {
+        if (!_.isEmpty(result)) {
+            const filesToUpdate = _.map(result, item => {
                 const { id, status } = item;
                 const musicFile = _.find(musicFiles, { id });
-                return { ...musicFile, setLyricsStatus: status };
+                return { ...musicFile, [mfp.SET_LYRICS_STATUS]: status };
             });
 
             dispatch({ type: UPDATE_MUSIC_FILES, payload: filesToUpdate });

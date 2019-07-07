@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import * as mfp from 'client/constants/MusicFileProperties';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 
 class RequestsPanel extends Component {
@@ -20,10 +21,8 @@ class RequestsPanel extends Component {
 
     onGetLyrics = async () => {
         const { musicFiles, getLyrics } = this.props;
-
         if (_.isEmpty(musicFiles)) return;
 
-        console.log('musicFiles | onGetLyrics', musicFiles);
         getLyrics(musicFiles);
     };
 
@@ -36,7 +35,7 @@ class RequestsPanel extends Component {
     render() {
         const { allowRequest, musicFiles } = this.props;
 
-        const alllowMultipleSeLyrics = !_.isEmpty(_.filter(musicFiles, file => file.lyrics));
+        const alllowMultipleSeLyrics = !_.isEmpty(_.filter(musicFiles, mfp.LYRICS));
 
         return (
             <div className="request_container">
