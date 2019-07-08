@@ -1,34 +1,25 @@
 import _ from 'lodash';
 
-const findFirstCorrectTrack = (tracks, keywords) => {
-    for (let track in tracks) {
-        const trackUrl = _.get(tracks[track], 'result.url');
-        const foundWords = [];
-
-        console.log('trackUrl', trackUrl);
-        for (let word in keywords) {
-            if (trackUrl.toLowerCase().includes(keywords[word].toLowerCase())) {
-                foundWords.push(keywords[word]);
-            }
-        }
-
-        console.log('foundWords', foundWords);
-        if (!_.isEmpty(foundWords)) {
-            return tracks[track].result;
-        }
-    }
-
-    return null;
-};
-
-export default (tracks, desiredTrack) => {
+export const findMostLikelyCorrectTrack = (tracks, desiredTrackName) => {
     if (_.isNil(tracks)) return null;
 
     const { hits } = tracks;
-    console.log('hits', hits);
+    const keywords = _.split(desiredTrackName, ' ');
 
-    const keywords = _.split(desiredTrack, ' ');
-    console.log('keywords', keywords);
+    const mapper = _.map(hits, track => {
+        const fullTitle = _.get(track, 'result.full_title', '');
 
-    return findFirstCorrectTrack(hits, keywords);
+        const foundKeywords = _.reduce(
+            keywords,
+            (acc, keyword) => {
+                if (_.includes(_.toUpper(fullTitle), _.toUpper(keyword))) acc.push(keyword);
+                return acc;
+            },
+            []
+        );
+        return { foundKeywords, track };
+    });
+
+    const mostLikelyCorrectItem = _.maxBy(mapper, ({ foundKeywords }) => _.size(foundKeywords));
+    return _.get(mostLikelyCorrectItem, 'track.result', null);
 };

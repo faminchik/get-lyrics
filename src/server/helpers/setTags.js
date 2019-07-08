@@ -1,5 +1,5 @@
 import nodeID3 from 'node-id3';
-import { isFileExists } from 'server/utils/fileUtils';
+import { isFileExists } from 'server/utils/files';
 import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
 
 export default (filePath, { lyrics }) => {
