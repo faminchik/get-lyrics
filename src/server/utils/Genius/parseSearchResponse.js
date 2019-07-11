@@ -8,11 +8,12 @@ export const findMostLikelyCorrectTrack = (tracks, desiredTrackName) => {
 
     const mapper = _.map(hits, track => {
         const fullTitle = _.get(track, 'result.full_title', '');
+        const upperCaseFullTitle = _.toUpper(fullTitle);
 
         const foundKeywords = _.reduce(
             keywords,
             (acc, keyword) => {
-                if (_.includes(_.toUpper(fullTitle), _.toUpper(keyword))) acc.push(keyword);
+                if (_.includes(upperCaseFullTitle, _.toUpper(keyword))) acc.push(keyword);
                 return acc;
             },
             []

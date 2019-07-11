@@ -1,7 +1,6 @@
 import express from 'express';
+import { getTrack, getLyrics } from 'server/helpers/memoizedGeniusGetters';
 import setTags from 'server/helpers/setTags';
-import getTrack from 'server/helpers/getTrack';
-import getLyrics from 'server/helpers/getLyrics';
 import multipleSetTags from 'server/helpers/multipleSetTags';
 import {
     SET_LYRICS,
