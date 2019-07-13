@@ -13,7 +13,7 @@ import {
     updateMusicFile,
     setLyrics
 } from 'client/redux/actions/musicFilesActions';
-import { SUCCESS } from 'shared/constants/responseStatus';
+import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
 
 class DropMenuItem extends Component {
     static propTypes = {
@@ -68,12 +68,13 @@ class DropMenuItem extends Component {
 
         const trackInfoClassName = classes('track-info_container', {
             'not-found': areTagsFound === false,
-            success: setLyricsStatus === SUCCESS
+            success: setLyricsStatus === SUCCESS,
+            error: setLyricsStatus === ERROR
         });
 
         return (
             <div className="drop-menu-item">
-                <Image className={'artwork'} src={artwork} />
+                <Image className="artwork" src={artwork} />
                 <div className={trackInfoClassName}>
                     <InlineEditing
                         className="track-name"
