@@ -38,7 +38,7 @@ export default (state = [], action) => {
         return _.map(state, file => (file[mfp.ID] === payload[mfp.ID] ? payload : file));
     }
 
-    if (action.type === UPDATE_MUSIC_FILES_ORDER) {
+    if (type === UPDATE_MUSIC_FILES_ORDER) {
         const { source, target } = payload;
         const { id: idSource } = source;
         const { id: idTarget } = target;
