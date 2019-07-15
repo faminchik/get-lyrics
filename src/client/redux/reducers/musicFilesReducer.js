@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import timm from 'timm';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
@@ -40,17 +41,16 @@ export default (state = [], action) => {
 
     if (type === UPDATE_MUSIC_FILES_ORDER) {
         const { source, target } = payload;
-        const { id: idSource } = source;
-        const { id: idTarget } = target;
+        const { [mfp.ID]: idSource } = source;
+        const { [mfp.ID]: idTarget } = target;
 
-        let immutableState = _.cloneDeep(state);
-        const sourceIndex = _.findIndex(immutableState, { id: idSource });
-        const targetIndex = _.findIndex(immutableState, { id: idTarget });
+        const sourceIndex = _.findIndex(state, { [mfp.ID]: idSource });
+        const targetIndex = _.findIndex(state, { [mfp.ID]: idTarget });
 
-        immutableState = timm.removeAt(immutableState, sourceIndex);
-        immutableState = timm.insert(immutableState, targetIndex, action.source);
+        state = timm.removeAt(state, sourceIndex);
+        state = timm.insert(state, targetIndex, source);
 
-        return immutableState;
+        return state;
     }
 
     return state;

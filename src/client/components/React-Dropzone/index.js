@@ -66,7 +66,7 @@ class Dropzone extends React.Component {
     }
 
     composeHandlers(handler) {
-        if (this.props.disabled) {
+        if (this.props.disabled || this.props.turnedOff) {
             return null;
         }
 
@@ -290,6 +290,7 @@ class Dropzone extends React.Component {
             multiple,
             name,
             rejectClassName,
+            turnedOff,
             ...rest
         } = this.props;
 
@@ -404,7 +405,7 @@ class Dropzone extends React.Component {
                 onDragLeave={this.composeHandlers(this.onDragLeave)}
                 onDrop={this.composeHandlers(this.onDrop)}
                 ref={this.setRef}
-                aria-disabled={disabled}
+                aria-disabled={disabled || turnedOff}
             >
                 {this.renderChildren(children, isDragActive, isDragAccept, isDragReject)}
                 <input
@@ -578,7 +579,15 @@ Dropzone.propTypes = {
      */
     onFileDialogCancel: PropTypes.func,
 
-    menuItems: PropTypes.array
+    /**
+     * Provide menu items which is located inside of the drop area
+     */
+    menuItems: PropTypes.array,
+
+    /**
+     * turn on/turn off the dropzone entirely
+     */
+    turnedOff: PropTypes.bool
 };
 
 Dropzone.defaultProps = {
@@ -588,5 +597,6 @@ Dropzone.defaultProps = {
     disableClick: false,
     multiple: true,
     maxSize: Infinity,
-    minSize: 0
+    minSize: 0,
+    turnedOff: false
 };
