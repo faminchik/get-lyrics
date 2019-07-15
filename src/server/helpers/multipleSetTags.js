@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import nodeID3 from 'node-id3';
-import { isFileExists } from '../utils/fileUtils';
-import { SUCCESS, ERROR } from '../../shared/constants/responseStatus';
+import { isFileExists } from 'server/utils/files';
+import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
 
 export default data =>
     _.map(data, item => {

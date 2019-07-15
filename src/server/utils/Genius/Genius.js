@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import config from 'config';
 import cheerio from 'cheerio';
-import { fetchApiRequest, fetchHtmlRequest } from '../../../shared/utils/fetchRequests';
-import parseSearchResponse from './parseSearchResponse';
+import { fetchApiRequest, fetchHtmlRequest } from 'shared/utils/fetchRequests';
+import { findMostLikelyCorrectTrack } from 'server/utils/Genius/parseSearchResponse';
 
 const BASE_URL = config.get('genius-base-url');
 const SEARCH_PARAM = config.get('genius-param-search');
@@ -40,13 +40,13 @@ export default class Genius {
         return this._requestPromise(options);
     }
 
-    async getTrack(musicTrack) {
-        const tracks = await this.search(musicTrack);
-        return parseSearchResponse(tracks, musicTrack);
+    async getTrack(trackName) {
+        const tracks = await this.search(trackName);
+        return findMostLikelyCorrectTrack(tracks, trackName);
     }
 
-    async getLyricsByTrackName(musicTrack) {
-        const track = await this.getTrack(musicTrack);
+    async getLyricsByTrackName(trackName) {
+        const track = await this.getTrack(trackName);
         const { url } = track;
         const html = await fetchHtmlRequest(url);
 

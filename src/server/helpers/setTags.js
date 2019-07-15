@@ -1,9 +1,9 @@
 import nodeID3 from 'node-id3';
-import { isFileExists } from '../utils/fileUtils';
-import { SUCCESS, ERROR } from '../../shared/constants/responseStatus';
+import { isFileExists } from 'server/utils/files';
+import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
 
 export default (filePath, { lyrics }) => {
-    if (!filePath || !isFileExists(filePath)) return ERROR;
+    if (!filePath || !isFileExists(filePath)) return { status: ERROR };
 
     const tags = {
         unsynchronisedLyrics: {
@@ -13,5 +13,6 @@ export default (filePath, { lyrics }) => {
     };
 
     const result = nodeID3.update(tags, filePath);
-    return result ? SUCCESS : ERROR;
+    const status = result ? SUCCESS : ERROR;
+    return { status };
 };

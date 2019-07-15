@@ -76,13 +76,17 @@ $drop-menu-item_height: 100px;
 
 .track-info_container {
     &.not-found {
-        background-color: red;
+        background-color: #ff0d0d;
         border-radius: 20px;
-        opacity: 0.8;
     }
 
     &.success {
         background-color: #32d632;
+        border-radius: 20px;
+    }
+
+    &.error {
+        background-color: #ffa700;
         border-radius: 20px;
     }
 

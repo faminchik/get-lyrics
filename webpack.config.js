@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('mini-css-extract-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { clientSidePort: port } = require('./src/shared/constants/common');
 
 module.exports = {
     entry: './src/client/index.js',
@@ -31,14 +31,16 @@ module.exports = {
     },
     devtool: 'eval-sourcemap',
     devServer: {
-        port: 3000,
+        port,
         open: true
     },
     plugins: [
-        // new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
         new ExtractTextPlugin('styles.css')
-    ]
+    ],
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.scss']
+    }
 };

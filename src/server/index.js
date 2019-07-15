@@ -1,16 +1,20 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
-import router from './routes';
-import { port } from '../shared/constants/common';
+import router from 'server/routes';
+import { serverSidePort as port, clientSidePort } from 'shared/constants/common';
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: `http://localhost:${clientSidePort}`,
+    optionsSuccessStatus: 200
+};
 
-app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
-app.use(express.static('dist'));
+app.use(express.json());
+
+// app.use(express.static('dist'));
 
 app.use('/', router);
 

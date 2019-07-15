@@ -1,6 +1,6 @@
-import { fetchPostHtmlRequest } from '../utils/fetchRequests';
-import { port } from '../constants/common';
-import { GET_LYRICS } from '../constants/requestTypes';
+import { fetchPostHtmlRequest } from 'shared/utils/fetchRequests';
+import { serverSidePort as port } from 'shared/constants/common';
+import { GET_LYRICS } from 'shared/constants/requestTypes';
 
 export default async trackUrl =>
     await fetchPostHtmlRequest(
