@@ -1,9 +1,11 @@
 import _ from 'lodash';
+import timm from 'timm';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
     UPDATE_MUSIC_FILES,
-    UPDATE_MUSIC_FILE
+    UPDATE_MUSIC_FILE,
+    UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
 import * as mfp from 'client/constants/MusicFileProperties';
 import { detectUniqueFiles, convertFileToObject } from 'client/utils/files';
@@ -35,6 +37,20 @@ export default (state = [], action) => {
 
     if (type === UPDATE_MUSIC_FILE) {
         return _.map(state, file => (file[mfp.ID] === payload[mfp.ID] ? payload : file));
+    }
+
+    if (type === UPDATE_MUSIC_FILES_ORDER) {
+        const { source, target } = payload;
+        const { [mfp.ID]: idSource } = source;
+        const { [mfp.ID]: idTarget } = target;
+
+        const sourceIndex = _.findIndex(state, { [mfp.ID]: idSource });
+        const targetIndex = _.findIndex(state, { [mfp.ID]: idTarget });
+
+        state = timm.removeAt(state, sourceIndex);
+        state = timm.insert(state, targetIndex, source);
+
+        return state;
     }
 
     return state;

@@ -4,7 +4,8 @@ import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
     UPDATE_MUSIC_FILE,
-    UPDATE_MUSIC_FILES
+    UPDATE_MUSIC_FILES,
+    UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
 import * as mfp from 'client/constants/MusicFileProperties';
 import getTrackRequest from 'shared/requests/getTrack';
@@ -25,6 +26,10 @@ export const removeMusicFile = musicFileId => dispatch => {
 
 export const updateMusicFile = musicFile => dispatch => {
     dispatch({ type: UPDATE_MUSIC_FILE, payload: musicFile });
+};
+
+export const updateMusicFilesOrder = ({ source, target }) => dispatch => {
+    dispatch({ type: UPDATE_MUSIC_FILES_ORDER, payload: { source, target } });
 };
 
 export const getLyrics = musicFiles => async dispatch => {

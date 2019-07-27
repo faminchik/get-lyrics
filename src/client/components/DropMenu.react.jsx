@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import classes from 'classnames';
 import _ from 'lodash';
-import DropMenuItem from 'client/components/DropMenuItem.react';
+import DnDDropMenuItem from 'client/components/wrappers/DnDDropMenuItem.react';
 
 export default class DropMenu extends Component {
     static propTypes = {
@@ -18,7 +20,7 @@ export default class DropMenu extends Component {
     renderMenuItems = () => {
         const { items } = this.props;
 
-        return _.map(items, (item, key) => <DropMenuItem item={item} key={key} />);
+        return _.map(items, (item, key) => <DnDDropMenuItem item={item} key={key} />);
     };
 
     render() {
@@ -28,6 +30,10 @@ export default class DropMenu extends Component {
             'drag-effect': isDragEffect
         });
 
-        return <div className={classNames}>{this.renderMenuItems()}</div>;
+        return (
+            <DndProvider backend={HTML5Backend}>
+                <div className={classNames}>{this.renderMenuItems()}</div>
+            </DndProvider>
+        );
     }
 }

@@ -14,13 +14,15 @@ class DropFiles extends Component {
         ]),
         disabled: PropTypes.bool,
         multiple: PropTypes.bool,
-        menuItems: PropTypes.array
+        menuItems: PropTypes.array,
+        turnedOff: PropTypes.bool
     };
 
     static defaultProps = {
         disabled: false,
         multiple: true,
-        menuItems: []
+        menuItems: [],
+        turnedOff: false
     };
 
     onDrop = newFiles => {
@@ -30,20 +32,21 @@ class DropFiles extends Component {
     };
 
     render() {
-        const { disabled, allowedFileTypes, multiple, menuItems } = this.props;
+        const { disabled, allowedFileTypes, multiple, menuItems, turnedOff } = this.props;
 
         return (
             <Dropzone
-                className={'drop-area'}
-                disabledClassName={'disabled'}
-                activeClassName={'active'}
-                acceptClassName={'accept'}
-                rejectClassName={'reject'}
+                className="drop-area"
+                disabledClassName="disabled"
+                activeClassName="active"
+                acceptClassName="accept"
+                rejectClassName="reject"
                 disabled={disabled}
                 onDrop={this.onDrop}
                 accept={allowedFileTypes}
                 multiple={multiple}
                 menuItems={menuItems}
+                turnedOff={turnedOff}
             />
         );
     }
