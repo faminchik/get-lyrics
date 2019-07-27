@@ -22,14 +22,14 @@ $drop-menu-item_height: 100px;
     }
 
     &.drop-source {
-        opacity: 0.6;
+        opacity: 0.9;
         transition: 0.3s ease;
         background-color: rgb(0, 157, 219);
         border-radius: 20px;
     }
 
     &.drop-target {
-        opacity: 0.6;
+        opacity: 0.9;
         transition: 0.4s ease;
         background-color: rgb(189, 231, 0);
         border-radius: 20px;
