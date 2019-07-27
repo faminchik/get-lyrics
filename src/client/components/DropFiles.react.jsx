@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import Dropzone from 'client/components/React-Dropzone';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 

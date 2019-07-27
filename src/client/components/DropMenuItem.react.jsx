@@ -81,7 +81,12 @@ class DropMenuItem extends Component {
                         value={name}
                         onFinish={this.onFinishEditingItemName}
                     />
-                    <a href={trackUrl} className="track-url" target="_blank">
+                    <a
+                        href={trackUrl}
+                        className="track-url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {trackUrl}
                     </a>
                 </div>
