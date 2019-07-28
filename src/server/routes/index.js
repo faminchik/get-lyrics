@@ -13,8 +13,7 @@ const router = express.Router();
 
 router.post(`/${SET_LYRICS}`, (req, res) => {
     const { path, lyrics } = req.body;
-    const tags = { lyrics };
-    const resultInfo = setTags(path, tags);
+    const resultInfo = setTags({ path, lyrics });
 
     res.send(JSON.stringify(resultInfo));
 });

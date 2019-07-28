@@ -1,2 +1,2 @@
-require('@babel/register')({ extensions: ['.js', '.jsx', '.ts', '.tsx'] });
+require('@babel/register')({ extensions: ['.ts', '.tsx', '.js', '.jsx'] });
 require('./server');
