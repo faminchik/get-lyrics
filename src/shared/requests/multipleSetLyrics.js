@@ -6,5 +6,5 @@ export default data =>
     fetchPostApiRequest(
         `http://localhost:${port}/${MULTIPLE_SET_LYRICS}`,
         { 'Content-Type': 'application/json' },
-        { data }
+        { ...data }
     );

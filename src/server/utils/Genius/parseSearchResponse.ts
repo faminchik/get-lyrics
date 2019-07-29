@@ -1,18 +1,20 @@
 import _ from 'lodash';
+import { GenuisApiSearchResult, GeniusApiTrack } from 'ts/types/genius.types';
 
-export const findMostLikelyCorrectTrack = (tracks, desiredTrackName) => {
-    if (_.isNil(tracks)) return null;
-
+export const findMostLikelyCorrectTrack = (
+    tracks: GenuisApiSearchResult,
+    desiredTrackName: string
+): GeniusApiTrack | null => {
     const { hits } = tracks;
     const keywords = _.split(desiredTrackName, ' ');
 
     const mapper = _.map(hits, track => {
-        const fullTitle = _.get(track, 'result.full_title', '');
+        const fullTitle: string = _.get(track, 'result.full_title', '');
         const upperCaseFullTitle = _.toUpper(fullTitle);
 
         const foundKeywords = _.reduce(
             keywords,
-            (acc, keyword) => {
+            (acc: string[], keyword) => {
                 if (_.includes(upperCaseFullTitle, _.toUpper(keyword))) acc.push(keyword);
                 return acc;
             },
