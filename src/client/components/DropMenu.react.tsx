@@ -1,23 +1,23 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import classes from 'classnames';
-import _ from 'lodash';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import DnDDropMenuItem from 'client/components/wrappers/DnDDropMenuItem.react';
 
-export default class DropMenu extends Component {
-    static propTypes = {
-        items: PropTypes.array,
-        isDragEffect: PropTypes.bool
-    };
+interface Props {
+    items: MusicFile[];
+    isDragEffect: boolean;
+}
 
+export default class DropMenu extends Component<Props> {
     static defaultProps = {
         items: [],
         isDragEffect: false
     };
 
-    renderMenuItems = () => {
+    renderMenuItems = (): JSX.Element[] => {
         const { items } = this.props;
 
         return _.map(items, (item, key) => <DnDDropMenuItem item={item} key={key} />);

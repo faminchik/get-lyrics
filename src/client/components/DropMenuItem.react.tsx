@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import * as mfp from 'client/constants/MusicFileProperties';
 import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
 import InlineEditing from 'client/components/elements/InlineEditing.react';
@@ -15,38 +15,36 @@ import {
 } from 'client/redux/actions/musicFilesActions';
 import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
 
-class DropMenuItem extends Component {
-    static propTypes = {
-        removeMusicFile: PropTypes.func.isRequired,
-        updateMusicFile: PropTypes.func.isRequired,
-        setLyrics: PropTypes.func.isRequired,
-        item: PropTypes.object
-    };
+interface DropMenuItemDispatchProps {
+    removeMusicFile: any; // TODO
+    updateMusicFile: any; // TODO
+    setLyrics: any; // TODO
+}
 
-    static defaultProps = {
-        item: {}
-    };
+interface DropMenuItemOwnProps {
+    item: MusicFile;
+}
 
-    onRemoveItem = item => {
-        const { removeMusicFile } = this.props;
+interface Props extends DropMenuItemDispatchProps, DropMenuItemOwnProps {}
+
+class DropMenuItem extends Component<Props> {
+    onRemoveItem = (item: MusicFile): void => {
         const { [mfp.ID]: id } = item;
 
-        removeMusicFile(id);
+        this.props.removeMusicFile(id);
     };
 
-    onSetLyrics = item => {
-        const { setLyrics } = this.props;
-
-        setLyrics(item);
+    onSetLyrics = (item: MusicFile): void => {
+        this.props.setLyrics(item);
     };
 
-    onFinishEditingItemName = itemName => {
+    onFinishEditingItemName = (itemName: string): void => {
         const { updateMusicFile, item } = this.props;
 
         updateMusicFile({ ...item, [mfp.NAME]: itemName });
     };
 
-    onChangeCheckboxValue = isChecked => {
+    onChangeCheckboxValue = (isChecked: boolean): void => {
         const { updateMusicFile, item } = this.props;
 
         updateMusicFile({ ...item, [mfp.SHOULD_SEARCH_LYRICS]: isChecked });
@@ -121,7 +119,7 @@ class DropMenuItem extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export default connect(
     mapStateToProps,

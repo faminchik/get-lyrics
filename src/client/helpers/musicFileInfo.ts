@@ -1,18 +1,20 @@
 import uuidv4 from 'uuid/v4';
 import * as mfp from 'client/constants/MusicFileProperties';
+import { SFile } from 'ts/interfaces/file.interfaces';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import { getFileNameByFullName } from 'client/utils/fileNames';
 
 const defaultAdditionalParams = {
     [mfp.SET_LYRICS_STATUS]: null,
-    [mfp.LYRICS]: null,
+    [mfp.LYRICS]: '',
     [mfp.SHOULD_SEARCH_LYRICS]: true,
-    [mfp.TRACK_URL]: null,
-    [mfp.ARTWORK]: null,
+    [mfp.TRACK_URL]: '',
+    [mfp.ARTWORK]: '',
     [mfp.ARE_TAGS_FOUND]: null
 };
 
-export const extendMusicFileInfo = musicFile => {
-    const { [mfp.NAME]: fileFullName = null, ...restData } = musicFile;
+export const extendMusicFileInfo = (musicFile: SFile): MusicFile => {
+    const { [mfp.NAME]: fileFullName, ...restData } = musicFile;
     const fileName = getFileNameByFullName(fileFullName);
 
     return {
@@ -24,7 +26,7 @@ export const extendMusicFileInfo = musicFile => {
     };
 };
 
-export const resetMusicFileAdditionalParams = musicFile => ({
+export const resetMusicFileAdditionalParams = (musicFile: MusicFile): MusicFile => ({
     ...musicFile,
     ...defaultAdditionalParams
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Spinner = () => {
+const Spinner = (): JSX.Element => {
     return (
         <div
             className="loading-icon"

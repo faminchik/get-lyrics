@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import _ from 'lodash';
-import DropFiles from 'client/components/DropFiles.react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { AppState } from 'client/redux/reducers';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import DropArea from 'client/components/DropArea.react';
 import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
 import * as mfp from 'client/constants/MusicFileProperties';
 
-class Viewport extends Component {
-    static propTypes = {
-        musicFiles: PropTypes.array.isRequired,
-        isLoading: PropTypes.bool.isRequired,
-        isTurnedOff: PropTypes.bool.isRequired
-    };
+interface ViewportStateProps {
+    musicFiles: MusicFile[];
+    isLoading: boolean;
+    isTurnedOff: boolean;
+}
 
+interface Props extends ViewportStateProps {}
+
+class Viewport extends Component<Props> {
     render() {
         const { musicFiles, isLoading, isTurnedOff } = this.props;
 
@@ -22,7 +25,7 @@ class Viewport extends Component {
 
         return (
             <React.Fragment>
-                <DropFiles
+                <DropArea
                     allowedFileTypes={['audio/mp3']}
                     menuItems={musicFiles}
                     turnedOff={isTurnedOff}
@@ -34,7 +37,7 @@ class Viewport extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState): ViewportStateProps => ({
     musicFiles: state.musicFiles,
     isLoading: state.loading.isLoading,
     isTurnedOff: state.dropzone.isTurnedOff

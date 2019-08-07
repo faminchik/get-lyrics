@@ -1,5 +1,7 @@
+import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
+
 export interface SetTagsResult {
-    status: string;
+    status: typeof SUCCESS | typeof ERROR;
 }
 
 export interface MultipleSetTagsResult extends SetTagsResult {

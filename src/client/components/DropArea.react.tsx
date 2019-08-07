@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import Dropzone from 'client/components/React-Dropzone';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 
-class DropFiles extends Component {
-    static propTypes = {
-        addMusicFiles: PropTypes.func.isRequired,
-        allowedFileTypes: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.arrayOf(PropTypes.string)
-        ]),
-        disabled: PropTypes.bool,
-        multiple: PropTypes.bool,
-        menuItems: PropTypes.array,
-        turnedOff: PropTypes.bool
-    };
+interface DropFilesDispatchProps {
+    addMusicFiles: any; // TODO
+}
 
+interface DropFilesOwnProps {
+    allowedFileTypes: string[] | string;
+    disabled: boolean;
+    multiple: boolean;
+    menuItems: MusicFile[];
+    turnedOff: boolean;
+}
+
+interface Props extends DropFilesDispatchProps, DropFilesOwnProps {}
+
+class DropArea extends Component<Props> {
     static defaultProps = {
         disabled: false,
         multiple: true,
@@ -24,7 +26,7 @@ class DropFiles extends Component {
         turnedOff: false
     };
 
-    onDrop = newFiles => {
+    onDrop = (newFiles: MusicFile[]): void => {
         const { addMusicFiles } = this.props;
 
         addMusicFiles(newFiles);
@@ -51,9 +53,9 @@ class DropFiles extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export default connect(
     mapStateToProps,
     { addMusicFiles }
-)(DropFiles);
+)(DropArea);

@@ -1,26 +1,35 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import { oc } from 'ts-optchain';
 import * as keyCodes from 'client/constants/KeyCodes';
 
 const INNER_TEXT = 'innerText';
 
-export default class InlineEditing extends Component {
-    static propTypes = {
-        value: PropTypes.string.isRequired,
-        className: PropTypes.string,
-        onFinish: PropTypes.func
-    };
+interface Props {
+    value: string;
+    className: string;
+    onFinish: (isChecked: string) => void;
+}
 
-    constructor(props) {
+interface State {
+    value: string;
+    contentEditable: boolean;
+}
+export default class InlineEditing extends PureComponent<Props, State> {
+    private elementRef: React.RefObject<HTMLInputElement>;
+
+    constructor(props: Props) {
         super(props);
 
         const { value } = this.props;
-        this.state = {
-            value,
-            contentEditable: false
-        };
+        this.state = { value, contentEditable: false };
+
+        this.elementRef = React.createRef();
     }
+
+    static defaultProps = {
+        className: ''
+    };
 
     componentDidUpdate() {
         this._setInnerHTML();
@@ -30,7 +39,7 @@ export default class InlineEditing extends Component {
         this._setInnerHTML();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         const { value: newValue } = nextProps;
         const { value: oldValue } = this.state;
 
@@ -39,33 +48,29 @@ export default class InlineEditing extends Component {
         }
     }
 
-    onBlur = () => {
+    onBlur = (): void => {
         if (!this.state.contentEditable) return;
 
-        const { onFinish } = this.props;
-        const value = this.refs.element[INNER_TEXT];
+        const value = oc(this.elementRef).current[INNER_TEXT](this.state.value);
         this.setState({ contentEditable: false, value }, () => {
-            if (_.isFunction(onFinish)) {
-                onFinish(value);
-            }
+            this.props.onFinish(value);
         });
     };
 
-    onFocus = () => {
+    onFocus = (): void => {
         this.setState({ contentEditable: true });
     };
 
-    handleEscape = () => {
+    handleEscape = (): void => {
         this.setState({ contentEditable: false }, () => {
             this._simulateDomBlurEvent();
         });
     };
 
-    onKeyDown = event => {
+    onKeyDown = (event: React.KeyboardEvent): void => {
         if (!this.state.contentEditable) return;
 
         if (event.keyCode === keyCodes.ENTER) {
-            this.onBlur();
             this._simulateDomBlurEvent();
         }
 
@@ -74,12 +79,12 @@ export default class InlineEditing extends Component {
         }
     };
 
-    _setInnerHTML = () => {
-        this.refs.element.innerHTML = this.state.value;
+    _setInnerHTML = (): void => {
+        _.set(this.elementRef, 'current.innerHTML', this.state.value);
     };
 
-    _simulateDomBlurEvent = () => {
-        this.refs.element.blur();
+    _simulateDomBlurEvent = (): void => {
+        _.invoke(this.elementRef, 'current.blur');
     };
 
     render() {
@@ -88,13 +93,13 @@ export default class InlineEditing extends Component {
 
         return (
             <div
-                tabIndex="0"
-                ref="element"
+                tabIndex={0}
+                ref={this.elementRef}
                 className={className}
                 onBlur={this.onBlur}
                 onFocus={this.onFocus}
                 onKeyDown={this.onKeyDown}
-                contentEditable={contentEditable.toString()}
+                contentEditable={contentEditable}
             />
         );
     }

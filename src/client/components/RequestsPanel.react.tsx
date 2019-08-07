@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import * as mfp from 'client/constants/MusicFileProperties';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 
-class RequestsPanel extends Component {
-    static propTypes = {
-        getLyrics: PropTypes.func.isRequired,
-        multipleSetLyrics: PropTypes.func.isRequired,
-        musicFiles: PropTypes.array,
-        allowRequest: PropTypes.bool
-    };
+interface RequestsPanelDispatchProps {
+    getLyrics: any; // TODO
+    multipleSetLyrics: any; // TODO
+}
 
+interface RequestsPanelOwnProps {
+    musicFiles: MusicFile[];
+    allowRequest: boolean;
+}
+
+interface Props extends RequestsPanelDispatchProps, RequestsPanelOwnProps {}
+
+class RequestsPanel extends Component<Props> {
     static defaultProps = {
         allowRequest: false,
         musicFiles: []
     };
 
-    onGetLyrics = async () => {
+    onGetLyrics = (): void => {
         const { musicFiles, getLyrics } = this.props;
         if (_.isEmpty(musicFiles)) return;
 
         getLyrics(musicFiles);
     };
 
-    onMultipleSetLyrics = async () => {
+    onMultipleSetLyrics = (): void => {
         const { musicFiles, multipleSetLyrics } = this.props;
 
         multipleSetLyrics(musicFiles);
@@ -58,7 +63,7 @@ class RequestsPanel extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 export default connect(
     mapStateToProps,

@@ -1,17 +1,20 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Modal } from 'react-bootstrap';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
-export default class LyricsModalWindow extends Component {
-    static propTypes = {
-        disabled: PropTypes.bool,
-        text: PropTypes.string,
-        buttonText: PropTypes.string,
-        modalTitle: PropTypes.string
-    };
+interface Props {
+    disabled: boolean;
+    text: string;
+    buttonText: string;
+    modalTitle: string;
+}
 
+interface State {
+    showModal: boolean;
+}
+
+export default class LyricsModalWindow extends Component<Props, State> {
     static defaultProps = {
         disabled: true,
         text: '',
@@ -21,11 +24,11 @@ export default class LyricsModalWindow extends Component {
 
     state = { showModal: false };
 
-    handleShow = () => {
+    handleShow = (): void => {
         this.setState({ showModal: true });
     };
 
-    handleClose = () => {
+    handleClose = (): void => {
         this.setState({ showModal: false });
     };
 

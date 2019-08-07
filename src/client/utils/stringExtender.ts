@@ -1,9 +1,9 @@
-String.prototype.removeChars = function(startChar, endChar) {
+String.prototype.removeChars = function(startChar: string, endChar: string): string {
     const startIndex = this.indexOf(startChar);
-    if (startIndex === -1) return this;
+    if (startIndex === -1) return this.toString();
 
     const endIndex = this.indexOf(endChar);
-    if (endIndex === -1) return this;
+    if (endIndex === -1) return this.toString();
 
     const oldString = new String(this).toString();
 

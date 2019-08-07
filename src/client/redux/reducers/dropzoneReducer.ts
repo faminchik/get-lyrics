@@ -1,10 +1,15 @@
 import { TURN_ON_DROPZONE, TURN_OFF_DROPZONE } from 'client/constants/ActionTypes';
+import { DropzoneAction } from 'ts/interfaces/reducer.interfaces';
 
-const initialState = {
+type DropzoneReducerState = {
+    isTurnedOff: boolean;
+};
+
+const initialState: DropzoneReducerState = {
     isTurnedOff: false
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: DropzoneAction): DropzoneReducerState => {
     const { type } = action;
 
     if (type === TURN_ON_DROPZONE) {
