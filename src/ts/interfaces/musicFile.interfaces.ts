@@ -1,13 +1,14 @@
 import { SFile } from 'ts/interfaces/file.interfaces';
-import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
+import mfp from 'client/constants/MusicFileProperties';
+import rs from 'shared/constants/ResponseStatus';
 
 export interface MusicFile extends SFile {
-    id: string;
-    nameWithExtension: string;
-    setLyricsStatus: typeof SUCCESS | typeof ERROR | null;
-    lyrics: string;
-    shouldSearchLyrics: boolean;
-    trackUrl: string;
-    artwork: string;
-    areTagsFound: boolean | null;
+    [mfp.ID]: string;
+    [mfp.NAME_WITH_EXTENSION]: string;
+    [mfp.SET_LYRICS_STATUS]: rs | null;
+    [mfp.LYRICS]: string;
+    [mfp.SHOULD_SEARCH_LYRICS]: boolean;
+    [mfp.TRACK_URL]: string;
+    [mfp.ARTWORK]: string;
+    [mfp.ARE_TAGS_FOUND]: boolean | null;
 }

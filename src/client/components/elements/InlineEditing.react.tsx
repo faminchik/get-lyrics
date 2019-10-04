@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { PureComponent } from 'react';
 import { oc } from 'ts-optchain';
-import * as keyCodes from 'client/constants/KeyCodes';
+import kc from 'client/constants/KeyCodes';
 
 const INNER_TEXT = 'innerText';
 
@@ -70,11 +70,11 @@ export default class InlineEditing extends PureComponent<Props, State> {
     onKeyDown = (event: React.KeyboardEvent): void => {
         if (!this.state.contentEditable) return;
 
-        if (event.keyCode === keyCodes.ENTER) {
+        if (event.keyCode === kc.ENTER) {
             this._simulateDomBlurEvent();
         }
 
-        if (event.keyCode === keyCodes.ESCAPE) {
+        if (event.keyCode === kc.ESCAPE) {
             this.handleEscape();
         }
     };

@@ -6,7 +6,7 @@ import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import DropArea from 'client/components/DropArea.react';
 import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
-import * as mfp from 'client/constants/MusicFileProperties';
+import mfp from 'client/constants/MusicFileProperties';
 
 interface ViewportStateProps {
     musicFiles: MusicFile[];

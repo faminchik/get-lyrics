@@ -9,7 +9,7 @@ import {
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
-import * as mfp from 'client/constants/MusicFileProperties';
+import mfp from 'client/constants/MusicFileProperties';
 import { detectUniqueFiles, convertFileToObject } from 'client/utils/files';
 import { extendMusicFileInfo } from 'client/helpers/musicFileInfo';
 

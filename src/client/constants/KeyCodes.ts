@@ -1,4 +1,6 @@
-const ENTER = 13;
-const ESCAPE = 27;
+enum KeyCodes {
+    ENTER = 13,
+    ESCAPE = 27
+}
 
-export { ENTER, ESCAPE };
+export default KeyCodes;

@@ -2,10 +2,10 @@ import nodeID3 from 'node-id3';
 import { Tags } from 'ts/types/nodeID3.types';
 import { SetTagsData, SetTagsResult } from 'ts/interfaces/nodeID3.interfaces';
 import { isFileExists } from 'server/utils/files';
-import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
+import rs from 'shared/constants/ResponseStatus';
 
 export default ({ path, lyrics }: SetTagsData): SetTagsResult => {
-    if (!path || !isFileExists(path)) return { status: ERROR };
+    if (!path || !isFileExists(path)) return { status: rs.ERROR };
 
     const tags: Tags = {
         unsynchronisedLyrics: {
@@ -15,6 +15,6 @@ export default ({ path, lyrics }: SetTagsData): SetTagsResult => {
     };
 
     const result: boolean = nodeID3.update(tags, path);
-    const status = result ? SUCCESS : ERROR;
+    const status = result ? rs.SUCCESS : rs.ERROR;
     return { status };
 };

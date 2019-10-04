@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import * as mfp from 'client/constants/MusicFileProperties';
+import mfp from 'client/constants/MusicFileProperties';
 import { SFile } from 'ts/interfaces/file.interfaces';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import { getFileNameByFullName } from 'client/utils/fileNames';

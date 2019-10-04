@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
-import * as mfp from 'client/constants/MusicFileProperties';
+import mfp from 'client/constants/MusicFileProperties';
 import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
 import InlineEditing from 'client/components/elements/InlineEditing.react';
 import Checkbox from 'client/components/elements/Checkbox.react';
@@ -13,7 +13,7 @@ import {
     updateMusicFile,
     setLyrics
 } from 'client/redux/actions/musicFilesActions';
-import { SUCCESS, ERROR } from 'shared/constants/responseStatus';
+import rs from 'shared/constants/ResponseStatus';
 
 interface DropMenuItemDispatchProps {
     removeMusicFile: any; // TODO
@@ -66,8 +66,8 @@ class DropMenuItem extends Component<Props> {
 
         const trackInfoClassName = classes('track-info_container', {
             'not-found': areTagsFound === false,
-            success: setLyricsStatus === SUCCESS,
-            error: setLyricsStatus === ERROR
+            success: setLyricsStatus === rs.SUCCESS,
+            error: setLyricsStatus === rs.ERROR
         });
 
         return (

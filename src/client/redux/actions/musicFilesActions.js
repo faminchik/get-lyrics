@@ -7,7 +7,7 @@ import {
     UPDATE_MUSIC_FILES,
     UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
-import * as mfp from 'client/constants/MusicFileProperties';
+import mfp from 'client/constants/MusicFileProperties';
 import getTrackRequest from 'shared/requests/getTrack';
 import getLyricsRequest from 'shared/requests/getLyrics';
 import setLyricsRequest from 'shared/requests/setLyrics';
@@ -93,6 +93,7 @@ export const multipleSetLyrics = musicFiles => async dispatch => {
             musicFiles,
             (acc, file) => {
                 const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics, [mfp.ID]: id } = file;
+                // TODO lyrics is string now only
                 if (!_.isNil(lyrics)) {
                     acc.push({ path, lyrics, id });
                 }

@@ -1,10 +1,10 @@
 import { fetchPostApiRequest } from 'shared/utils/fetchRequests';
 import { serverSidePort as port } from 'shared/constants/common';
-import { MULTIPLE_SET_LYRICS } from 'shared/constants/requestTypes';
+import rt from 'shared/constants/RequestTypes';
 
 export default data =>
     fetchPostApiRequest(
-        `http://localhost:${port}/${MULTIPLE_SET_LYRICS}`,
+        `http://localhost:${port}/${rt.MULTIPLE_SET_LYRICS}`,
         { 'Content-Type': 'application/json' },
         { ...data }
     );
