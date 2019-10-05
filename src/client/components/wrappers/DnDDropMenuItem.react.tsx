@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import compose from 'lodash/fp/compose';
 import React, { Component } from 'react';
 import { ConnectedComponentClass } from 'react-redux';
@@ -26,9 +25,9 @@ import { updateMusicFilesOrder } from 'client/redux/actions/musicFilesActions';
 import { turnOnDropzone, turnOffDropzone } from 'client/redux/actions/dropzoneActions';
 
 interface DnDDropMenuItemDispatchProps {
-    updateMusicFilesOrder: any; // TODO
-    turnOnDropzone: any; // TODO
-    turnOffDropzone: any; // TODO
+    updateMusicFilesOrder: ({ source, target }: { source: MusicFile; target: MusicFile }) => void;
+    turnOnDropzone: () => void;
+    turnOffDropzone: () => void;
 }
 
 interface DragSourceProps {
@@ -54,7 +53,7 @@ interface Props
 const menuItemDragSourceSpec: DragSourceSpec<Props, MusicFile> = {
     beginDrag: (props: Props) => {
         props.turnOffDropzone();
-        _.invoke(props, 'turnOffDropzone');
+
         const { item } = props;
         return item;
     },
@@ -125,7 +124,7 @@ class DnDDropMenuItem extends Component<Props> {
 
 const mapStateToProps = () => ({});
 
-// TODO change ?
+// TODO change ?!
 const ComposedDnDDropMenuItem = compose(
     DragSource(MENU_ITEM, menuItemDragSourceSpec, menuItemDragSourceCollector),
     DropTarget(MENU_ITEM, menuItemDropTargetSpec, menuItemDropTargetCollector)

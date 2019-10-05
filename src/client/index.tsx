@@ -9,7 +9,7 @@ import Viewport from 'client/components/Viewport.react';
 import 'client/utils';
 import 'client/styles';
 
-const logger = createLogger({ collapsed: true, predicate: true, duration: true });
+const logger = createLogger({ collapsed: true, duration: true });
 const middleware = [thunk, logger];
 
 const store = createStore(

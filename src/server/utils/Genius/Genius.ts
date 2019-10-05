@@ -28,14 +28,13 @@ export default class Genius {
 
     private requestPromise(options: SearchOptions): Promise<GenuisApiSearchResult | null> {
         const { path, queryParams = { q: '' } } = options;
-        // TODO describe with types ↓
-        return new Promise(resolve => {
-            fetchApiRequest(BASE_URL, this.authHeader, path, queryParams).then(data => {
-                const status = _.get(data, 'meta.status');
-                if (status !== 200) resolve(null);
+        return new Promise(async resolve => {
+            const data = await fetchApiRequest(BASE_URL, this.authHeader, path, queryParams);
 
-                resolve(_.get(data, 'response', null));
-            });
+            const status = _.get(data, 'meta.status');
+            if (status !== 200) resolve(null);
+
+            resolve(_.get(data, 'response', null));
         });
     }
 
@@ -62,17 +61,19 @@ export default class Genius {
         if (!track) return '';
 
         const { url } = track;
-        const html: string = await fetchHtmlRequest(url);
+        const html = await fetchHtmlRequest(url);
 
         return this.scrapLyrics(html);
     }
 
     async getLyricsByTrackUrl(trackUrl: string): Promise<string> {
-        const html: string = await fetchHtmlRequest(trackUrl);
+        const html = await fetchHtmlRequest(trackUrl);
         return this.scrapLyrics(html);
     }
 
-    private scrapLyrics(html: string): string {
+    private scrapLyrics(html: string | null): string {
+        if (!html) return '';
+
         const $ = cheerio.load(html);
 
         return $('.lyrics')

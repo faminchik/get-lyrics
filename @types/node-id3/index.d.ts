@@ -1,6 +1,6 @@
 declare module 'node-id3' {
     type Methods = {
-        update(first: { [key: string]: any }, second: string): boolean;
+        update(tags: { [key: string]: any }, path: string): boolean;
     };
     const nodeID3: Methods;
 

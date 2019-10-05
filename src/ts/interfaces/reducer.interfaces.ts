@@ -13,38 +13,51 @@ import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import { FFile } from 'ts/interfaces/file.interfaces';
 
 // @loadingReducer
-export interface LoadingAction {
-    type: typeof START_LOADING | typeof STOP_LOADING;
+export interface StartLoadingAction {
+    type: typeof START_LOADING;
     payload: string;
 }
 
-// @dropzoneReducer
-export interface DropzoneAction {
-    type: typeof TURN_ON_DROPZONE | typeof TURN_OFF_DROPZONE;
+export interface StopLoadingAction {
+    type: typeof STOP_LOADING;
+    payload: string;
 }
 
+export type LoadingAction = StartLoadingAction | StopLoadingAction;
+
+// @dropzoneReducer
+export interface TurnOnDropzoneAction {
+    type: typeof TURN_ON_DROPZONE;
+}
+
+export interface TurnOffDropzoneAction {
+    type: typeof TURN_OFF_DROPZONE;
+}
+
+export type DropzoneAction = TurnOnDropzoneAction | TurnOffDropzoneAction;
+
 // @musicFilesReducer
-interface AddMusicFilesAction {
+export interface AddMusicFilesAction {
     type: typeof ADD_MUSIC_FILES;
     payload: FFile[];
 }
 
-interface RemoveMusicFileAction {
+export interface RemoveMusicFileAction {
     type: typeof REMOVE_MUSIC_FILE;
     payload: string;
 }
 
-interface UpdateMusicFilesAction {
+export interface UpdateMusicFilesAction {
     type: typeof UPDATE_MUSIC_FILES;
     payload: MusicFile[];
 }
 
-interface UpdateMusicFileAction {
+export interface UpdateMusicFileAction {
     type: typeof UPDATE_MUSIC_FILE;
     payload: MusicFile;
 }
 
-interface UpdateMusicFilesOrderAction {
+export interface UpdateMusicFilesOrderAction {
     type: typeof UPDATE_MUSIC_FILES_ORDER;
     payload: { source: MusicFile; target: MusicFile };
 }

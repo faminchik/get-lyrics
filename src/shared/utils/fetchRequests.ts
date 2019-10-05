@@ -1,19 +1,23 @@
-import buildUrl from 'build-url';
-import fetch from 'node-fetch';
+import buildUrl, { BuildUrlOptions } from 'build-url';
+import fetch, { RequestInfo, RequestInit } from 'node-fetch';
 
-export const fetchApiRequest = async (url, headers, path, queryParams) => {
+export const fetchApiRequest = (
+    url: string,
+    headers?: RequestInit['headers'],
+    path?: BuildUrlOptions['path'],
+    queryParams?: BuildUrlOptions['queryParams']
+) => {
     const finalUrl = buildUrl(url, {
         path,
         queryParams
     });
 
     try {
-        return await fetch(finalUrl, {
+        return fetch(finalUrl, {
             headers,
             method: 'GET'
         }).then(response => {
-            const { ok } = response;
-            const { status } = response;
+            const { ok, status } = response;
 
             if (!ok) {
                 console.log('GET Api Request status: ', status);
@@ -27,15 +31,18 @@ export const fetchApiRequest = async (url, headers, path, queryParams) => {
     }
 };
 
-export const fetchPostApiRequest = async (url, headers, body) => {
+export const fetchPostApiRequest = (
+    url: RequestInfo,
+    headers: RequestInit['headers'],
+    body: RequestInit['body']
+) => {
     try {
-        return await fetch(url, {
+        return fetch(url, {
             headers,
             method: 'POST',
-            body: JSON.stringify(body)
+            body
         }).then(response => {
-            const { ok } = response;
-            const { status } = response;
+            const { ok, status } = response;
 
             if (!ok) {
                 console.log('POST Api Request status: ', status);
@@ -49,13 +56,12 @@ export const fetchPostApiRequest = async (url, headers, body) => {
     }
 };
 
-export const fetchHtmlRequest = async url => {
+export const fetchHtmlRequest = (url: RequestInfo) => {
     try {
-        return await fetch(url, {
+        return fetch(url, {
             method: 'GET'
         }).then(response => {
-            const { ok } = response;
-            const { status } = response;
+            const { ok, status } = response;
 
             if (!ok) {
                 console.log('GET Html Request status: ', status);
@@ -69,15 +75,18 @@ export const fetchHtmlRequest = async url => {
     }
 };
 
-export const fetchPostHtmlRequest = async (url, headers, body) => {
+export const fetchPostHtmlRequest = (
+    url: RequestInfo,
+    headers: RequestInit['headers'],
+    body: RequestInit['body']
+) => {
     try {
-        return await fetch(url, {
+        return fetch(url, {
             headers,
             method: 'POST',
-            body: JSON.stringify(body)
+            body
         }).then(response => {
-            const { ok } = response;
-            const { status } = response;
+            const { ok, status } = response;
 
             if (!ok) {
                 console.log('POST Html Request status: ', status);

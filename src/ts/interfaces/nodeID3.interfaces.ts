@@ -9,7 +9,7 @@ export interface MultipleSetTagsResult extends SetTagsResult {
 }
 
 export interface SetTagsData {
-    path: string;
+    path: string | null;
     lyrics: string;
 }
 

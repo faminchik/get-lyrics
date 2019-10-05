@@ -38,7 +38,7 @@ router.post(`/${rt.GET_LYRICS}`, async (req, res) => {
     const { trackUrl }: { trackUrl: string } = req.body;
     const lyrics: string = await getLyrics(trackUrl);
 
-    res.send(lyrics);
+    res.send(JSON.stringify(lyrics));
 });
 
 export default router;

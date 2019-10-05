@@ -7,8 +7,8 @@ import mfp from 'client/constants/MusicFileProperties';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 
 interface RequestsPanelDispatchProps {
-    getLyrics: any; // TODO
-    multipleSetLyrics: any; // TODO
+    getLyrics: (musicFiles: MusicFile[]) => void;
+    multipleSetLyrics: (musicFiles: MusicFile[]) => void;
 }
 
 interface RequestsPanelOwnProps {

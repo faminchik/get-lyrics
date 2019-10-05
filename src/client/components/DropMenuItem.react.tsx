@@ -16,9 +16,9 @@ import {
 import rs from 'shared/constants/ResponseStatus';
 
 interface DropMenuItemDispatchProps {
-    removeMusicFile: any; // TODO
-    updateMusicFile: any; // TODO
-    setLyrics: any; // TODO
+    removeMusicFile: (musicFileId: MusicFile['id']) => void;
+    updateMusicFile: (musicFile: MusicFile) => void;
+    setLyrics: (musicFile: MusicFile) => void;
 }
 
 interface DropMenuItemOwnProps {

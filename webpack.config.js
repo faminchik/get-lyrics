@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('mini-css-extract-plugin');
 const { clientSidePort: port } = require('./src/shared/constants/common');
 
 module.exports = {
-    entry: './src/client/index.js',
+    entry: './src/client/index',
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.js'
