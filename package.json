@@ -4,7 +4,7 @@
     "description": "",
     "main": "public/main.js",
     "scripts": {
-        "start": "npm-run-all prod-build server-prod",
+        "start": "npm run server-prod",
         "prod-build": "webpack --mode production",
         "server-prod": "node -r @babel/register src/server/index.js",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
