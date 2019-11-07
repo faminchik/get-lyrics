@@ -2,11 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import router from 'server/routes';
 import { serverSidePort as port, clientSidePort } from 'shared/constants/common';
+import isDevelopment from 'server/utils/isDevelopment';
 
 const app = express();
 
 const corsOptions = {
-    origin: `http://localhost:${clientSidePort}`,
+    origin: isDevelopment ? `http://localhost:${clientSidePort}` : process.env.HOST_URL,
     optionsSuccessStatus: 200
 };
 
