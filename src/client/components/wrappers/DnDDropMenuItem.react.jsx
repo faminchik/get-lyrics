@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import classes from 'classnames';
 import DropMenuItem from 'client/components/DropMenuItem.react';
 import * as mfp from 'client/constants/MusicFileProperties';
-import { MENU_ITEM } from 'client/constants/DNDTypes';
+import { MENU_ITEM } from 'client/constants/DnDTypes';
 import { updateMusicFilesOrder } from 'client/redux/actions/musicFilesActions';
 import { turnOnDropzone, turnOffDropzone } from 'client/redux/actions/dropzoneActions';
 
