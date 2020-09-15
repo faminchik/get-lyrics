@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -24,7 +23,7 @@ export default async (
 
     dispatch(startLoading(id));
 
-    if (_.isFunction(callback)) await callback();
+    await callback();
 
     dispatch(stopLoading(id));
 };

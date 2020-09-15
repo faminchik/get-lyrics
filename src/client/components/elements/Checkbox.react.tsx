@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { oc } from 'ts-optchain';
 
 interface Props {
     className: string;
@@ -22,7 +21,7 @@ export default class Checkbox extends Component<Props> {
     }
 
     getChecked(): boolean {
-        return oc(this.checkboxRef).current.checked(false);
+        return this.checkboxRef.current?.checked ?? false;
     }
 
     onChangeValue = (): void => {

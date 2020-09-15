@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import React, { PureComponent } from 'react';
-import { oc } from 'ts-optchain';
 import kc from 'client/constants/KeyCodes';
-
-const INNER_TEXT = 'innerText';
 
 interface Props {
     value: string;
@@ -51,7 +48,7 @@ export default class InlineEditing extends PureComponent<Props, State> {
     onBlur = (): void => {
         if (!this.state.contentEditable) return;
 
-        const value = oc(this.elementRef).current[INNER_TEXT](this.state.value);
+        const value = this.elementRef.current?.innerText ?? this.state.value;
         this.setState({ contentEditable: false, value }, () => {
             this.props.onFinish(value);
         });

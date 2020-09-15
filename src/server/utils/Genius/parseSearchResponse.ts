@@ -9,7 +9,7 @@ export const findMostLikelyCorrectTrack = (
     const keywords = _.split(desiredTrackName, ' ');
 
     const mapper = _.map(hits, track => {
-        const fullTitle = _.get(track, ['result', 'full_title']);
+        const fullTitle = track.result.full_title;
         const upperCaseFullTitle = _.toUpper(fullTitle);
 
         const foundKeywords = _.reduce(
@@ -24,5 +24,5 @@ export const findMostLikelyCorrectTrack = (
     });
 
     const mostLikelyCorrectItem = _.maxBy(mapper, ({ foundKeywords }) => _.size(foundKeywords));
-    return _.get(mostLikelyCorrectItem, ['track', 'result'], null);
+    return mostLikelyCorrectItem?.track.result ?? null;
 };

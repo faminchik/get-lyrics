@@ -1,6 +1,4 @@
-import compose from 'lodash/fp/compose';
 import React, { Component } from 'react';
-import { ConnectedComponentClass } from 'react-redux';
 import {
     DragSource,
     DropTarget,
@@ -20,7 +18,7 @@ import classes from 'classnames';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
 import DropMenuItem from 'client/components/DropMenuItem.react';
 import mfp from 'client/constants/MusicFileProperties';
-import { MENU_ITEM } from 'client/constants/DNDTypes';
+import { MENU_ITEM } from 'client/constants/DnDTypes';
 import { updateMusicFilesOrder } from 'client/redux/actions/musicFilesActions';
 import { turnOnDropzone, turnOffDropzone } from 'client/redux/actions/dropzoneActions';
 
@@ -122,15 +120,14 @@ class DnDDropMenuItem extends Component<Props> {
     }
 }
 
+const ComposedDnDDropMenuItem = DragSource(
+    MENU_ITEM,
+    menuItemDragSourceSpec,
+    menuItemDragSourceCollector
+)(DropTarget(MENU_ITEM, menuItemDropTargetSpec, menuItemDropTargetCollector)(DnDDropMenuItem));
+
 const mapStateToProps = () => ({});
 
-// TODO change ?!
-const ComposedDnDDropMenuItem = compose(
-    DragSource(MENU_ITEM, menuItemDragSourceSpec, menuItemDragSourceCollector),
-    DropTarget(MENU_ITEM, menuItemDropTargetSpec, menuItemDropTargetCollector)
-)(DnDDropMenuItem) as ConnectedComponentClass<typeof DnDDropMenuItem, Pick<Props, 'item'>>;
-
-export default connect(
-    mapStateToProps,
-    { updateMusicFilesOrder, turnOnDropzone, turnOffDropzone }
-)(ComposedDnDDropMenuItem);
+export default connect(mapStateToProps, { updateMusicFilesOrder, turnOnDropzone, turnOffDropzone })(
+    ComposedDnDDropMenuItem
+);

@@ -109,7 +109,7 @@ export const setLyrics = (musicFile: MusicFile): MusicFilesThunkAction => async 
     const func = async () => {
         const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics } = musicFile;
         const result = await setLyricsRequest(path, lyrics);
-        const status = _.get(result, 'status', rs.ERROR);
+        const status = result?.status ?? rs.ERROR;
 
         dispatch(updateMusicFile({ ...musicFile, [mfp.SET_LYRICS_STATUS]: status }));
     };

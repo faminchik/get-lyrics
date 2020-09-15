@@ -7,16 +7,10 @@ export const fetchApiRequest = (
     path?: BuildUrlOptions['path'],
     queryParams?: BuildUrlOptions['queryParams']
 ) => {
-    const finalUrl = buildUrl(url, {
-        path,
-        queryParams
-    });
+    const finalUrl = buildUrl(url, { path, queryParams });
 
-    try {
-        return fetch(finalUrl, {
-            headers,
-            method: 'GET'
-        }).then(response => {
+    return fetch(finalUrl, { headers, method: 'GET' })
+        .then(response => {
             const { ok, status } = response;
 
             if (!ok) {
@@ -24,11 +18,11 @@ export const fetchApiRequest = (
                 return null;
             }
             return response.json();
+        })
+        .catch((e: Error) => {
+            console.log('GET Api Request error', e);
+            return null;
         });
-    } catch (e) {
-        console.log('GET Api Request error', e);
-        return null;
-    }
 };
 
 export const fetchPostApiRequest = (
@@ -36,12 +30,8 @@ export const fetchPostApiRequest = (
     headers: RequestInit['headers'],
     body: RequestInit['body']
 ) => {
-    try {
-        return fetch(url, {
-            headers,
-            method: 'POST',
-            body
-        }).then(response => {
+    return fetch(url, { headers, method: 'POST', body })
+        .then(response => {
             const { ok, status } = response;
 
             if (!ok) {
@@ -49,18 +39,16 @@ export const fetchPostApiRequest = (
                 return null;
             }
             return response.json();
+        })
+        .catch((e: Error) => {
+            console.log('POST Api Request error', e);
+            return null;
         });
-    } catch (e) {
-        console.log('POST Api Request error', e);
-        return null;
-    }
 };
 
 export const fetchHtmlRequest = (url: RequestInfo) => {
-    try {
-        return fetch(url, {
-            method: 'GET'
-        }).then(response => {
+    return fetch(url, { method: 'GET' })
+        .then(response => {
             const { ok, status } = response;
 
             if (!ok) {
@@ -68,11 +56,11 @@ export const fetchHtmlRequest = (url: RequestInfo) => {
                 return null;
             }
             return response.text();
+        })
+        .catch((e: Error) => {
+            console.log('GET Html Request error', e);
+            return null;
         });
-    } catch (e) {
-        console.log('GET Html Request error', e);
-        return null;
-    }
 };
 
 export const fetchPostHtmlRequest = (
@@ -80,12 +68,8 @@ export const fetchPostHtmlRequest = (
     headers: RequestInit['headers'],
     body: RequestInit['body']
 ) => {
-    try {
-        return fetch(url, {
-            headers,
-            method: 'POST',
-            body
-        }).then(response => {
+    return fetch(url, { headers, method: 'POST', body })
+        .then(response => {
             const { ok, status } = response;
 
             if (!ok) {
@@ -93,9 +77,9 @@ export const fetchPostHtmlRequest = (
                 return null;
             }
             return response.text();
+        })
+        .catch((e: Error) => {
+            console.log('POST Html Request error', e);
+            return null;
         });
-    } catch (e) {
-        console.log('POST Html Request error', e);
-        return null;
-    }
 };

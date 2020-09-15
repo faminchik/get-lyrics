@@ -1,5 +1,4 @@
-import nodeID3 from 'node-id3';
-import { Tags } from 'ts/types/nodeID3.types';
+import nodeID3, { Tags } from 'node-id3';
 import { SetTagsData, SetTagsResult } from 'ts/interfaces/nodeID3.interfaces';
 import { isFileExists } from 'server/utils/files';
 import rs from 'shared/constants/ResponseStatus';
@@ -15,6 +14,6 @@ export default ({ path, lyrics }: SetTagsData): SetTagsResult => {
     };
 
     const result = nodeID3.update(tags, path);
-    const status = result ? rs.SUCCESS : rs.ERROR;
+    const status = typeof result === 'boolean' ? rs.SUCCESS : rs.ERROR;
     return { status };
 };

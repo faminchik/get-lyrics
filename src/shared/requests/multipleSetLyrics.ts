@@ -4,7 +4,7 @@ import { serverSidePort as port } from 'shared/constants/common';
 import rt from 'shared/constants/RequestTypes';
 import isDevelopment from 'server/utils/isDevelopment';
 
-export default (data: MultipleSetTagsData[]): Promise<MultipleSetTagsResult[]> | null => {
+export default (data: MultipleSetTagsData[]): Promise<MultipleSetTagsResult[] | null> => {
     const baseUrl = isDevelopment ? `http://localhost:${port}` : process.env.HOST_URL;
 
     return fetchPostApiRequest(
