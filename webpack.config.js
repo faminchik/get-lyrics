@@ -1,4 +1,6 @@
+require('dotenv').config();
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('mini-css-extract-plugin');
 const { clientSidePort: port } = require('./src/shared/constants/common');
@@ -38,7 +40,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                HOST_URL: JSON.stringify(process.env.HOST_URL)
+            }
+        })
     ],
     resolve: {
         extensions: ['*', '.ts', '.tsx', '.js', '.jsx', '.scss']
