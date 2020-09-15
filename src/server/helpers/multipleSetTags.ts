@@ -20,7 +20,7 @@ export default (data: MultipleSetTagsData[]): MultipleSetTagsResult[] =>
             }
         };
 
-        const result: boolean = nodeID3.update(tags, path);
+        const result = nodeID3.update(tags, path);
         const status = result ? rs.SUCCESS : rs.ERROR;
         return { id, status };
     });

@@ -26,7 +26,7 @@ class Viewport extends Component<Props> {
         return (
             <React.Fragment>
                 <DropArea
-                    allowedFileTypes={['audio/mp3']}
+                    allowedFileTypes={['audio/mp3', 'audio/mpeg']}
                     menuItems={musicFiles}
                     turnedOff={isTurnedOff}
                 />

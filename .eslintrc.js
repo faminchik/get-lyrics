@@ -50,6 +50,7 @@ module.exports = {
         '@typescript-eslint/prefer-interface': 0,
         '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/no-empty-interface': 0,
+        '@typescript-eslint/explicit-module-boundary-types': 0,
         'react/no-string-refs': 0,
         'react/no-deprecated': 0
     }

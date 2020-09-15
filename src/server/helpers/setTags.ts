@@ -14,7 +14,7 @@ export default ({ path, lyrics }: SetTagsData): SetTagsResult => {
         }
     };
 
-    const result: boolean = nodeID3.update(tags, path);
+    const result = nodeID3.update(tags, path);
     const status = result ? rs.SUCCESS : rs.ERROR;
     return { status };
 };

@@ -32,7 +32,7 @@ export type GeniusApiTrack = {
 };
 
 type GenuisApiSearchHit = {
-    highlights: any[];
+    highlights: unknown[];
     index: string;
     type: string;
     result: GeniusApiTrack;

@@ -30,7 +30,7 @@ import loadingWrapper from 'client/redux/actions/utils/loadingWrapper';
 import { trimMusicFileNameByParentheses } from 'client/utils/fileNames';
 import { resetMusicFileAdditionalParams } from 'client/helpers/musicFileInfo';
 
-type MusicFilesThunkAction = ThunkAction<void, AppState, {}, AnyAction>;
+type MusicFilesThunkAction = ThunkAction<void, AppState, unknown, AnyAction>;
 
 interface UpdateMusicFilesOrderPayload {
     source: MusicFile;

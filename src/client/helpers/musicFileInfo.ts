@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import mfp from 'client/constants/MusicFileProperties';
 import { SFile } from 'ts/interfaces/file.interfaces';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
@@ -14,7 +14,7 @@ const defaultAdditionalParams = {
 };
 
 export const extendMusicFileInfo = (musicFile: SFile): MusicFile => {
-    const { [mfp.NAME]: fileFullName, ...restData } = musicFile;
+    const { name: fileFullName, ...restData } = musicFile;
     const fileName = getFileNameByFullName(fileFullName);
 
     return {

@@ -40,7 +40,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin({ filename: 'styles.css' }),
         new webpack.DefinePlugin({
             'process.env': {
                 HOST_URL: JSON.stringify(process.env.HOST_URL)

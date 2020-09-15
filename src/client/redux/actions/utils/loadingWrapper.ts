@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppState } from 'client/redux/reducers';
@@ -18,7 +18,7 @@ const stopLoading = (id: string): StopLoadingAction => ({
 
 export default async (
     callback: () => Promise<void>,
-    dispatch: ThunkDispatch<AppState, {}, AnyAction>
+    dispatch: ThunkDispatch<AppState, unknown, AnyAction>
 ) => {
     const id = uuidv4();
 
