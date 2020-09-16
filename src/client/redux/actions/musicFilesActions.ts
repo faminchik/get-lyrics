@@ -88,11 +88,11 @@ export const getLyrics = (musicFiles: MusicFile[]): MusicFilesThunkAction => asy
 
                 acc.push({
                     ...file,
-                    [mfp.LYRICS]: lyrics || '',
+                    [mfp.LYRICS]: lyrics ?? '',
                     [mfp.TRACK_URL]: trackUrl,
                     [mfp.ARTWORK]: artwork,
                     [mfp.ARE_TAGS_FOUND]: true,
-                    [mfp.SHOULD_SEARCH_LYRICS]: false
+                    [mfp.SHOULD_SEARCH_LYRICS]: !lyrics
                 });
                 return acc;
             },

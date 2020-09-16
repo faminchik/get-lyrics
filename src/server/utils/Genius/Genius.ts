@@ -76,8 +76,6 @@ export default class Genius {
 
         const $ = cheerio.load(html);
 
-        return $('.lyrics')
-            .text()
-            .trim();
+        return $('.lyrics').text().trim();
     }
 }

@@ -12,4 +12,4 @@ const genius = new Genius(GENIUS_ACCESS_TOKEN);
 
 export const getTrack = _.memoize(genius.getTrack.bind(genius));
 
-export const getLyrics = _.memoize(genius.getLyricsByTrackUrl.bind(genius));
+export const getLyrics = genius.getLyricsByTrackUrl.bind(genius);
