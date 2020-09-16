@@ -1,13 +1,14 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 
-let mainWindow;
-
 const createWindow = () => {
-    mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        icon: path.join(__dirname, './icon.png')
+        icon: path.join(__dirname, './icon.png'),
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
@@ -16,13 +17,9 @@ const createWindow = () => {
     // mainWindow.setResizable(false);
     // mainWindow.maximize();
     // Menu.setApplicationMenu(null);
-
-    mainWindow.on('closed', () => {
-        mainWindow = null;
-    });
 };
 
-app.on('ready', createWindow);
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -31,7 +28,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    if (mainWindow == null) {
+    if (BrowserWindow.getAllWindows().length === 0) {
         createWindow();
     }
 });
