@@ -1,5 +1,5 @@
 import { TURN_ON_DROPZONE, TURN_OFF_DROPZONE } from 'client/constants/ActionTypes';
-import { DropzoneAction } from 'ts/interfaces/reducer.interfaces';
+import { DropzoneAction } from 'ts/Reducer';
 
 type DropzoneReducerState = {
     isTurnedOff: boolean;

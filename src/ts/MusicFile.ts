@@ -1,4 +1,4 @@
-import { SFile } from 'ts/interfaces/file.interfaces';
+import { SFile } from 'ts/File';
 import mfp from 'client/constants/MusicFileProperties';
 import rs from 'shared/constants/ResponseStatus';
 

@@ -1,4 +1,4 @@
-import { SetTagsData, SetTagsResult } from 'ts/interfaces/nodeID3.interfaces';
+import { SetTagsData, SetTagsResult } from 'ts/NodeID3';
 import { fetchPostApiRequest } from 'shared/utils/fetchRequests';
 import { serverSidePort as port } from 'shared/constants/common';
 import rt from 'shared/constants/RequestTypes';

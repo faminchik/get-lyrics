@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { START_LOADING, STOP_LOADING } from 'client/constants/ActionTypes';
-import { LoadingAction } from 'ts/interfaces/reducer.interfaces';
+import { LoadingAction } from 'ts/Reducer';
 
 type LoadingReducerState = {
     isLoading: boolean;

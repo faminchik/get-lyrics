@@ -3,16 +3,16 @@ import BPromise from 'bluebird';
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from 'client/redux/reducers';
-import { FFile } from 'ts/interfaces/file.interfaces';
+import { FFile } from 'ts/File';
 import {
     AddMusicFilesAction,
     RemoveMusicFileAction,
     UpdateMusicFilesOrderAction,
     UpdateMusicFileAction,
     UpdateMusicFilesAction
-} from 'ts/interfaces/reducer.interfaces';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
-import { MultipleSetTagsData } from 'ts/interfaces/nodeID3.interfaces';
+} from 'ts/Reducer';
+import { MusicFile } from 'ts/MusicFile';
+import { MultipleSetTagsData } from 'ts/NodeID3';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,

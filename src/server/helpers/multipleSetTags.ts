@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import nodeID3, { Tags } from 'node-id3';
-import { MultipleSetTagsData, MultipleSetTagsResult } from 'ts/interfaces/nodeID3.interfaces';
+import { MultipleSetTagsData, MultipleSetTagsResult } from 'ts/NodeID3';
 import { isFileExists } from 'server/utils/files';
 import rs from 'shared/constants/ResponseStatus';
 

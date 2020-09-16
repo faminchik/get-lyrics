@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import timm from 'timm';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
-import { MusicFilesAction } from 'ts/interfaces/reducer.interfaces';
+import { MusicFile } from 'ts/MusicFile';
+import { MusicFilesAction } from 'ts/Reducer';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,

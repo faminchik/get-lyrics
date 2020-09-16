@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import { MusicFile } from 'ts/MusicFile';
 import mfp from 'client/constants/MusicFileProperties';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 

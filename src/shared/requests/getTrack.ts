@@ -1,4 +1,4 @@
-import { GeniusApiTrack } from 'ts/types/genius.types';
+import { GeniusApiTrack } from 'ts/Genius';
 import { fetchPostApiRequest } from 'shared/utils/fetchRequests';
 import { serverSidePort as port } from 'shared/constants/common';
 import rt from 'shared/constants/RequestTypes';

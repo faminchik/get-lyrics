@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import classes from 'classnames';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import { MusicFile } from 'ts/MusicFile';
 import DnDDropMenuItem from 'client/components/wrappers/DnDDropMenuItem.react';
 
 interface Props {

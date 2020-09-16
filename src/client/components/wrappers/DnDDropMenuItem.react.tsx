@@ -15,7 +15,7 @@ import {
 } from 'react-dnd';
 import { connect } from 'react-redux';
 import classes from 'classnames';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import { MusicFile } from 'ts/MusicFile';
 import DropMenuItem from 'client/components/DropMenuItem.react';
 import mfp from 'client/constants/MusicFileProperties';
 import { MENU_ITEM } from 'client/constants/DnDTypes';

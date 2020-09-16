@@ -9,8 +9,8 @@ import {
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
-import { FFile } from 'ts/interfaces/file.interfaces';
+import { MusicFile } from 'ts/MusicFile';
+import { FFile } from 'ts/File';
 
 // @loadingReducer
 export interface StartLoadingAction {

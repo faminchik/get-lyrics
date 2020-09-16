@@ -1,5 +1,5 @@
 import nodeID3, { Tags } from 'node-id3';
-import { SetTagsData, SetTagsResult } from 'ts/interfaces/nodeID3.interfaces';
+import { SetTagsData, SetTagsResult } from 'ts/NodeID3';
 import { isFileExists } from 'server/utils/files';
 import rs from 'shared/constants/ResponseStatus';
 

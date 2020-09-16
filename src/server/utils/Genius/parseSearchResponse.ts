@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GenuisApiSearchResult, GeniusApiTrack } from 'ts/types/genius.types';
+import { GenuisApiSearchResult, GeniusApiTrack } from 'ts/Genius';
 
 export const findMostLikelyCorrectTrack = (
     tracks: GenuisApiSearchResult,

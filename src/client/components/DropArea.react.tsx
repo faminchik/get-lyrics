@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { FFile } from 'ts/interfaces/file.interfaces';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import { FFile } from 'ts/File';
+import { MusicFile } from 'ts/MusicFile';
 import Dropzone from 'client/components/React-Dropzone';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 

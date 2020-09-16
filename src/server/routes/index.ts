@@ -1,11 +1,6 @@
 import express from 'express';
-import {
-    SetTagsData,
-    SetTagsResult,
-    MultipleSetTagsData,
-    MultipleSetTagsResult
-} from 'ts/interfaces/nodeID3.interfaces';
-import { GeniusApiTrack } from 'ts/types/genius.types';
+import { SetTagsData, SetTagsResult, MultipleSetTagsData, MultipleSetTagsResult } from 'ts/NodeID3';
+import { GeniusApiTrack } from 'ts/Genius';
 import { getTrack, getLyrics } from 'server/helpers/memoizedGeniusGetters';
 import setTags from 'server/helpers/setTags';
 import multipleSetTags from 'server/helpers/multipleSetTags';

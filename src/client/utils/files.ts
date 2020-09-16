@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import mfp from 'client/constants/MusicFileProperties';
-import { FFile, SFile } from 'ts/interfaces/file.interfaces';
+import { FFile, SFile } from 'ts/File';
 
 export const convertFileToObject = (file: FFile): SFile => {
     const { [mfp.NAME]: name, [mfp.PATH]: path = null, type, size, lastModified, preview } = file;

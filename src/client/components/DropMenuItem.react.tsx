@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
-import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
+import { MusicFile } from 'ts/MusicFile';
 import mfp from 'client/constants/MusicFileProperties';
 import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
 import InlineEditing from 'client/components/elements/InlineEditing.react';

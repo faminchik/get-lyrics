@@ -39,7 +39,7 @@ export default class LyricsModalWindow extends PureComponent<Props, State> {
         const textWithBreakLines = _.replace(text, /\r\n?|\n/g, '<br>');
 
         return (
-            <React.Fragment>
+            <>
                 <Button bsStyle="info" bsSize="small" disabled={disabled} onClick={this.handleShow}>
                     {buttonText}
                 </Button>
@@ -60,7 +60,7 @@ export default class LyricsModalWindow extends PureComponent<Props, State> {
                         <Button onClick={this.handleClose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
-            </React.Fragment>
+            </>
         );
     }
 }

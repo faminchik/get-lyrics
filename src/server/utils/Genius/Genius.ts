@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import config from 'config';
 import cheerio from 'cheerio';
-import { GenuisApiSearchResult, GeniusApiTrack } from 'ts/types/genius.types';
+import { GenuisApiSearchResult, GeniusApiTrack } from 'ts/Genius';
 import { fetchApiRequest, fetchHtmlRequest } from 'shared/utils/fetchRequests';
 import { findMostLikelyCorrectTrack } from 'server/utils/Genius/parseSearchResponse';
 
