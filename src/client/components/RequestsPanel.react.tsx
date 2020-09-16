@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ interface RequestsPanelOwnProps {
 
 interface Props extends RequestsPanelDispatchProps, RequestsPanelOwnProps {}
 
-class RequestsPanel extends Component<Props> {
+class RequestsPanel extends PureComponent<Props> {
     static defaultProps = {
         allowRequest: false,
         musicFiles: []
@@ -65,7 +65,4 @@ class RequestsPanel extends Component<Props> {
 
 const mapStateToProps = () => ({});
 
-export default connect(
-    mapStateToProps,
-    { getLyrics, multipleSetLyrics }
-)(RequestsPanel);
+export default connect(mapStateToProps, { getLyrics, multipleSetLyrics })(RequestsPanel);

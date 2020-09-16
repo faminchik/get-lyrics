@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import classes from 'classnames';
@@ -11,7 +11,7 @@ interface Props {
     isDragEffect: boolean;
 }
 
-export default class DropMenu extends Component<Props> {
+export default class DropMenu extends PureComponent<Props> {
     static defaultProps = {
         items: [],
         isDragEffect: false

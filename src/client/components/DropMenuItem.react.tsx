@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
@@ -27,7 +27,7 @@ interface DropMenuItemOwnProps {
 
 interface Props extends DropMenuItemDispatchProps, DropMenuItemOwnProps {}
 
-class DropMenuItem extends Component<Props> {
+class DropMenuItem extends PureComponent<Props> {
     onRemoveItem = (item: MusicFile): void => {
         const { [mfp.ID]: id } = item;
 
@@ -121,7 +121,6 @@ class DropMenuItem extends Component<Props> {
 
 const mapStateToProps = () => ({});
 
-export default connect(
-    mapStateToProps,
-    { removeMusicFile, updateMusicFile, setLyrics }
-)(DropMenuItem);
+export default connect(mapStateToProps, { removeMusicFile, updateMusicFile, setLyrics })(
+    DropMenuItem
+);

@@ -137,11 +137,17 @@ export const multipleSetLyrics = (
         const result = await multipleSetLyricsRequest(dataToSet);
 
         if (!_.isEmpty(result)) {
-            const filesToUpdate = _.map(result, item => {
-                const { id, status } = item;
-                const musicFile = _.find(musicFiles, { id }) as MusicFile;
-                return { ...musicFile, [mfp.SET_LYRICS_STATUS]: status };
-            });
+            const filesToUpdate = _.reduce(
+                result,
+                (acc: MusicFile[], item) => {
+                    const { id, status } = item;
+                    const musicFile = _.find(musicFiles, { id });
+
+                    if (musicFile) acc.push({ ...musicFile, [mfp.SET_LYRICS_STATUS]: status });
+                    return acc;
+                },
+                []
+            );
 
             dispatch(updateMusicFiles(filesToUpdate));
         }

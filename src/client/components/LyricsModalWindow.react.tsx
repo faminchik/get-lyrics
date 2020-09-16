@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
@@ -14,7 +14,7 @@ interface State {
     showModal: boolean;
 }
 
-export default class LyricsModalWindow extends Component<Props, State> {
+export default class LyricsModalWindow extends PureComponent<Props, State> {
     static defaultProps = {
         disabled: true,
         text: '',

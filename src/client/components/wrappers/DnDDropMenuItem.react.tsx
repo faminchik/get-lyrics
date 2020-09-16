@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     DragSource,
     DropTarget,
@@ -94,7 +94,7 @@ const menuItemDropTargetCollector: DropTargetCollector<DropTargetProps, Props> =
     canDrop: monitor.canDrop()
 });
 
-class DnDDropMenuItem extends Component<Props> {
+class DnDDropMenuItem extends PureComponent<Props> {
     render() {
         const {
             item,

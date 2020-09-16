@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from 'client/redux/reducers';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
@@ -16,7 +16,7 @@ interface ViewportStateProps {
 
 interface Props extends ViewportStateProps {}
 
-class Viewport extends Component<Props> {
+class Viewport extends PureComponent<Props> {
     render() {
         const { musicFiles, isLoading, isTurnedOff } = this.props;
 

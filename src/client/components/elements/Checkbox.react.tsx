@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 interface Props {
     className: string;
@@ -6,7 +6,7 @@ interface Props {
     onChange: (isChecked: boolean) => void;
 }
 
-export default class Checkbox extends Component<Props> {
+export default class Checkbox extends PureComponent<Props> {
     static defaultProps = {
         checked: false,
         className: ''

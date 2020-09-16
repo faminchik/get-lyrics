@@ -29,11 +29,11 @@ export default class InlineEditing extends PureComponent<Props, State> {
     };
 
     componentDidUpdate() {
-        this._setInnerHTML();
+        this.setInnerHTML();
     }
 
     componentDidMount() {
-        this._setInnerHTML();
+        this.setInnerHTML();
     }
 
     componentWillReceiveProps(nextProps: Props) {
@@ -60,7 +60,7 @@ export default class InlineEditing extends PureComponent<Props, State> {
 
     handleEscape = (): void => {
         this.setState({ contentEditable: false }, () => {
-            this._simulateDomBlurEvent();
+            this.simulateDomBlurEvent();
         });
     };
 
@@ -68,7 +68,7 @@ export default class InlineEditing extends PureComponent<Props, State> {
         if (!this.state.contentEditable) return;
 
         if (event.keyCode === kc.ENTER) {
-            this._simulateDomBlurEvent();
+            this.simulateDomBlurEvent();
         }
 
         if (event.keyCode === kc.ESCAPE) {
@@ -76,12 +76,12 @@ export default class InlineEditing extends PureComponent<Props, State> {
         }
     };
 
-    _setInnerHTML = (): void => {
+    private setInnerHTML = (): void => {
         _.set(this.elementRef, 'current.innerHTML', this.state.value);
     };
 
-    _simulateDomBlurEvent = (): void => {
-        _.invoke(this.elementRef, 'current.blur');
+    private simulateDomBlurEvent = (): void => {
+        this.elementRef.current?.blur();
     };
 
     render() {

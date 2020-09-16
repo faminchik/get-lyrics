@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { FFile } from 'ts/interfaces/file.interfaces';
 import { MusicFile } from 'ts/interfaces/musicFile.interfaces';
@@ -19,7 +19,7 @@ interface DropFilesOwnProps {
 
 interface Props extends DropFilesDispatchProps, DropFilesOwnProps {}
 
-class DropArea extends Component<Props> {
+class DropArea extends PureComponent<Props> {
     static defaultProps = {
         disabled: false,
         multiple: true,
@@ -56,7 +56,4 @@ class DropArea extends Component<Props> {
 
 const mapStateToProps = () => ({});
 
-export default connect(
-    mapStateToProps,
-    { addMusicFiles }
-)(DropArea);
+export default connect(mapStateToProps, { addMusicFiles })(DropArea);
