@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('mini-css-extract-plugin');
 const { clientSidePort: port } = require('./src/shared/constants/common');
 
 module.exports = {
-    entry: './src/client/index.js',
+    entry: './src/client/index',
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.js'
@@ -17,7 +17,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },
@@ -40,7 +40,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin({ filename: 'styles.css' }),
         new webpack.DefinePlugin({
             'process.env': {
                 HOST_URL: JSON.stringify(process.env.HOST_URL)
@@ -48,6 +48,6 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.scss']
+        extensions: ['*', '.ts', '.tsx', '.js', '.jsx', '.scss']
     }
 };
