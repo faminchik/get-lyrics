@@ -1,7 +1,6 @@
 // full file
 export interface FFile extends File {
-    readonly preview: string;
-    readonly path: string | null;
+    readonly path?: string | null;
 }
 
 // short file
@@ -11,5 +10,4 @@ export interface SFile {
     readonly type: string;
     readonly size: number;
     readonly lastModified: number;
-    readonly preview: string;
 }

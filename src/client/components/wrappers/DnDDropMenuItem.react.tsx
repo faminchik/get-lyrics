@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 import classes from 'classnames';
 import { MusicFile } from 'ts/MusicFile';
 import DropMenuItem from 'client/components/DropMenuItem.react';
-import mfp from 'client/constants/MusicFileProperties';
 import { MENU_ITEM } from 'client/constants/DnDTypes';
 import { updateMusicFilesOrder } from 'client/redux/actions/musicFilesActions';
 import { turnOnDropzone, turnOffDropzone } from 'client/redux/actions/dropzoneActions';
@@ -64,7 +63,7 @@ const menuItemDropTargetSpec: DropTargetSpec<Props> = {
     canDrop: (props: Props, monitor: DropTargetMonitor) => {
         const sourceItem = monitor.getItem() as MusicFile;
         const { item: targetItem } = props;
-        const dropsIntoSelf = sourceItem[mfp.ID] === targetItem[mfp.ID];
+        const dropsIntoSelf = sourceItem.id === targetItem.id;
 
         return !dropsIntoSelf;
     },

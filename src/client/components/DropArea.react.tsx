@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import classes from 'classnames';
+import Dropzone, { DropzoneProps } from 'react-dropzone';
+import DropMenu from 'client/components/DropMenu.react';
 import { FFile } from 'ts/File';
 import { MusicFile } from 'ts/MusicFile';
-import Dropzone from 'client/components/React-Dropzone';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
 
 interface DropFilesDispatchProps {
@@ -10,23 +12,16 @@ interface DropFilesDispatchProps {
 }
 
 interface DropFilesOwnProps {
-    allowedFileTypes: string[] | string;
-    disabled: boolean;
-    multiple: boolean;
     menuItems: MusicFile[];
-    turnedOff: boolean;
+    allowedFileTypes?: DropzoneProps['accept'];
+    disabled?: DropzoneProps['disabled'];
+    multiple?: DropzoneProps['disabled'];
+    noDrag?: DropzoneProps['noDrag'];
 }
 
 interface Props extends DropFilesDispatchProps, DropFilesOwnProps {}
 
 class DropArea extends PureComponent<Props> {
-    static defaultProps = {
-        disabled: false,
-        multiple: true,
-        menuItems: [],
-        turnedOff: false
-    };
-
     onDrop = (newFiles: FFile[]): void => {
         const { addMusicFiles } = this.props;
 
@@ -34,22 +29,33 @@ class DropArea extends PureComponent<Props> {
     };
 
     render() {
-        const { disabled, allowedFileTypes, multiple, menuItems, turnedOff } = this.props;
+        const { disabled, allowedFileTypes, multiple, menuItems, noDrag } = this.props;
 
         return (
             <Dropzone
-                className="drop-area"
-                disabledClassName="disabled"
-                activeClassName="active"
-                acceptClassName="accept"
-                rejectClassName="reject"
                 disabled={disabled}
                 onDrop={this.onDrop}
                 accept={allowedFileTypes}
                 multiple={multiple}
-                menuItems={menuItems}
-                turnedOff={turnedOff}
-            />
+                noDrag={noDrag}
+            >
+                {({ getRootProps, isDragActive, isDragAccept, isDragReject }) => {
+                    const isDragEffect = isDragActive || isDragAccept || isDragReject;
+
+                    const classNames = classes('drop-area', {
+                        'drop-area_disabled': disabled,
+                        'drop-area_active': isDragActive,
+                        'drop-area_accepted': isDragAccept,
+                        'drop-area_rejected': isDragReject
+                    });
+
+                    return (
+                        <div className={classNames} {...getRootProps()}>
+                            <DropMenu items={menuItems} isDragEffect={isDragEffect} />
+                        </div>
+                    );
+                }}
+            </Dropzone>
         );
     }
 }

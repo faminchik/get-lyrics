@@ -14,19 +14,20 @@
     overflow-y: auto;
     transition: 0.6s ease;
 
-    &.disabled {
+    &.drop-area_disabled {
         opacity: 0.5;
+        cursor: not-allowed;
     }
 
-    &.active {
+    &.drop-area_active {
         @extend %active-and-accept;
     }
 
-    &.accept {
+    &.drop-area_accepted {
         @extend %active-and-accept;
     }
 
-    &.reject {
+    &.drop-area_rejected {
         border-color: rgb(228, 28, 28);
         border-style: solid;
         background-color: rgb(255, 163, 163);

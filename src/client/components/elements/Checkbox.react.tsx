@@ -1,15 +1,14 @@
 import React, { PureComponent } from 'react';
 
 interface Props {
-    className: string;
+    className?: string;
     checked: boolean;
     onChange: (isChecked: boolean) => void;
 }
 
 export default class Checkbox extends PureComponent<Props> {
     static defaultProps = {
-        checked: false,
-        className: ''
+        checked: false
     };
 
     private checkboxRef: React.RefObject<HTMLInputElement>;

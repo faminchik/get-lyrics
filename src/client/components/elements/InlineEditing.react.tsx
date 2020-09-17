@@ -4,7 +4,7 @@ import kc from 'client/constants/KeyCodes';
 
 interface Props {
     value: string;
-    className: string;
+    className?: string;
     onFinish: (isChecked: string) => void;
 }
 
@@ -23,10 +23,6 @@ export default class InlineEditing extends PureComponent<Props, State> {
 
         this.elementRef = React.createRef();
     }
-
-    static defaultProps = {
-        className: ''
-    };
 
     componentDidUpdate() {
         this.setInnerHTML();

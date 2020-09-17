@@ -1,16 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
-import mfp from 'client/constants/MusicFileProperties';
 import { SFile } from 'ts/File';
 import { MusicFile } from 'ts/MusicFile';
 import { getFileNameByFullName } from 'client/utils/fileNames';
 
-const defaultAdditionalParams = {
-    [mfp.SET_LYRICS_STATUS]: null,
-    [mfp.LYRICS]: '',
-    [mfp.SHOULD_SEARCH_LYRICS]: true,
-    [mfp.TRACK_URL]: '',
-    [mfp.ARTWORK]: '',
-    [mfp.ARE_TAGS_FOUND]: null
+const defaultAdditionalParams: Pick<
+    MusicFile,
+    'setLyricsStatus' | 'lyrics' | 'shouldSearchLyrics' | 'trackUrl' | 'artwork' | 'areTagsFound'
+> = {
+    setLyricsStatus: null,
+    lyrics: '',
+    shouldSearchLyrics: true,
+    trackUrl: '',
+    artwork: '',
+    areTagsFound: null
 };
 
 export const extendMusicFileInfo = (musicFile: SFile): MusicFile => {
@@ -18,9 +20,9 @@ export const extendMusicFileInfo = (musicFile: SFile): MusicFile => {
     const fileName = getFileNameByFullName(fileFullName);
 
     return {
-        [mfp.NAME]: fileName,
-        [mfp.NAME_WITH_EXTENSION]: fileFullName,
-        [mfp.ID]: uuidv4(),
+        name: fileName,
+        nameWithExtension: fileFullName,
+        id: uuidv4(),
         ...restData,
         ...defaultAdditionalParams
     };
