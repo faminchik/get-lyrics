@@ -40,20 +40,20 @@ class RequestsPanel extends PureComponent<Props> {
     render() {
         const { allowRequest, musicFiles } = this.props;
 
-        const alllowMultipleSeLyrics = !_.isEmpty(_.filter(musicFiles, mfp.LYRICS));
+        const alllowMultipleSetLyrics = !_.isEmpty(_.filter(musicFiles, mfp.LYRICS));
 
         return (
-            <div className="request_container">
-                <div className="button_container">
+            <div className="request-container">
+                <div className="request-container__button-wrapper">
                     <Button bsStyle="warning" onClick={this.onGetLyrics} disabled={!allowRequest}>
                         Get Lyrics
                     </Button>
                 </div>
-                <div className="button_container">
+                <div className="request-container__button-wrapper">
                     <Button
                         bsStyle="success"
                         onClick={this.onMultipleSetLyrics}
-                        disabled={!alllowMultipleSeLyrics}
+                        disabled={!alllowMultipleSetLyrics}
                     >
                         Set Lyrics
                     </Button>

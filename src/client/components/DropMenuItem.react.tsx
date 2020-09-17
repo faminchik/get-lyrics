@@ -72,7 +72,7 @@ class DropMenuItem extends PureComponent<Props> {
 
         return (
             <div className="drop-menu-item">
-                <Image className="artwork" src={artwork} />
+                {artwork && <Image className="artwork" src={artwork} />}
                 <div className={trackInfoClassName}>
                     <InlineEditing
                         className="track-name"

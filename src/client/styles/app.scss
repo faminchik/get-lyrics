@@ -1,10 +1,10 @@
-.request_container {
+.request-container {
     display: flex;
     justify-content: center;
     margin: 0 auto;
     padding: 20px;
+}
 
-    > .button_container {
-        padding: 0 15px;
-    }
+.request-container__button-wrapper {
+    padding: 0 15px;
 }
