@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import { MusicFile } from 'ts/MusicFile';
-import mfp from 'client/constants/MusicFileProperties';
 import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
 import InlineEditing from 'client/components/elements/InlineEditing.react';
 import Checkbox from 'client/components/elements/Checkbox.react';
@@ -29,7 +28,7 @@ interface Props extends DropMenuItemDispatchProps, DropMenuItemOwnProps {}
 
 class DropMenuItem extends PureComponent<Props> {
     onRemoveItem = (item: MusicFile): void => {
-        const { [mfp.ID]: id } = item;
+        const { id } = item;
 
         this.props.removeMusicFile(id);
     };
@@ -41,25 +40,25 @@ class DropMenuItem extends PureComponent<Props> {
     onFinishEditingItemName = (itemName: string): void => {
         const { updateMusicFile, item } = this.props;
 
-        updateMusicFile({ ...item, [mfp.NAME]: itemName });
+        updateMusicFile({ ...item, name: itemName });
     };
 
     onChangeCheckboxValue = (isChecked: boolean): void => {
         const { updateMusicFile, item } = this.props;
 
-        updateMusicFile({ ...item, [mfp.SHOULD_SEARCH_LYRICS]: isChecked });
+        updateMusicFile({ ...item, shouldSearchLyrics: isChecked });
     };
 
     render() {
         const { item } = this.props;
         const {
-            [mfp.NAME]: name,
-            [mfp.ARTWORK]: artwork,
-            [mfp.TRACK_URL]: trackUrl,
-            [mfp.LYRICS]: lyrics,
-            [mfp.ARE_TAGS_FOUND]: areTagsFound,
-            [mfp.SET_LYRICS_STATUS]: setLyricsStatus,
-            [mfp.SHOULD_SEARCH_LYRICS]: shouldSearchLyrics
+            name,
+            artwork,
+            trackUrl,
+            lyrics,
+            areTagsFound,
+            setLyricsStatus,
+            shouldSearchLyrics
         } = item;
 
         const isLyricsExist = !_.isEmpty(lyrics);

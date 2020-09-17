@@ -6,7 +6,6 @@ import { MusicFile } from 'ts/MusicFile';
 import DropArea from 'client/components/DropArea.react';
 import RequestsPanel from 'client/components/RequestsPanel.react';
 import Spinner from 'client/components/layout/Spinner.react';
-import mfp from 'client/constants/MusicFileProperties';
 
 interface ViewportStateProps {
     musicFiles: MusicFile[];
@@ -20,15 +19,15 @@ class Viewport extends PureComponent<Props> {
     render() {
         const { musicFiles, isLoading, isTurnedOff } = this.props;
 
-        const allowRequest =
-            !_.isEmpty(musicFiles) && !_.isEmpty(_.filter(musicFiles, mfp.SHOULD_SEARCH_LYRICS));
+        const allowRequest = _.some(musicFiles, item => item.shouldSearchLyrics);
 
         return (
             <>
                 <DropArea
                     allowedFileTypes={['audio/mp3', 'audio/mpeg']}
                     menuItems={musicFiles}
-                    turnedOff={isTurnedOff}
+                    noDrag={isTurnedOff}
+                    multiple={true}
                 />
                 <RequestsPanel musicFiles={musicFiles} allowRequest={allowRequest} />
                 {isLoading ? <Spinner /> : null}

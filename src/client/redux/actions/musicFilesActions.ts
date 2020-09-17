@@ -20,7 +20,6 @@ import {
     UPDATE_MUSIC_FILES,
     UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
-import mfp from 'client/constants/MusicFileProperties';
 import rs from 'shared/constants/ResponseStatus';
 import getTrackRequest from 'shared/requests/getTrack';
 import getLyricsRequest from 'shared/requests/getLyrics';
@@ -70,15 +69,15 @@ export const getLyrics = (musicFiles: MusicFile[]): MusicFilesThunkAction => asy
         const updatedMusicFiles = await BPromise.reduce(
             musicFiles,
             async (acc: MusicFile[], file) => {
-                if (!file[mfp.SHOULD_SEARCH_LYRICS]) return acc;
+                if (!file.shouldSearchLyrics) return acc;
 
-                const trimmedFileName = trimMusicFileNameByParentheses(file[mfp.NAME]);
+                const trimmedFileName = trimMusicFileNameByParentheses(file.name);
                 const trackInfo = await getTrackRequest(trimmedFileName);
 
                 if (!trackInfo) {
                     acc.push({
                         ...resetMusicFileAdditionalParams(file),
-                        [mfp.ARE_TAGS_FOUND]: false
+                        areTagsFound: false
                     });
                     return acc;
                 }
@@ -88,11 +87,11 @@ export const getLyrics = (musicFiles: MusicFile[]): MusicFilesThunkAction => asy
 
                 acc.push({
                     ...file,
-                    [mfp.LYRICS]: lyrics ?? '',
-                    [mfp.TRACK_URL]: trackUrl,
-                    [mfp.ARTWORK]: artwork,
-                    [mfp.ARE_TAGS_FOUND]: true,
-                    [mfp.SHOULD_SEARCH_LYRICS]: !lyrics
+                    lyrics: lyrics ?? '',
+                    trackUrl,
+                    artwork,
+                    areTagsFound: true,
+                    shouldSearchLyrics: !lyrics
                 });
                 return acc;
             },
@@ -107,11 +106,11 @@ export const getLyrics = (musicFiles: MusicFile[]): MusicFilesThunkAction => asy
 
 export const setLyrics = (musicFile: MusicFile): MusicFilesThunkAction => async dispatch => {
     const func = async () => {
-        const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics } = musicFile;
+        const { path, lyrics } = musicFile;
         const result = await setLyricsRequest(path, lyrics);
         const status = result?.status ?? rs.ERROR;
 
-        dispatch(updateMusicFile({ ...musicFile, [mfp.SET_LYRICS_STATUS]: status }));
+        dispatch(updateMusicFile({ ...musicFile, setLyricsStatus: status }));
     };
 
     await loadingWrapper(func, dispatch);
@@ -124,7 +123,7 @@ export const multipleSetLyrics = (
         const dataToSet = _.reduce(
             musicFiles,
             (acc: MultipleSetTagsData[], file) => {
-                const { [mfp.PATH]: path, [mfp.LYRICS]: lyrics, [mfp.ID]: id } = file;
+                const { path, lyrics, id } = file;
 
                 if (!_.isEmpty(lyrics)) {
                     acc.push({ path, lyrics, id });
@@ -143,7 +142,7 @@ export const multipleSetLyrics = (
                     const { id, status } = item;
                     const musicFile = _.find(musicFiles, { id });
 
-                    if (musicFile) acc.push({ ...musicFile, [mfp.SET_LYRICS_STATUS]: status });
+                    if (musicFile) acc.push({ ...musicFile, setLyricsStatus: status });
                     return acc;
                 },
                 []

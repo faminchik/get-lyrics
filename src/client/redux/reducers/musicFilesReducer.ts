@@ -9,7 +9,6 @@ import {
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES_ORDER
 } from 'client/constants/ActionTypes';
-import mfp from 'client/constants/MusicFileProperties';
 import { detectUniqueFiles, convertFileToObject } from 'client/utils/files';
 import { extendMusicFileInfo } from 'client/helpers/musicFileInfo';
 
@@ -31,31 +30,31 @@ export default (state = initialState, action: MusicFilesAction): MusicFilesReduc
 
     if (action.type === REMOVE_MUSIC_FILE) {
         const { payload } = action;
-        return _.filter(state, ({ [mfp.ID]: id }) => id !== payload);
+        return _.filter(state, ({ id }) => id !== payload);
     }
 
     if (action.type === UPDATE_MUSIC_FILES) {
         const { payload } = action;
         return _.map(state, file => {
-            const fileToUpdate = _.find(payload, { [mfp.ID]: file[mfp.ID] });
+            const fileToUpdate = _.find(payload, { id: file.id });
             return _.isNil(fileToUpdate) ? file : fileToUpdate;
         });
     }
 
     if (action.type === UPDATE_MUSIC_FILE) {
         const { payload } = action;
-        return _.map(state, file => (file[mfp.ID] === payload[mfp.ID] ? payload : file));
+        return _.map(state, file => (file.id === payload.id ? payload : file));
     }
 
     if (action.type === UPDATE_MUSIC_FILES_ORDER) {
         const { payload } = action;
 
         const { source, target } = payload;
-        const { [mfp.ID]: idSource } = source;
-        const { [mfp.ID]: idTarget } = target;
+        const { id: idSource } = source;
+        const { id: idTarget } = target;
 
-        const sourceIndex = _.findIndex(state, { [mfp.ID]: idSource });
-        const targetIndex = _.findIndex(state, { [mfp.ID]: idTarget });
+        const sourceIndex = _.findIndex(state, { id: idSource });
+        const targetIndex = _.findIndex(state, { id: idTarget });
 
         state = timm.removeAt(state, sourceIndex);
         state = timm.insert(state, targetIndex, source);

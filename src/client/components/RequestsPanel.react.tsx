@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { MusicFile } from 'ts/MusicFile';
-import mfp from 'client/constants/MusicFileProperties';
 import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
 
 interface RequestsPanelDispatchProps {
@@ -20,8 +19,7 @@ interface Props extends RequestsPanelDispatchProps, RequestsPanelOwnProps {}
 
 class RequestsPanel extends PureComponent<Props> {
     static defaultProps = {
-        allowRequest: false,
-        musicFiles: []
+        allowRequest: false
     };
 
     onGetLyrics = (): void => {
@@ -40,7 +38,7 @@ class RequestsPanel extends PureComponent<Props> {
     render() {
         const { allowRequest, musicFiles } = this.props;
 
-        const alllowMultipleSetLyrics = !_.isEmpty(_.filter(musicFiles, mfp.LYRICS));
+        const alllowMultipleSetLyrics = _.some(musicFiles, item => item.lyrics);
 
         return (
             <div className="request-container">

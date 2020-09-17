@@ -13,7 +13,6 @@ interface Props {
 
 export default class DropMenu extends PureComponent<Props> {
     static defaultProps = {
-        items: [],
         isDragEffect: false
     };
 

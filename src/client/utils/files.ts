@@ -1,10 +1,9 @@
 import _ from 'lodash';
-import mfp from 'client/constants/MusicFileProperties';
 import { FFile, SFile } from 'ts/File';
 
 export const convertFileToObject = (file: FFile): SFile => {
-    const { [mfp.NAME]: name, [mfp.PATH]: path = null, type, size, lastModified, preview } = file;
-    return { name, path, type, size, lastModified, preview };
+    const { name, path = null, type, size, lastModified } = file;
+    return { name, path, type, size, lastModified };
 };
 
 export const detectUniqueFiles = (existingFiles: SFile[], newFiles: SFile[]): SFile[] => {
@@ -28,6 +27,6 @@ export const detectUniqueFiles = (existingFiles: SFile[], newFiles: SFile[]): SF
 
 const isNewFileUnique = (existingFile: SFile, newFile: SFile): boolean =>
     existingFile.lastModified !== newFile.lastModified ||
-    existingFile[mfp.PATH] !== newFile[mfp.PATH] ||
+    existingFile.path !== newFile.path ||
     existingFile.size !== newFile.size ||
     existingFile.type !== newFile.type;

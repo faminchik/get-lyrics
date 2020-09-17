@@ -36,7 +36,6 @@ module.exports = {
                 cases: [
                     { moduleNameSubstr: 'lodash', expectedVariableName: '_' },
                     { moduleNameSubstr: 'bluebird', expectedVariableName: 'BPromise' },
-                    { moduleNameSubstr: 'MusicFileProperties', expectedVariableName: 'mfp' },
                     { moduleNameSubstr: 'RequestTypes', expectedVariableName: 'rt' },
                     { moduleNameSubstr: 'ResponseStatus', expectedVariableName: 'rs' },
                     { moduleNameSubstr: 'KeyCodes', expectedVariableName: 'kc' }
