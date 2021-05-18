@@ -5,7 +5,7 @@ import { createStore, applyMiddleware /* compose */ } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import rootReducer from 'client/redux/reducers';
-import Viewport from 'client/components/Viewport.react';
+import Viewport from 'client/components/Viewport';
 import 'client/utils';
 import 'client/styles';
 

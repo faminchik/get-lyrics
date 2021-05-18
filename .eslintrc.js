@@ -25,6 +25,12 @@ module.exports = {
         jest: true
     },
 
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    },
+
     rules: {
         '@typescript-eslint/no-unused-vars': [
             'error',

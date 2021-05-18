@@ -31,7 +31,7 @@ module.exports = {
             }
         ]
     },
-    devtool: 'eval-sourcemap',
+    devtool: 'eval-source-map',
     devServer: {
         port,
         open: true

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Image, Button } from 'react-bootstrap';
 import classes from 'classnames';
 import { MusicFile } from 'ts/MusicFile';
-import LyricsModalWindow from 'client/components/LyricsModalWindow.react';
-import InlineEditing from 'client/components/elements/InlineEditing.react';
-import Checkbox from 'client/components/elements/Checkbox.react';
+import LyricsModalWindow from 'client/components/LyricsModalWindow';
+import InlineEditing from 'client/components/elements/InlineEditing';
+import Checkbox from 'client/components/elements/Checkbox';
 import {
     removeMusicFile,
     updateMusicFile,
