@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import classes from 'classnames';
 import { MusicFile } from 'ts/MusicFile';
-import DnDDropMenuItem from 'client/components/wrappers/DnDDropMenuItem.react';
+import DnDDropMenuItem from 'client/components/wrappers/DnDDropMenuItem';
 
 interface Props {
     items: MusicFile[];

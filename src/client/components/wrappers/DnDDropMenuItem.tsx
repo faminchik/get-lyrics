@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 import classes from 'classnames';
 import { MusicFile } from 'ts/MusicFile';
-import DropMenuItem from 'client/components/DropMenuItem.react';
+import DropMenuItem from 'client/components/DropMenuItem';
 import { MENU_ITEM } from 'client/constants/DnDTypes';
 import { updateMusicFilesOrder } from 'client/redux/actions/musicFilesActions';
 import { turnOnDropzone, turnOffDropzone } from 'client/redux/actions/dropzoneActions';
@@ -95,14 +95,8 @@ const menuItemDropTargetCollector: DropTargetCollector<DropTargetProps, Props> =
 
 class DnDDropMenuItem extends PureComponent<Props> {
     render() {
-        const {
-            item,
-            connectDropTarget,
-            connectDragSource,
-            isDragging,
-            isOverCurrent,
-            canDrop
-        } = this.props;
+        const { item, connectDropTarget, connectDragSource, isDragging, isOverCurrent, canDrop } =
+            this.props;
 
         const classNames = classes('dnd-drop-menu-item', {
             'drop-source': isDragging,

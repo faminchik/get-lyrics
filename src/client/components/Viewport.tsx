@@ -3,9 +3,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from 'client/redux/reducers';
 import { MusicFile } from 'ts/MusicFile';
-import DropArea from 'client/components/DropArea.react';
-import RequestsPanel from 'client/components/RequestsPanel.react';
-import Spinner from 'client/components/layout/Spinner.react';
+import DropArea from 'client/components/DropArea';
+import RequestsPanel from 'client/components/RequestsPanel';
+import Spinner from 'client/components/layout/Spinner';
 
 interface ViewportStateProps {
     musicFiles: MusicFile[];

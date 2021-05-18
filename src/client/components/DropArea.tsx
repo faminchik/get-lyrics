@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import classes from 'classnames';
 import Dropzone, { DropzoneProps } from 'react-dropzone';
-import DropMenu from 'client/components/DropMenu.react';
+import DropMenu from 'client/components/DropMenu';
 import { FFile } from 'ts/File';
 import { MusicFile } from 'ts/MusicFile';
 import { addMusicFiles } from 'client/redux/actions/musicFilesActions';
