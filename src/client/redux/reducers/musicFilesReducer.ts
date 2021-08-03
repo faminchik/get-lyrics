@@ -5,6 +5,7 @@ import { MusicFilesAction } from 'ts/Reducer';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
+    REMOVE_ALL_MUSIC_FILES,
     UPDATE_MUSIC_FILES,
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES_ORDER
@@ -31,6 +32,10 @@ export default (state = initialState, action: MusicFilesAction): MusicFilesReduc
     if (action.type === REMOVE_MUSIC_FILE) {
         const { payload } = action;
         return _.filter(state, ({ id }) => id !== payload);
+    }
+
+    if (action.type === REMOVE_ALL_MUSIC_FILES) {
+        return initialState;
     }
 
     if (action.type === UPDATE_MUSIC_FILES) {

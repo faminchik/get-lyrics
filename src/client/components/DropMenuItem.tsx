@@ -49,7 +49,7 @@ class DropMenuItem extends PureComponent<Props> {
         updateMusicFile({ ...item, shouldSearchLyrics: isChecked });
     };
 
-    render() {
+    override render() {
         const { item } = this.props;
         const {
             name,

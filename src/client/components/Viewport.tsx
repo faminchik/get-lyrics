@@ -16,7 +16,7 @@ interface ViewportStateProps {
 interface Props extends ViewportStateProps {}
 
 class Viewport extends PureComponent<Props> {
-    render() {
+    override render() {
         const { musicFiles, isLoading, isTurnedOff } = this.props;
 
         const allowRequest = _.some(musicFiles, item => item.shouldSearchLyrics);

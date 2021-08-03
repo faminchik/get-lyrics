@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default class Checkbox extends PureComponent<Props> {
-    static defaultProps = {
+    static defaultProps: Partial<Props> = {
         checked: false
     };
 
@@ -29,7 +29,7 @@ export default class Checkbox extends PureComponent<Props> {
         this.props.onChange(isChecked);
     };
 
-    render() {
+    override render() {
         const { className, checked } = this.props;
 
         return (

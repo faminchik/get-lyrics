@@ -7,6 +7,7 @@ import { FFile } from 'ts/File';
 import {
     AddMusicFilesAction,
     RemoveMusicFileAction,
+    RemoveAllMusicFilesAction,
     UpdateMusicFilesOrderAction,
     UpdateMusicFileAction,
     UpdateMusicFilesAction
@@ -16,6 +17,7 @@ import { MultipleSetTagsData } from 'ts/NodeID3';
 import {
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
+    REMOVE_ALL_MUSIC_FILES,
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES,
     UPDATE_MUSIC_FILES_ORDER
@@ -46,6 +48,10 @@ export const removeMusicFile = (musicFileId: MusicFile['id']): RemoveMusicFileAc
     payload: musicFileId
 });
 
+export const removeAllMusicFiles = (): RemoveAllMusicFilesAction => ({
+    type: REMOVE_ALL_MUSIC_FILES
+});
+
 export const updateMusicFile = (musicFile: MusicFile): UpdateMusicFileAction => ({
     type: UPDATE_MUSIC_FILE,
     payload: musicFile
@@ -64,93 +70,97 @@ export const updateMusicFilesOrder = ({
     payload: { source, target }
 });
 
-export const getLyrics = (musicFiles: MusicFile[]): MusicFilesThunkAction => async dispatch => {
-    const func = async () => {
-        const updatedMusicFiles = await BPromise.reduce(
-            musicFiles,
-            async (acc: MusicFile[], file) => {
-                if (!file.shouldSearchLyrics) return acc;
+export const getLyrics =
+    (musicFiles: MusicFile[]): MusicFilesThunkAction =>
+    async dispatch => {
+        const func = async () => {
+            const updatedMusicFiles = await BPromise.reduce(
+                musicFiles,
+                async (acc: MusicFile[], file) => {
+                    if (!file.shouldSearchLyrics) return acc;
 
-                const trimmedFileName = trimMusicFileNameByParentheses(file.name);
-                const trackInfo = await getTrackRequest(trimmedFileName);
+                    const trimmedFileName = trimMusicFileNameByParentheses(file.name);
+                    const trackInfo = await getTrackRequest(trimmedFileName);
 
-                if (!trackInfo) {
+                    if (!trackInfo) {
+                        acc.push({
+                            ...resetMusicFileAdditionalParams(file),
+                            areTagsFound: false
+                        });
+                        return acc;
+                    }
+
+                    const { url: trackUrl, song_art_image_thumbnail_url: artwork } = trackInfo;
+                    const lyrics = await getLyricsRequest(trackUrl);
+
                     acc.push({
-                        ...resetMusicFileAdditionalParams(file),
-                        areTagsFound: false
+                        ...file,
+                        lyrics: lyrics ?? '',
+                        trackUrl,
+                        artwork,
+                        areTagsFound: true,
+                        shouldSearchLyrics: !lyrics
                     });
-                    return acc;
-                }
-
-                const { url: trackUrl, song_art_image_thumbnail_url: artwork } = trackInfo;
-                const lyrics = await getLyricsRequest(trackUrl);
-
-                acc.push({
-                    ...file,
-                    lyrics: lyrics ?? '',
-                    trackUrl,
-                    artwork,
-                    areTagsFound: true,
-                    shouldSearchLyrics: !lyrics
-                });
-                return acc;
-            },
-            []
-        );
-
-        dispatch(updateMusicFiles(updatedMusicFiles));
-    };
-
-    await loadingWrapper(func, dispatch);
-};
-
-export const setLyrics = (musicFile: MusicFile): MusicFilesThunkAction => async dispatch => {
-    const func = async () => {
-        const { path, lyrics } = musicFile;
-        const result = await setLyricsRequest(path, lyrics);
-        const status = result?.status ?? rs.ERROR;
-
-        dispatch(updateMusicFile({ ...musicFile, setLyricsStatus: status }));
-    };
-
-    await loadingWrapper(func, dispatch);
-};
-
-export const multipleSetLyrics = (
-    musicFiles: MusicFile[]
-): MusicFilesThunkAction => async dispatch => {
-    const func = async () => {
-        const dataToSet = _.reduce(
-            musicFiles,
-            (acc: MultipleSetTagsData[], file) => {
-                const { path, lyrics, id } = file;
-
-                if (!_.isEmpty(lyrics)) {
-                    acc.push({ path, lyrics, id });
-                }
-                return acc;
-            },
-            []
-        );
-
-        const result = await multipleSetLyricsRequest(dataToSet);
-
-        if (!_.isEmpty(result)) {
-            const filesToUpdate = _.reduce(
-                result,
-                (acc: MusicFile[], item) => {
-                    const { id, status } = item;
-                    const musicFile = _.find(musicFiles, { id });
-
-                    if (musicFile) acc.push({ ...musicFile, setLyricsStatus: status });
                     return acc;
                 },
                 []
             );
 
-            dispatch(updateMusicFiles(filesToUpdate));
-        }
+            dispatch(updateMusicFiles(updatedMusicFiles));
+        };
+
+        await loadingWrapper(func, dispatch);
     };
 
-    await loadingWrapper(func, dispatch);
-};
+export const setLyrics =
+    (musicFile: MusicFile): MusicFilesThunkAction =>
+    async dispatch => {
+        const func = async () => {
+            const { path, lyrics } = musicFile;
+            const result = await setLyricsRequest(path, lyrics);
+            const status = result?.status ?? rs.ERROR;
+
+            dispatch(updateMusicFile({ ...musicFile, setLyricsStatus: status }));
+        };
+
+        await loadingWrapper(func, dispatch);
+    };
+
+export const multipleSetLyrics =
+    (musicFiles: MusicFile[]): MusicFilesThunkAction =>
+    async dispatch => {
+        const func = async () => {
+            const dataToSet = _.reduce(
+                musicFiles,
+                (acc: MultipleSetTagsData[], file) => {
+                    const { path, lyrics, id } = file;
+
+                    if (!_.isEmpty(lyrics)) {
+                        acc.push({ path, lyrics, id });
+                    }
+                    return acc;
+                },
+                []
+            );
+
+            const result = await multipleSetLyricsRequest(dataToSet);
+
+            if (!_.isEmpty(result)) {
+                const filesToUpdate = _.reduce(
+                    result,
+                    (acc: MusicFile[], item) => {
+                        const { id, status } = item;
+                        const musicFile = _.find(musicFiles, { id });
+
+                        if (musicFile) acc.push({ ...musicFile, setLyricsStatus: status });
+                        return acc;
+                    },
+                    []
+                );
+
+                dispatch(updateMusicFiles(filesToUpdate));
+            }
+        };
+
+        await loadingWrapper(func, dispatch);
+    };
