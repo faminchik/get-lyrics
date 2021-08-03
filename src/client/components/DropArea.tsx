@@ -28,7 +28,7 @@ class DropArea extends PureComponent<Props> {
         addMusicFiles(newFiles);
     };
 
-    render() {
+    override render() {
         const { disabled, allowedFileTypes, multiple, menuItems, noDrag } = this.props;
 
         return (

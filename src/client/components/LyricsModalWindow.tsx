@@ -15,14 +15,14 @@ interface State {
 }
 
 export default class LyricsModalWindow extends PureComponent<Props, State> {
-    static defaultProps = {
+    static defaultProps: Partial<Props> = {
         disabled: true,
         text: '',
         buttonText: '',
         modalTitle: ''
     };
 
-    state = { showModal: false };
+    override state = { showModal: false };
 
     handleShow = (): void => {
         this.setState({ showModal: true });
@@ -32,7 +32,7 @@ export default class LyricsModalWindow extends PureComponent<Props, State> {
         this.setState({ showModal: false });
     };
 
-    render() {
+    override render() {
         const { disabled, text, buttonText, modalTitle } = this.props;
         const { showModal } = this.state;
 

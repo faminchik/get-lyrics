@@ -5,6 +5,7 @@ import {
     TURN_OFF_DROPZONE,
     ADD_MUSIC_FILES,
     REMOVE_MUSIC_FILE,
+    REMOVE_ALL_MUSIC_FILES,
     UPDATE_MUSIC_FILES,
     UPDATE_MUSIC_FILE,
     UPDATE_MUSIC_FILES_ORDER
@@ -47,6 +48,10 @@ export interface RemoveMusicFileAction {
     payload: string;
 }
 
+export interface RemoveAllMusicFilesAction {
+    type: typeof REMOVE_ALL_MUSIC_FILES;
+}
+
 export interface UpdateMusicFilesAction {
     type: typeof UPDATE_MUSIC_FILES;
     payload: MusicFile[];
@@ -65,6 +70,7 @@ export interface UpdateMusicFilesOrderAction {
 export type MusicFilesAction =
     | AddMusicFilesAction
     | RemoveMusicFileAction
+    | RemoveAllMusicFilesAction
     | UpdateMusicFilesAction
     | UpdateMusicFileAction
     | UpdateMusicFilesOrderAction;

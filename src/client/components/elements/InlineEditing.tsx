@@ -24,15 +24,15 @@ export default class InlineEditing extends PureComponent<Props, State> {
         this.elementRef = React.createRef();
     }
 
-    componentDidUpdate() {
+    override componentDidUpdate() {
         this.setInnerHTML();
     }
 
-    componentDidMount() {
+    override componentDidMount() {
         this.setInnerHTML();
     }
 
-    componentWillReceiveProps(nextProps: Props) {
+    override componentWillReceiveProps(nextProps: Props) {
         const { value: newValue } = nextProps;
         const { value: oldValue } = this.state;
 
@@ -80,7 +80,7 @@ export default class InlineEditing extends PureComponent<Props, State> {
         this.elementRef.current?.blur();
     };
 
-    render() {
+    override render() {
         const { contentEditable } = this.state;
         const { className } = this.props;
 

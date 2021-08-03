@@ -94,7 +94,7 @@ const menuItemDropTargetCollector: DropTargetCollector<DropTargetProps, Props> =
 });
 
 class DnDDropMenuItem extends PureComponent<Props> {
-    render() {
+    override render() {
         const { item, connectDropTarget, connectDragSource, isDragging, isOverCurrent, canDrop } =
             this.props;
 

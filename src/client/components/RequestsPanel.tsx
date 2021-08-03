@@ -3,11 +3,16 @@ import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { MusicFile } from 'ts/MusicFile';
-import { multipleSetLyrics, getLyrics } from 'client/redux/actions/musicFilesActions';
+import {
+    multipleSetLyrics,
+    getLyrics,
+    removeAllMusicFiles
+} from 'client/redux/actions/musicFilesActions';
 
 interface RequestsPanelDispatchProps {
     getLyrics: (musicFiles: MusicFile[]) => void;
     multipleSetLyrics: (musicFiles: MusicFile[]) => void;
+    removeAllMusicFiles: () => void;
 }
 
 interface RequestsPanelOwnProps {
@@ -18,7 +23,7 @@ interface RequestsPanelOwnProps {
 interface Props extends RequestsPanelDispatchProps, RequestsPanelOwnProps {}
 
 class RequestsPanel extends PureComponent<Props> {
-    static defaultProps = {
+    static defaultProps: Partial<Props> = {
         allowRequest: false
     };
 
@@ -35,10 +40,17 @@ class RequestsPanel extends PureComponent<Props> {
         multipleSetLyrics(musicFiles);
     };
 
-    render() {
+    onRemoveAllMusicFiles = (): void => {
+        const { removeAllMusicFiles } = this.props;
+
+        removeAllMusicFiles();
+    };
+
+    override render() {
         const { allowRequest, musicFiles } = this.props;
 
         const alllowMultipleSetLyrics = _.some(musicFiles, item => item.lyrics);
+        const areMusicFilesEmpty = _.isEmpty(musicFiles);
 
         return (
             <div className="request-container">
@@ -56,6 +68,15 @@ class RequestsPanel extends PureComponent<Props> {
                         Set Lyrics
                     </Button>
                 </div>
+                <div className="request-container__button-wrapper">
+                    <Button
+                        bsStyle="primary"
+                        onClick={this.onRemoveAllMusicFiles}
+                        disabled={areMusicFilesEmpty}
+                    >
+                        Remove All
+                    </Button>
+                </div>
             </div>
         );
     }
@@ -63,4 +84,6 @@ class RequestsPanel extends PureComponent<Props> {
 
 const mapStateToProps = () => ({});
 
-export default connect(mapStateToProps, { getLyrics, multipleSetLyrics })(RequestsPanel);
+export default connect(mapStateToProps, { getLyrics, multipleSetLyrics, removeAllMusicFiles })(
+    RequestsPanel
+);

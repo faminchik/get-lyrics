@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default class DropMenu extends PureComponent<Props> {
-    static defaultProps = {
+    static defaultProps: Partial<Props> = {
         isDragEffect: false
     };
 
@@ -22,7 +22,7 @@ export default class DropMenu extends PureComponent<Props> {
         return _.map(items, (item, key) => <DnDDropMenuItem item={item} key={key} />);
     };
 
-    render() {
+    override render() {
         const { isDragEffect } = this.props;
 
         const classNames = classes('drop-menu_container', {
