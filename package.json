@@ -16,7 +16,7 @@
         "electron": "electron .",
         "app-build": "concurrently \"npm run server\" \"npm run desktop\"",
         "app": "concurrently \"npm run server\" \"npm run electron\"",
-        "eslint": "node_modules/.bin/eslint -c .eslintrc.js src/**/*.{ts,tsx,js,jsx}",
+        "eslint": "eslint -c .eslintrc.js src/**/*.{ts,tsx,js,jsx}",
         "check-types": "tsc --noEmit",
         "lint": "npm-run-all eslint check-types"
     },

@@ -75,7 +75,12 @@ export default class Genius {
         if (!html) return '';
 
         const $ = cheerio.load(html);
+        $('br').replaceWith('\n');
 
-        return $('.lyrics').text().trim();
+        const node = $('#lyrics-root');
+        const textNodes = node.find('div[data-lyrics-container="true"]').toArray();
+
+        const lyrics = textNodes.map(item => $(item).text().trim()).join('\n');
+        return lyrics;
     }
 }
